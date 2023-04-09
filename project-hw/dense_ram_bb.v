@@ -4,7 +4,7 @@
 // MODULE: altsyncram 
 
 // ============================================================
-// File Name: sp_ram_fc.v
+// File Name: dense_ram.v
 // Megafunction Name(s):
 // 			altsyncram
 //
@@ -32,7 +32,7 @@
 //refer to the applicable agreement for further details, at
 //https://fpgasoftware.intel.com/eula.
 
-module sp_ram_fc (
+module dense_ram (
 	address,
 	clock,
 	data,
@@ -116,10 +116,10 @@ endmodule
 // Retrieval info: CONNECT: @data_a 0 0 8 0 data 0 0 8 0
 // Retrieval info: CONNECT: @wren_a 0 0 0 0 wren 0 0 0 0
 // Retrieval info: CONNECT: q 0 0 8 0 @q_a 0 0 8 0
-// Retrieval info: GEN_FILE: TYPE_NORMAL sp_ram_fc.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL sp_ram_fc.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL sp_ram_fc.cmp FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL sp_ram_fc.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL sp_ram_fc_inst.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL sp_ram_fc_bb.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL dense_ram.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL dense_ram.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL dense_ram.cmp FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL dense_ram.bsf FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL dense_ram_inst.v FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL dense_ram_bb.v TRUE
 // Retrieval info: LIB_FILE: altera_mf
