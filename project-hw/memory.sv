@@ -59,7 +59,7 @@ end
 // Sub cases in WRITE stage
 assign write_case = (image_count == 8'd196) ? 2'b00 : 
 			(conv_write_count == 16'd55744 ? 2'b01 :
-                         (dense_write_count == 16'd37578) ? 2'b10 : 2'b11)));
+                         (dense_write_count == 16'd37578 ? 2'b10 : 2'b11)));
 
 
 
@@ -191,6 +191,8 @@ always_ff @(posedge clk) begin
 
   end
 end
+
+endmodule
 
 
 

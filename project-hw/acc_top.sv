@@ -17,13 +17,28 @@ module acc_top(input logic        clk,
    logic [10:0]	   hcount;
    logic [9:0]     vcount;
 
+// vga_ball test
+   logic [7:0] pos_v, pos_h;
+   logic ball;
+   logic [31:0] dish, disv;
+   logic [10:0]   poshh;
+   logic [9:0]    posvv;
+   // One step is 16 bit
+   assign poshh=pos_h<<4;
+   assign posvv=pos_v<<4;
+   // Calculate distance between current point and origin
+   assign dish= (poshh[10:1] > hcount)?(poshh[10:1] - hcount[10:1]): (hcount[10:1] -poshh[10:1]); // hcount[10:1] is pixel column
+   assign disv= (posvv > vcount)?(posvv - vcount): (vcount - posvv);
+   assign ball = dish*dish+disv*disv < 16'd16 *16'd16;
+
+// vga counter
    vga_counters counters(.clk50(clk), .*);
 
 // Initialize Memory control moduel
-   mem_cntrl();
+//   mem_cntrl();
 
 // Initialize accelerator module
-   acc();
+//   acc();
 
    always_ff @(posedge clk)
      if (reset) begin
@@ -32,17 +47,26 @@ module acc_top(input logic        clk,
 	background_b <= 8'h80;
 	control_reg <= 0;
 	data_reg <= 0;
+	// vga_ball test
+	pos_v <= 8'h0;
+	pos_h <= 8'h0;
      end else if (chipselect && write) begin
 		case (address)
-			3'h0: control_reg <= writedata;
-			3'h3: data_reg <= writedata;
+			3'h0: begin
+				control_reg <= writedata;
+				pos_v <= writedata[7:0];
+				end
+			3'h4: begin
+				data_reg <= writedata;
+				pos_h <= writedata[7:0];
+				end
 		endcase
 	end
 
    always_comb begin
       {VGA_R, VGA_G, VGA_B} = {8'h0, 8'h0, 8'h0};
       if (VGA_BLANK_n )
-        if ((hcount[10:6] == 5'11100) && (vcount[9:5] == 5'b11100)) begin
+        if (ball) begin
 	  {VGA_R, VGA_G, VGA_B} = {8'hff, 8'hff, 8'hff};
         end
 	else
