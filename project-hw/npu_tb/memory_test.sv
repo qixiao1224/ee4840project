@@ -11,6 +11,7 @@ module testbench(  );
   reg reading;
 
   wire [7:0] data0,data1,data2,data3;
+  wire [13:0] ram_addr_output;
 
 
   top_memory top_memory 
@@ -21,6 +22,7 @@ module testbench(  );
     .write(write),
     .chipselect(chipselect), 
     .reading(reading),
+    .ram_addr_output(ram_addr_output),//TODO Test signal
  
     .data0(data0), 
     .data1(data1),
@@ -48,6 +50,7 @@ clk = 0;
 
 
 
+
   @(posedge clk);
 
 
@@ -58,9 +61,15 @@ clk = 0;
   reset = 0;
 
   @(posedge clk);
-  writedata = 32'b00001111_00000000_00000001_00110011;
+  writedata = 32'b00000001_00000011_00000111_00001111;
   chipselect = 1;
   write = 1;
+ 
+
+  repeat (10) begin
+  @(posedge clk);
+  writedata = writedata + 1;
+  end
 
 
 

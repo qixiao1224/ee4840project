@@ -10,7 +10,8 @@ module top_memory(
     input              chipselect,
     input logic        reading,
     
-    output logic [7:0] data1,data2,data3,data0
+    output logic [7:0] data1,data2,data3,data0,
+    output logic [13:0] ram_addr_output //TODO Test signal.
     
 );
 
@@ -46,6 +47,7 @@ image_ram ram3 (.address(ram_addr), .clock(clk), .data(data3), .wren(wren3), .q(
 conv_ram conv_ram0 (.address(conv_ram_addr), .clock(clk), .data(data0), .wren(wren_conv), .q(read4));//address [15:0]
 dense_ram dense_ram0 (.address(dense_ram_addr), .clock(clk), .data(data0), .wren(wren_dense), .q(read5));
 
+assign ram_addr_output = ram_addr;//TODO: Test signal
 
 // State updates
 always_ff @(posedge clk) begin
