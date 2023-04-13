@@ -17,62 +17,28 @@
 
 int vga_ball_fd;
 
-/* Read and print the background color */
-void print_background_color() {
-  vga_ball_arg_t vla;
-  
-  if (ioctl(vga_ball_fd, VGA_BALL_READ_BACKGROUND, &vla)) {
-      perror("ioctl(VGA_BALL_READ_BACKGROUND) failed");
-      return;
-  }
-  printf("%02x %02x %02x\n",
-	 vla.background.red, vla.background.green, vla.background.blue);
-}
 
-void print_pos() {
+// Set data register
+void set_data(const int *message){
   vga_ball_arg_t vla;
-  
-  if (ioctl(vga_ball_fd, VGA_BALL_READ_POS, &vla)) {
-      perror("ioctl(VGA_BALL_READ_POS) failed");
-      return;
-  }
-  printf("%02x %02x\n",
-	 vla.pos.v,vla.pos.h);
-}
-
-void set_ball_p(const vga_ball_color_t *c, const vga_ball_pos_t *p){
-  vga_ball_arg_t vla;
-  vla.background = *c;
-  vla.pos  = *p;
-  if (ioctl(vga_ball_fd, VGA_BALL_WRITE_POS, &vla)) {
-      perror("ioctl(VGA_BALL_SET_BALL) failed");
+  vla.message = *message;
+  if (ioctl(vga_ball_fd, ACCU_WRITE_DATA_32, &vla)) {
+      perror("ioctl(ACCU_WRITE_DATA) failed");
       return;
   }
 }
 
-/* Set the background color */
-void set_background_color(const vga_ball_color_t *c, const vga_ball_pos_t *p)
+/* Set control register */
+void set_control(const int *message)
 {
   vga_ball_arg_t vla;
-  vla.pos = *p;
-  vla.background = *c;
-  if (ioctl(vga_ball_fd, VGA_BALL_WRITE_BACKGROUND, &vla)) {
-      perror("ioctl(VGA_BALL_SET_BACKGROUND) failed");
+  vla.message = *message;
+  if (ioctl(vga_ball_fd, ACCU_WRITE_CONTROL_32, &vla)) {
+      perror("ioctl(ACCU_WRITE_CONTROL_32) failed");
       return;
   }
 }
 
-/* Set everything in 32 bits */
-void set_32(const vga_ball_color_t *c, const vga_ball_pos_t *p)
-{
-  vga_ball_arg_t vla;
-  vla.pos = *p;
-  vla.background = *c;
-  if (ioctl(vga_ball_fd, VGA_BALL_WRITE_32, &vla)) {
-      perror("ioctl(VGA_BALL_SET_BACKGROUND) failed");
-      return;
-  }
-}
 
 int main()
 {
@@ -92,11 +58,6 @@ int main()
     { 0xff, 0xff, 0xff }  /* White */
   };
 
-   static const vga_ball_pos_t poss  [] = {
-     {0x00, 0x01},
-     {0x00,0x02},
-     {0x00, 0x03}
-  };
  
 # define COLORS 9
 
@@ -112,22 +73,26 @@ int main()
   i=15;
   int j =30;
   int flag1=1;
+  int flag2 = 0;
   int fall =1;
   int right=1;
   unsigned char v;
   unsigned char h;
-  vga_ball_pos_t pos ={v,h};
   unsigned char zero = 0;
+  
   while(flag1==1 ) {
-    // set_background_color(&colors[i % COLORS ]);
-    v = (unsigned char)i;
-    h = (unsigned char)j;
+    
     vga_ball_pos_t pos ={v,h};
     //set_background_color(&colors[2],&pos);
     set_32(&colors[i % COLORS], &pos);
+    if (flag2 == 0) {
+        set_control(&i);
+	flag2 = 1;
+    } else {
+	set_data(&j);
+	flag2 = 0;
+    }
     //set_ball_p(&colors[2],&poss[i%3]);
-    print_background_color();
-    print_pos();
     usleep(400000);
     if (fall==1)
       i++;
