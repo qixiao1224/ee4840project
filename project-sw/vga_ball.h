@@ -4,23 +4,13 @@
 #include <linux/ioctl.h>
 
 typedef struct {
-	unsigned char red, green, blue;
-} vga_ball_color_t;
-  
-
-typedef struct{
-	unsigned char  col15_8,col7_0, row15_8,row7_0;
-}vga_ball_posi_t;
-
-typedef struct {
-  vga_ball_color_t background;
-  vga_ball_posi_t position;
+  int message;
 } vga_ball_arg_t;
 
-#define VGA_BALL_MAGIC 'q'
+#define ACCU_MAGIC 'q'
 
 /* ioctls and their arguments */
-#define VGA_BALL_WRITE_BACKGROUND _IOW(VGA_BALL_MAGIC, 1, vga_ball_arg_t *)
-#define VGA_BALL_READ_BACKGROUND  _IOR(VGA_BALL_MAGIC, 2, vga_ball_arg_t *)
+#define ACCU_WRITE_DATA_32  _IOW(ACCU_MAGIC, 0, vga_ball_arg_t *)
+#define ACCU_WRITE_CONTROL_32 _IOW(ACCU_MAGIC, 1, vga_ball_arg_t *)
 
 #endif
