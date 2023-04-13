@@ -30,14 +30,8 @@ logic [15:0] dense_ram_addr;
 logic wren1,wren2,wren3,wren0,wren_conv, wren_dense;
 
 
-typedef enum logic [2:0] {IDLE, WRITE, READ} state_t;
-state_t state, next_state;
-
-typedef enum logic [1:0] {WRITE_FOUR, WRITE_SEQ_CONV, WRITE_SEQ_DENSE} write_state_t;
+typedef enum logic [1:0] { WRITE_FOUR, WRITE_SEQ_CONV, WRITE_SEQ_DENSE} write_state_t;
 write_state_t write_state, next_write_state;
-
-typedef enum logic [1:0] {READ_BIAS, READ_DATA, READ_STALL, READ_FINAL} read_state_t;
-read_state_t read_state, next_read_state;
 
 // Memory module definitions
 image_ram ram0 (.address(ram_addr), .clock(clk), .data(data0), .wren(wren0), .q(read0));//address[13:0]
@@ -51,9 +45,7 @@ assign ram_addr_output = ram_addr;//TODO: Test signal
 
 // State updates
 always_ff @(posedge clk) begin
-   state <= next_state;
    write_state <= next_write_state;
-   read_state <= next_read_state;
 end
 
 
@@ -63,57 +55,28 @@ assign write_case = (image_count == 8'd196) ? 2'b00 :
 			(conv_write_count == 16'd55744 ? 2'b01 :
                          (dense_write_count == 16'd37578 ? 2'b10 : 2'b11));
 
-
-
-
 // Outter state switching
 always_comb begin
-  next_state = state;
   next_write_state = write_state;
-  next_read_state = read_state;
-
   if (reset) begin
-     next_state = IDLE;
      next_write_state = WRITE_FOUR;
-     next_read_state = READ_BIAS;
   end else 
-     case (state)
-     IDLE:  // Before everything starts
-            begin
-	    //image_count = 0;//TODO
-            //conv_write_count = 0;
-            //dense_write_count = 0;
-	    if (chipselect && write) begin
-		next_state = WRITE;
-		next_write_state = WRITE_FOUR;
-		end
-            end
-     WRITE: begin case(write_case) // Fill in data in order
-              2'b00: begin
-			next_write_state = WRITE_SEQ_CONV;
-			//image_count = 0;
-		     end
-	      2'b01: begin
-			next_write_state = WRITE_SEQ_DENSE;
-			//conv_write_count = 0;
-		     end
-	      2'b10: begin
-			next_state = READ;
-			//dense_write_count = 0;
-		     end
-                 default: next_write_state = next_write_state;
-                 endcase
-            end
-     READ: if(&ram_addr) next_state = IDLE; // TODO
-     default: begin
-                next_state = IDLE;
-                next_write_state = WRITE_FOUR;
-		next_read_state = READ_BIAS;
-              end
-     endcase
+    case(write_case) // Fill in data in order
+     2'b00: begin
+	    next_write_state = WRITE_SEQ_CONV;
+	    //image_count = 0;
+	    end
+     2'b01: begin
+            next_write_state = WRITE_SEQ_DENSE;
+	    //conv_write_count = 0;
+	    end
+     2'b10: begin
+	    next_write_state = WRITE_FOUR;
+	    //dense_write_count = 0;
+	    end
+     default: next_write_state = WRITE_FOUR;
+    endcase
   end
-
-
 
 
 // WRITE
@@ -133,7 +96,7 @@ always_ff @(posedge clk) begin
     ram_addr <= 0;
     conv_ram_addr <= 0;
     dense_ram_addr <= 0;
-  end else if (state == WRITE) begin
+  end else begin
     data0 <= writedata[31:24];
     data1 <= writedata[23:16];
     data2 <= writedata[15:8];
@@ -180,23 +143,9 @@ always_ff @(posedge clk) begin
 		wren_dense <= 0;
 	end
     endcase  
-  end
-// READ
-//always_ff @(posedge clk) begin
- // if (reset) begin
-  //  read1 <= 8'b0;
-   // read2 <= 8'b0;
-  //  read3 <= 8'b0;
- //  read4 <= 8'b0;
-//  end else if (state == READ) begin
+  end//end if
+end//end for ff
 
- // end
-//end
-
-
-
-
-end
 endmodule
 
 
