@@ -243,7 +243,7 @@ module npu_v8
     .reset(RST_COMP_LOGIC),
     .index(COMP_INDEX),
     .largest(COMP_LARGEST),
-    .largest_8bit(COMP_LARGEST_8bit)
+    .current_largest_8bit(COMP_LARGEST_8bit)
   );
 
 ////////////////////////////////////////////////////////////////////////////////////

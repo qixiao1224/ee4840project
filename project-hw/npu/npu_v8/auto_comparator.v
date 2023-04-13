@@ -2,18 +2,19 @@
 automatic comparator that will accept four 16-bit inputs together and compare
 them to the previously stored largest number, and stored the largest number within them
 for the next comparison
-The index of current largest number will be remembered and outputted
+The index of largest number will be remembered and outputted (based on all previous inputs)
+The current_largest_8bit only depends on current four inputs, will not consider results from previous cycles
 */
 
 module auto_comparator (
-    input signed [15:0] in1, in2, in3, in4,     // current inputs in 2's complement format
-    input enable,                               // enable signal
-    input trig,                                 //triggering signal for conducting one comparison operation
-    input clk,                                  // clock signal
-    input reset,                                //reset signal
-    output reg [7:0] index,                     // index of the largest number (0 for resetting, 1 is the smallest valid number)
-    output reg signed [15:0] largest,           // store largest number of all previous inputs
-    output reg signed [7:0]  largest_8bit
+    input signed [15:0] in1, in2, in3, in4,             // current inputs in 2's complement format
+    input enable,                                       // enable signal
+    input trig,                                         //triggering signal for conducting one comparison operation
+    input clk,                                          // clock signal
+    input reset,                                        //reset signal
+    output reg [7:0] index,                             // index of the largest number from last reset(0 for resetting, 1 is the smallest valid number)
+    output reg signed [15:0] largest,                   // store largest number of all previous inputs
+    output reg signed [7:0]  current_largest_8bit       // store largest number of current four inputs (only current, will not consider previous results)
     ////////////////////////////////////////
     //the following ports are for debugging
     //output [15:0] largest_out,
@@ -22,8 +23,9 @@ module auto_comparator (
     
 );
 
-reg trig_delayed;           // delayed triggering signal (delayed for one clock cycle)
-reg [7:0] trig_counter;     //counting how many times the triggering event happens
+reg trig_delayed;                   // delayed triggering signal (delayed for one clock cycle)
+reg [7:0] trig_counter;             //counting how many times the triggering event happens
+reg signed [15:0] current_largest;  // storing the current largest 16-bit result of current cycle (will not consider previous cycles)
 
 /*                     _______
 trig:           ______|       |____________               (from EN_ReLU signal)
@@ -46,9 +48,11 @@ end
 //configuring the comparator
 always @(posedge clk) begin
     if (reset) begin
-        index<=0;                    //reserved number indicating resetted
-        largest<=16'h8000;           //smallest 16-bit 2's complement number
-        largest_8bit<=8'b1000000;    //smallest 8-bit 2's complement number
+        index<=0;                           //reserved number indicating resetted
+        largest<=16'h8000;                  //smallest 16-bit 2's complement number
+        //largest_8bit<=8'b1000000;           //smallest 8-bit 2's complement number
+        current_largest<=16'h8000;          
+        current_largest_8bit<=8'b1000000;
     end
 
     if (enable & trig_delayed) begin
@@ -56,37 +60,57 @@ always @(posedge clk) begin
         if (in1 >= in2 && in1 >= in3 && in1 >= in4) begin
             if (in1 > largest) begin
                 largest <= in1;
-                largest_8bit <= sixteen_to_eight(in1);
+                //largest_8bit <= sixteen_to_eight(in1);
                 index <= (trig_counter << 2) - 2'b11;                  // index = trig_counter*4-3
             end
             else largest <= largest;
+
+            ////////////////////////////////////////////////
+            //current largest will not depend on previous largest
+            current_largest<=in1;
+            current_largest_8bit<=sixteen_to_eight(in1);
         end
 
         else if (in2 >= in1 && in2 >= in3 && in2 >= in4) begin
             if (in2 > largest) begin
                 largest <= in2;
-                largest_8bit <= sixteen_to_eight(in2);
+                //largest_8bit <= sixteen_to_eight(in2);
                 index <= (trig_counter << 2) - 2'b10;                       // index = trig_counter*4-2
             end
             else largest <= largest;
+
+            ////////////////////////////////////////////////
+            //current largest will not depend on previous largest
+            current_largest<=in2;
+            current_largest_8bit<=sixteen_to_eight(in2);
         end
 
         else if (in3 >= in1 && in3 >= in2 && in3 >= in4) begin
             if (in3 > largest) begin
                 largest <= in3;
-                largest_8bit <= sixteen_to_eight(in3);
+                //largest_8bit <= sixteen_to_eight(in3);
                 index <= (trig_counter << 2) - 1'b1;                  // index = trig_counter*4-1
             end
             else largest <= largest;
+
+            ////////////////////////////////////////////////
+            //current largest will not depend on previous largest
+            current_largest<=in3;
+            current_largest_8bit<=sixteen_to_eight(in3);
         end
 
         else begin // in4 >= in1 && in4 >= in2 && in4 >= in3
             if (in4 > largest) begin
                 largest <= in4;
-                largest_8bit <= sixteen_to_eight(in4);
+                //largest_8bit <= sixteen_to_eight(in4);
                 index <= (trig_counter << 2);                  // index = trig_counter*4
             end
             else largest<=largest;
+
+            ////////////////////////////////////////////////
+            //current largest will not depend on previous largest
+            current_largest<=in4;
+            current_largest_8bit<=sixteen_to_eight(in4);
         end
 
     end
