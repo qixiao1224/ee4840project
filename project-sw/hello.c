@@ -46,21 +46,6 @@ int main()
   int i;
   static const char filename[] = "/dev/vga_ball";
 
-  static const vga_ball_color_t colors[] = {
-    { 0xff, 0x00, 0x00 }, /* Red */
-    { 0x00, 0xff, 0x00 }, /* Green */
-    { 0x00, 0x00, 0xff }, /* Blue */
-    { 0xff, 0xff, 0x00 }, /* Yellow */
-    { 0x00, 0xff, 0xff }, /* Cyan */
-    { 0xff, 0x00, 0xff }, /* Magenta */
-    { 0x80, 0x80, 0x80 }, /* Gray */
-    { 0x00, 0x00, 0x00 }, /* Black */
-    { 0xff, 0xff, 0xff }  /* White */
-  };
-
- 
-# define COLORS 9
-
   printf("VGA ball Userspace program started\n");
 
   if ( (vga_ball_fd = open(filename, O_RDWR)) == -1) {
@@ -69,7 +54,6 @@ int main()
   }
 
   printf("initial state: ");
-  print_background_color();
   i=15;
   int j =30;
   int flag1=1;
@@ -82,9 +66,6 @@ int main()
   
   while(flag1==1 ) {
     
-    vga_ball_pos_t pos ={v,h};
-    //set_background_color(&colors[2],&pos);
-    set_32(&colors[i % COLORS], &pos);
     if (flag2 == 0) {
         set_control(&i);
 	flag2 = 1;
@@ -92,7 +73,7 @@ int main()
 	set_data(&j);
 	flag2 = 0;
     }
-    //set_ball_p(&colors[2],&poss[i%3]);
+
     usleep(400000);
     if (fall==1)
       i++;
