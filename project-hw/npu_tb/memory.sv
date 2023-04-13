@@ -7,8 +7,8 @@ module top_memory(
     input logic        reset,
     input logic [31:0] writedata,
     input logic        write,
-    input              chipselect,
-    input logic        reading,
+    input              chipselect, //TODO we can merge this to write signal 
+    input logic        reading,//TODO don't need this
     
     output logic [7:0] data1,data2,data3,data0,
     output logic [13:0] ram_addr_output //TODO Test signal.
