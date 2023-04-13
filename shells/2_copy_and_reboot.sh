@@ -15,7 +15,7 @@
 #ifup eth0
 #echo "Ethernet connection checked"
 
-USER_=zm2404
+USER_=hz2833
 HOST_=micro35
 
 echo "*****MOUNT START******"
@@ -25,7 +25,7 @@ echo ""
 
 #fill the directory of soc_system.rbf file after :
 echo "*******COPY RBF FILE START*******"
-scp $USER_@$HOST_.ee.columbia.edu:~/lab/lab3-hw/output_files/soc_system.rbf /mnt
+scp $USER_@$HOST_.ee.columbia.edu:Documents/CSEE4840/ee4840project/project-hw/output_files/soc_system.rbf /mnt
 echo "*******RBF FILE COPIED***********"
 echo ""
 
@@ -36,7 +36,7 @@ echo ""
 
 #fill the directory of soc_system.dtb file after :
 echo "********COPY RTB FILE START******"
-scp $USER_@$HOST_.ee.columbia.edu:~/lab/lab3-hw/soc_system.dtb /mnt
+scp $USER_@$HOST_.ee.columbia.edu:Documents/CSEE4840/ee4840project/project-hw/soc_system.dtb /mnt
 echo "*********RTB FILE COPIED*********"
 
 #reboot the system from the new rbf and dtb file
