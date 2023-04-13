@@ -36,14 +36,8 @@
 #define DRIVER_NAME "vga_ball"
 
 /* Device registers */
-#define BG_RED(x) (x)
-#define BG_GREEN(x) ((x)+1)
-#define BG_BLUE(x) ((x)+2)
-
-#define BG_ROW15_8(x) ((x)+5)
-#define BG_ROW7_0(x) ((x)+6)
-#define BG_COL15_8(x) ((x)+3)
-#define BG_COL7_0(x) ((x)+4)
+#define CONTROL_REG(x) (x)
+#define DATA_REG(x) ((x)+4)
 
 /*
  * Information about our device
@@ -51,26 +45,25 @@
 struct vga_ball_dev {
 	struct resource res; /* Resource: our registers */
 	void __iomem *virtbase; /* Where registers can be accessed in memory */
-        vga_ball_color_t background;
-
-	vga_ball_posi_t position;//
+        int message;
 } dev;
 
 /*
  * Write segments of a single digit
  * Assumes digit is in range and the device information has been set up
  */
-static void write_background(vga_ball_color_t *background, vga_ball_posi_t *position)//
-{
-	iowrite8(background->red, BG_RED(dev.virtbase) );
-	iowrite8(background->green, BG_GREEN(dev.virtbase) );
-	iowrite8(background->blue, BG_BLUE(dev.virtbase) );
-	iowrite8(position->row15_8, BG_ROW15_8(dev.virtbase) );//row byte 15-8
-	iowrite8(position->row7_0, BG_ROW7_0(dev.virtbase) );//row byte 7-0
-	iowrite8(position->col15_8, BG_COL15_8(dev.virtbase) );//col byte 15-8
-	iowrite8(position->col7_0, BG_COL7_0(dev.virtbase) );//col byte 7-0
-	dev.background = *background;
-	dev.position = *position;//
+static void write_data_32(vga_ball_arg_t *arg)
+{ 
+  // Concatenate into a 32 bit
+  iowrite32(arg->message, DATA_REG(dev.virtbase));
+  dev.message = arg->message;
+}
+
+static void write_control_32(vga_ball_arg_t *arg)
+{ 
+  // Concatenate into a 32 bit
+  iowrite32(arg->message, CONTROL_REG(dev.virtbase));
+  dev.message = arg->message;
 }
 
 /*
@@ -83,21 +76,18 @@ static long vga_ball_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
 	vga_ball_arg_t vla;
 
 	switch (cmd) {
-	case VGA_BALL_WRITE_BACKGROUND:
-		if (copy_from_user(&vla, (vga_ball_arg_t *) arg,
+	case ACCU_WRITE_DATA_32:
+	  if (copy_from_user(&vla, (vga_ball_arg_t *) arg,
 				   sizeof(vga_ball_arg_t)))
 			return -EACCES;
-		write_background(&vla.background, &vla.position);//
+	  write_data_32(&vla);
 		break;
-
-	case VGA_BALL_READ_BACKGROUND:
-	  	vla.background = dev.background;
-		vla.position = dev.position;//
-		if (copy_to_user((vga_ball_arg_t *) arg, &vla,
-				 sizeof(vga_ball_arg_t)))
+	case ACCU_WRITE_CONTROL_32:
+	  if (copy_from_user(&vla, (vga_ball_arg_t *) arg,
+				   sizeof(vga_ball_arg_t)))
 			return -EACCES;
+	  write_control_32(&vla);
 		break;
-
 	default:
 		return -EINVAL;
 	}
@@ -124,9 +114,8 @@ static struct miscdevice vga_ball_misc_device = {
  */
 static int __init vga_ball_probe(struct platform_device *pdev)
 {
-        vga_ball_color_t beige = { 0xf9, 0xe4, 0xb7 };
-	vga_ball_posi_t zero_p = { 0x00, 0x00, 0x00, 0x00};//
-
+//        vga_ball_color_t beige = { 0xf9, 0xe4, 0xb7 };
+//	vga_ball_color_t blue = {0x00,0x00,0xff};
 	int ret;
 
 	/* Register ourselves as a misc device: creates /dev/vga_ball */
@@ -146,7 +135,7 @@ static int __init vga_ball_probe(struct platform_device *pdev)
 		goto out_deregister;
 	}
 
-	/* Arrange access to our registerblues */
+	/* Arrange access to our registers */
 	dev.virtbase = of_iomap(pdev->dev.of_node, 0);
 	if (dev.virtbase == NULL) {
 		ret = -ENOMEM;
@@ -154,7 +143,7 @@ static int __init vga_ball_probe(struct platform_device *pdev)
 	}
         
 	/* Set an initial color */
-        write_background(&beige, &zero_p);
+//        write_background(&beige);
 
 	return 0;
 
