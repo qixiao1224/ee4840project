@@ -12,6 +12,7 @@ module testbench(  );
 
   wire [7:0] data0,data1,data2,data3;
   wire [13:0] ram_addr_output;
+  wire [15:0] conv_ram_addr_output,dense_ram_addr_output;
 
 
   top_memory top_memory 
@@ -23,7 +24,11 @@ module testbench(  );
     .chipselect(chipselect), 
     .reading(reading),
     .ram_addr_output(ram_addr_output),//TODO Test signal
- 
+    .dense_ram_addr_output(dense_ram_addr_output),//TODO Test signal
+    .conv_ram_addr_output(conv_ram_addr_output) ,//TODO Test signal
+
+
+
     .data0(data0), 
     .data1(data1),
     .data2(data2),
@@ -61,12 +66,14 @@ clk = 0;
   reset = 0;
 
   @(posedge clk);
-  writedata = 32'b00000001_00000011_00000111_00001111;
   chipselect = 1;
   write = 1;
+
+  @(posedge clk);
+  write = 0;
  
 
-  repeat (10) begin
+  repeat (110000) begin
   @(posedge clk);
   writedata = writedata + 1;
   end
@@ -77,7 +84,7 @@ clk = 0;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  repeat(15)  @(posedge clk); //give FSM a few cycles to complete output operation
+  repeat(10)  @(posedge clk); //give FSM a few cycles to complete output operation
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 

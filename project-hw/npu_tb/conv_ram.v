@@ -1,7 +1,7 @@
 module conv_ram( 
     output reg [7:0] q,
     input [7:0] data,
-    input [13:0] address,
+    input [15:0] address,
     input wren, clock
 );
 	 // force M10K ram style

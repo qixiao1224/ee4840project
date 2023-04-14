@@ -11,8 +11,8 @@ module top_memory(
     input logic        reading,//TODO don't need this
     
     output logic [7:0] data1,data2,data3,data0,
-    output logic [13:0] ram_addr_output //TODO Test signal.
-    
+    output logic [13:0] ram_addr_output, //TODO Test signal.
+    output logic [15:0] conv_ram_addr_output,dense_ram_addr_output//TODO Test signal.
 );
 
 //logic [7:0] data1, data2, data3, data0;
@@ -24,14 +24,14 @@ logic [15:0] conv_write_count;
 logic [15:0] dense_write_count;
 
 logic [13:0] ram_addr;
-logic [13:0] conv_ram_addr;
+logic [15:0] conv_ram_addr;
 logic [15:0] dense_ram_addr;
 
 logic wren1,wren2,wren3,wren0,wren_conv, wren_dense;
 
 
-typedef enum logic [1:0] { WRITE_FOUR, WRITE_SEQ_CONV, WRITE_SEQ_DENSE} write_state_t;
-write_state_t write_state, next_write_state;
+typedef enum logic [1:0] { IDLE, WRITE_FOUR, WRITE_SEQ_CONV, WRITE_SEQ_DENSE} state_t;
+state_t current_state, next_state;
 
 // Memory module definitions
 image_ram ram0 (.address(ram_addr), .clock(clk), .data(data0), .wren(wren0), .q(read0));//address[13:0]
@@ -42,41 +42,37 @@ conv_ram conv_ram0 (.address(conv_ram_addr), .clock(clk), .data(data0), .wren(wr
 dense_ram dense_ram0 (.address(dense_ram_addr), .clock(clk), .data(data0), .wren(wren_dense), .q(read5));
 
 assign ram_addr_output = ram_addr;//TODO: Test signal
+assign dense_ram_addr_output = dense_ram_addr;//TODO: Test signal
+assign conv_ram_addr_output = conv_ram_addr;//TODO: Test signal
 
 // State updates
 always_ff @(posedge clk) begin
-   write_state <= next_write_state;
+   if (reset)
+     current_state <= IDLE;
+   else 
+     current_state <= next_state;
+     
 end
 
 
 
 // Sub cases in WRITE stage
-assign write_case = (image_count == 8'd196) ? 2'b00 : 
-			(conv_write_count == 16'd55744 ? 2'b01 :
-                         (dense_write_count == 16'd37578 ? 2'b10 : 2'b11));
+assign write_case = (image_count == 8'd196) ? 2'b01 : 
+			(conv_write_count == 16'd55744 ? 2'b10 :
+                         (dense_write_count == 16'd37578 ? 2'b11 : 2'b00)); 
 
-// Outter state switching
+// State Switching
 always_comb begin
-  next_write_state = write_state;
-  if (reset) begin
-     next_write_state = WRITE_FOUR;
-  end else 
-    case(write_case) // Fill in data in order
-     2'b00: begin
-	    next_write_state = WRITE_SEQ_CONV;
-	    //image_count = 0;
-	    end
-     2'b01: begin
-            next_write_state = WRITE_SEQ_DENSE;
-	    //conv_write_count = 0;
-	    end
-     2'b10: begin
-	    next_write_state = WRITE_FOUR;
-	    //dense_write_count = 0;
-	    end
-     default: next_write_state = WRITE_FOUR;
-    endcase
-  end
+    next_state = current_state;
+    if (write)
+        next_state = WRITE_FOUR;
+    else if (image_count == 8'd196 && current_state == WRITE_FOUR)
+        next_state = WRITE_SEQ_CONV;
+    else if (conv_write_count == 16'd55744 && current_state == WRITE_SEQ_CONV)
+        next_state = WRITE_SEQ_DENSE;
+    else if (dense_write_count == 16'd37578 && current_state == WRITE_SEQ_DENSE)
+        next_state = IDLE;
+end
 
 
 // WRITE
@@ -101,7 +97,12 @@ always_ff @(posedge clk) begin
     data1 <= writedata[23:16];
     data2 <= writedata[15:8];
     data3 <= writedata[7:0];
-    case (write_state)
+    case (current_state)
+        IDLE: begin
+              image_count <= 0;
+              conv_write_count <= 0;
+              dense_write_count <= 0;
+        end
 	WRITE_FOUR: begin // Data is splitted into 4. store in different memories
 		wren0 <= 1;
 		wren1 <= 1;
@@ -109,9 +110,10 @@ always_ff @(posedge clk) begin
 		wren3 <= 1;
 		wren_conv <= 0;
 		wren_dense <= 0;
-		image_count <= image_count + 1;
-		ram_addr <= ram_addr + 1; // TODO check memory addr continuity
-					  // We are getting back to this memory later
+                if (image_count < 8'd196) begin
+		  image_count <= image_count + 1;
+		  ram_addr <= ram_addr + 1; // TODO check memory addr continuity// We are getting back to this memory later
+                end	  
 	end
         WRITE_SEQ_CONV: begin
 		wren0 <= 0;
@@ -120,8 +122,10 @@ always_ff @(posedge clk) begin
 		wren3 <= 0;
 		wren_conv <= 1;
 		wren_dense <= 0;
-		conv_write_count <= conv_write_count + 1;
-		conv_ram_addr <= conv_ram_addr + 1;
+                if (conv_write_count < 16'd55744) begin
+		  conv_write_count <= conv_write_count + 1;
+		  conv_ram_addr <= conv_ram_addr + 1;
+                end
 	end
         WRITE_SEQ_DENSE: begin
 		wren0 <= 0;
@@ -130,8 +134,10 @@ always_ff @(posedge clk) begin
 		wren3 <= 0;
 		wren_conv <= 0;
 		wren_dense <= 1;
-		dense_write_count <= dense_write_count + 1;
-		dense_ram_addr <= dense_ram_addr + 1;
+                if (dense_write_count < 16'd37578) begin
+		  dense_write_count <= dense_write_count + 1;
+		  dense_ram_addr <= dense_ram_addr + 1;
+                end
 	end
 	// TODO Two additional states for wrting during calculation
 	default: begin

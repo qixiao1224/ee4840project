@@ -12,6 +12,8 @@ add wave -noupdate -radix decimal /testbench/data1
 add wave -noupdate -radix decimal /testbench/data2
 add wave -noupdate -radix decimal /testbench/data3
 add wave -noupdate -radix decimal /testbench/ram_addr_output
+add wave -noupdate -radix decimal /testbench/dense_ram_addr_output
+add wave -noupdate -radix decimal /testbench/conv_ram_addr_output
 
 
 #add wave -noupdate -radix decimal /testbench/CLKEXT
