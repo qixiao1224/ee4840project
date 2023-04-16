@@ -54,10 +54,12 @@ module vga_ball(input logic        clk,
 		case (address)
 			3'h0: begin
 				control_reg <= writedata;
+				data_reg <= 0;
 				pos_v <= writedata[7:0];
 				end
 			3'h1: begin
 				data_reg <= writedata;
+				control_reg <= 0; // TODO Need to check
 				pos_h <= writedata[7:0];
 				end
 		endcase

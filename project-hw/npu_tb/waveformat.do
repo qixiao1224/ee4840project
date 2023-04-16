@@ -1,19 +1,19 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
 
-add wave -noupdate -radix decimal /testbench/clk
-add wave -noupdate -radix decimal /testbench/reset
-add wave -noupdate -radix decimal /testbench/writedata
-add wave -noupdate -radix decimal /testbench/write
-add wave -noupdate -radix decimal /testbench/chipselect
-add wave -noupdate -radix decimal /testbench/reading
-add wave -noupdate -radix decimal /testbench/data0
-add wave -noupdate -radix decimal /testbench/data1
-add wave -noupdate -radix decimal /testbench/data2
-add wave -noupdate -radix decimal /testbench/data3
-add wave -noupdate -radix decimal /testbench/ram_addr_output
-add wave -noupdate -radix decimal /testbench/dense_ram_addr_output
-add wave -noupdate -radix decimal /testbench/conv_ram_addr_output
+add wave -noupdate -radix unsigned /testbench/clk
+add wave -noupdate -radix unsigned /testbench/reset
+add wave -noupdate -radix unsigned /testbench/writedata
+add wave -noupdate -radix unsigned /testbench/write
+add wave -noupdate -radix unsigned /testbench/chipselect
+add wave -noupdate -radix unsigned /testbench/reading
+add wave -noupdate -radix unsigned /testbench/data0
+add wave -noupdate -radix unsigned /testbench/data1
+add wave -noupdate -radix unsigned /testbench/data2
+add wave -noupdate -radix unsigned /testbench/data3
+add wave -noupdate -radix unsigned /testbench/ram_addr_output
+add wave -noupdate -radix unsigned /testbench/dense_ram_addr_output
+add wave -noupdate -radix unsigned /testbench/conv_ram_addr_output
 
 
 #add wave -noupdate -radix decimal /testbench/CLKEXT

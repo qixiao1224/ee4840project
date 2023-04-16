@@ -1,47 +1,17 @@
-// Use for 4840 Project
-//Memory Access
-
-
-module memory(
-    input logic        clk,
-    input logic        reset,
-    input logic [31:0] writedata,
-    input logic [31:0] control_reg,
+module memory_write(
+	input logic        clk,
+    	input logic        reset,
+    	input logic [31:0] writedata,
+    	input logic [31:0] control_reg,
     
-    output logic [7:0] read0, read1, read2, read3, read4, read5;
-    output logic [13:0] ram_addr_output, //TODO Test signal.
-    output logic [15:0] conv_ram_addr_output,dense_ram_addr_output//TODO Test signal.
-    output logic [15:0] SSFR_instr;
+    	output logic [7:0] read0, read1, read2, read3, read4, read5;
+    	output logic [13:0] ram_addr_output, //TODO Test signal.
+    	output logic [15:0] conv_ram_addr_output,dense_ram_addr_output//TODO Test signal.
+    	output logic [15:0] SSFR_instr;
 );
 
-logic [7:0] data0, data1, data2, data3;
-
-// Counters
-logic [7:0] image_count;
-logic [15:0] conv_write_count;
-logic [15:0] dense_write_count;
-
-logic [13:0] ram_addr;
-logic [15:0] conv_ram_addr;
-logic [15:0] dense_ram_addr;
-
-logic wren1,wren2,wren3,wren0,wren_conv, wren_dense;
 
 
-typedef enum logic [1:0] { IDLE, WRITE_FOUR, WRITE_SEQ_CONV, WRITE_SEQ_DENSE} state_t;
-state_t current_state, next_state;
-
-// Memory module definitions
-image_ram ram0 (.address(ram_addr), .clock(clk), .data(data0), .wren(wren0), .q(read0));//address[13:0]
-image_ram ram1 (.address(ram_addr), .clock(clk), .data(data1), .wren(wren1), .q(read1));
-image_ram ram2 (.address(ram_addr), .clock(clk), .data(data2), .wren(wren2), .q(read2));
-image_ram ram3 (.address(ram_addr), .clock(clk), .data(data3), .wren(wren3), .q(read3));
-conv_ram conv_ram0 (.address(conv_ram_addr), .clock(clk), .data(data0), .wren(wren_conv), .q(read4));//address [15:0]
-dense_ram dense_ram0 (.address(dense_ram_addr), .clock(clk), .data(data0), .wren(wren_dense), .q(read5));
-
-assign ram_addr_output = ram_addr;//TODO: Test signal
-assign dense_ram_addr_output = dense_ram_addr;//TODO: Test signal
-assign conv_ram_addr_output = conv_ram_addr;//TODO: Test signal
 
 // State updates
 always_ff @(posedge clk) begin
@@ -55,7 +25,7 @@ end
 // State Switching
 always_comb begin
     next_state = current_state;
-    if (control_reg == 32'h0001)
+    if (control_reg == 32'h0001) //TODO 
         next_state = WRITE_FOUR;
     else if (image_count == 8'd196 && current_state == WRITE_FOUR)
         next_state = WRITE_SEQ_CONV;
@@ -69,7 +39,7 @@ end
 // WRITE
 always_ff @(posedge clk) begin
   if (reset) begin
-
+    image_count <= 8'b0;
     data1 <= 8'b0;
     data2 <= 8'b0;
     data3 <= 8'b0;
@@ -145,6 +115,3 @@ always_ff @(posedge clk) begin
 end//end for ff
 
 endmodule
-
-
-
