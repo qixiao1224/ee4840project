@@ -6,17 +6,14 @@ module top_memory(
     input logic        clk,
     input logic        reset,
     input logic [31:0] writedata,
-    input logic        write,
-    input              chipselect, //TODO we can merge this to write signal 
-    input logic        reading,//TODO don't need this
+    input logic [31:0] control_reg,
     
-    output logic [7:0] data1,data2,data3,data0,
+    output logic [7:0] read0, read1, read2, read3, read4, read5;
     output logic [13:0] ram_addr_output, //TODO Test signal.
     output logic [15:0] conv_ram_addr_output,dense_ram_addr_output//TODO Test signal.
 );
 
-//logic [7:0] data1, data2, data3, data0;
-logic [7:0] read1, read2, read3, read4, read5, read0;
+logic [7:0] data0, data1, data2, data3;
 
 // Counters
 logic [7:0] image_count;
@@ -54,17 +51,10 @@ always_ff @(posedge clk) begin
      
 end
 
-
-
-// Sub cases in WRITE stage
-assign write_case = (image_count == 8'd196) ? 2'b01 : 
-			(conv_write_count == 16'd55744 ? 2'b10 :
-                         (dense_write_count == 16'd37578 ? 2'b11 : 2'b00)); 
-
 // State Switching
 always_comb begin
     next_state = current_state;
-    if (write)
+    if (control_reg == 32'h0001)
         next_state = WRITE_FOUR;
     else if (image_count == 8'd196 && current_state == WRITE_FOUR)
         next_state = WRITE_SEQ_CONV;
