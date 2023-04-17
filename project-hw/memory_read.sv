@@ -118,7 +118,7 @@ always_ff @(posedge clk) begin
                         temp[1] <= read1;
                         temp[2] <= read2;
                         temp[3] <= read3;
-                        out0 <= 8'd0;
+                        out0 <= 8'd0; //TODO: MAC counter need to be specified
                         out1 <= 8'd32;
                         out_param <= read4; // Bias
                     end
