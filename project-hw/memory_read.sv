@@ -9,8 +9,8 @@ module memory_read(
     input logic [31:0] control_reg,
     
     output logic [7:0] out0, out1, out2, out3, out_para,
-    output logic [7:0] filter0,filter1,filter2,filter3;
-    output logic [15:0] SSFR_instr;
+    //output logic [7:0] filter0,filter1,filter2,filter3,
+    output logic [15:0] SSFR_instr
 );
 
 logic [7:0] data0, data1, data2, data3;
