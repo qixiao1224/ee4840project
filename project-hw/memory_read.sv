@@ -183,7 +183,7 @@ always_ff @(posedge clk) begin
                 block34_count <= 0;
             end
 
-            //STATE 1: Convolute and maxpooling 28*28 image into 13*13*32
+            //STATE 1: Convolute and maxpooling 26x26 into 12x12x32
             LAYER12: begin 
                 //read image from 4 memories. read filter parameters from conv.
                 conv_ram_addr <= conv_ram_addr  + 1; // Reading Bias and filter
@@ -212,7 +212,7 @@ always_ff @(posedge clk) begin
                         out2 <= temp[2];
                         out3 <= temp[3];
                         out_param <= read4; // Param0
-                        image_ram_addr <= image_ram_addr + 13;
+                        image_ram_addr <= image_ram_addr + 12;
                     end
                     2: begin
                         temp[8] <= read0;
@@ -236,10 +236,9 @@ always_ff @(posedge clk) begin
                         out2 <= temp[6];
                         out3 <= temp[7];
                         out_param <= read4; // Param2
-                        image_ram_addr <= image_ram_addr - 14;
+                        image_ram_addr <= image_ram_addr - 13;
                     end
-//************NO MORE READING FROM IMAGE RAM FROM HERE***************//
-// TODO: write back somewhere here
+
                     4: begin
                         out0 <= temp[2];
                         out1 <= temp[3];
@@ -298,7 +297,7 @@ always_ff @(posedge clk) begin
                         stage_count <= 0;
                         block_count <= block_count + 1; // Updating offset
 			wr_en <= 1; // write back once
-                        if (block_count < 14*14) begin 
+			if (block_count < 13*13) begin 
                             conv_ram_addr <= conv_ram_addr - 1; //return to filter[0]
                             block_count <= 0;
                            image_ram_addr <= 0;
