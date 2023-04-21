@@ -5,12 +5,12 @@
 module memory_read(
     input logic        clk,
     input logic        reset,
-    input logic [31:0] writedata,
-    input logic [31:0] control_reg,
-    
+
     output logic [7:0] out0, out1, out2, out3, out_para,
     //output logic [7:0] filter0,filter1,filter2,filter3,
-    output logic [15:0] SSFR_instr
+    output logic [15:0] SSFR_instr,
+    //output to RAM module
+    output 
 );
 
 logic [7:0] data0, data1, data2, data3;
@@ -28,7 +28,7 @@ logic [3:0] layer12_count, layer34_count, layer5_count;
 logic [1:0] z_counter; // To maintain write back sequence
 
 //Address Register
-logic [13:0] image_ram_addr;//TODO: need to modify
+logic [13:0] image_ram_addr;
 logic [15:0] conv_ram_addr;
 logic [15:0] dense_ram_addr;
 
@@ -58,13 +58,13 @@ image_ram image_ram3 (.address(image_ram_addr), .clock(clk), .data(), .wren(), .
 //Dual Port ram //TODO: need to specify
 //Port A: Write back
 //Port B: Read
-res_ram ram0 (.address(ram_addr_b), .clock(clk), .data(data0), .wren(wren0), .q(read0));//address[13:0]
-res_ram ram1 (.address(ram_addr_b), .clock(clk), .data(data1), .wren(wren1), .q(read1));
-res_ram ram2 (.address(ram_addr_b), .clock(clk), .data(data2), .wren(wren2), .q(read2));
-res_ram ram3 (.address(ram_addr_b), .clock(clk), .data(data3), .wren(wren3), .q(read3));
+res_ram ram0 (.address(ram_addr_b), .clock(clk), .data(data0), .wren(wren0_a), .q(read0));//address[13:0]
+res_ram ram1 (.address(ram_addr_b), .clock(clk), .data(data1), .wren(wren1_a), .q(read1));
+res_ram ram2 (.address(ram_addr_b), .clock(clk), .data(data2), .wren(wren2_a), .q(read2));
+res_ram ram3 (.address(ram_addr_b), .clock(clk), .data(data3), .wren(wren3_a), .q(read3));
 
-conv_ram conv_ram0 (.address(conv_ram_addr), .clock(clk), .data(data0), .wren(wren_conv), .q(read4));//address [15:0]
-dense_ram dense_ram0 (.address(dense_ram_addr), .clock(clk), .data(data0), .wren(wren_dense), .q(read5));
+conv_ram conv_ram0 (.address(conv_ram_addr), .clock(clk), .data(), .wren(wren_conv), .q(read4));//address [15:0]
+dense_ram dense_ram0 (.address(dense_ram_addr), .clock(clk), .data(), .wren(wren_dense), .q(read5));
 
 
 
@@ -96,52 +96,52 @@ end
 // Responsible for writing back to memory
 always_ff @(posedge clk) begin
     if (reset) begin
-	reg_num <= 0;
-	start_write_back <= 0;
-	stop_write_back <= 0;
-	ram_store_addr = 0; // Starting from 0
+    reg_num <= 0;
+    start_write_back <= 0;
+    stop_write_back <= 0;
+    ram_store_addr = 0; // Starting from 0
     end
     else begin
-	if (wr_en) begin
-	   // Waited a cycle for actual output
-	   wr_en <= 0;
-	   start_write_back <= 1;
-	end
-	else if (start_write_back)begin
-	   start_write_back <= 0;
-	   stop_write_back <= 1;
-	   case (reg_num) // Write to corresponding ram
-		0: begin
-			wren0_a <= 1;
-			data0_a <= D_out;
-			ram_addr_a <= ram_store_addr;
-		end
-		1: begin
-			wren1_a <= 1;
-			data1_a <= D_out;
-			ram_addr_a <= ram_store_addr;
-		end
-		2: begin
-			wren2_a <= 1;
-			data2_a <= D_out;
-			ram_addr_a <= ram_store_addr;
-		end
-		3: begin
-			wren3_a <= 1;
-			data3_a <= D_out;
-			ram_addr_a <= ram_store_addr;
-			ram_store_addr <= ram_store_addr + 1;
-		end
-	endcase
-	end
-	else if (stop_write_back) begin // Close all write enable
-	   stop_write_back <= 0;
-	   wren0_a <= 0;
-	   wren1_a <= 0;
-	   wren2_a <= 0;
-	   wren3_a <= 0;
-	   reg_num <= reg_num + 1;
-	end
+        if (wr_en) begin
+        // Waited a cycle for actual output
+            wr_en <= 0;
+            start_write_back <= 1;
+        end
+        else if (start_write_back)begin
+            start_write_back <= 0;
+            stop_write_back <= 1;
+            case (reg_num) // Write to corresponding ram
+                0: begin
+                    wren0_a <= 1;
+                    data0_a <= D_out;
+                    ram_addr_a <= ram_store_addr;
+                end
+                1: begin
+                    wren1_a <= 1;
+                    data1_a <= D_out;
+                    ram_addr_a <= ram_store_addr;
+                end
+                2: begin
+                    wren2_a <= 1;
+                    data2_a <= D_out;
+                    ram_addr_a <= ram_store_addr;
+                end
+                3: begin
+                    wren3_a <= 1;
+                    data3_a <= D_out;
+                    ram_addr_a <= ram_store_addr;
+                    ram_store_addr <= ram_store_addr + 1;
+                end
+            endcase
+        end
+        else if (stop_write_back) begin // Close all write enable
+            stop_write_back <= 0;
+            wren0_a <= 0;
+            wren1_a <= 0;
+            wren2_a <= 0;
+            wren3_a <= 0;
+            reg_num <= reg_num + 1;
+        end
     end
 end
 
@@ -161,7 +161,7 @@ always_ff @(posedge clk) begin
         read4 <= 8'b0;
         read5 <= 8'b0;
 
-	wr_en <= 0;
+    wr_en <= 0;
 
         //addr
         image_ram_addr <= 0;
@@ -174,7 +174,7 @@ always_ff @(posedge clk) begin
         case (current_state)
             //STATE 0: IDLE
             IDLE: begin
-		z_counter <= 0;
+        z_counter <= 0;
                 //layer 12
                 layer12_count <= 0;
                 block_count <= 0;
@@ -183,9 +183,9 @@ always_ff @(posedge clk) begin
                 filter32_count <= 5'b0;
                 channel64_count <= 6'b0;
                 block34_count <= 0;
-		//layer 5
-		block5_count <= 0;
-		layer5_count <= 0;
+        //layer 5
+        block5_count <= 0;
+        layer5_count <= 0;
             end
 
 /***************
@@ -209,7 +209,7 @@ LAYER 12
                         out0 <= 8'd0; 
                         out1 <= 8'd9; 
                         out_param <= read4; // Bias
-                        image_ram_addr <= image_ram_addr + 1;
+                        ram_addr_b <= ram_addr_b + 1;
                     end
                     1: begin
                         temp[4] <= read0;
@@ -221,7 +221,7 @@ LAYER 12
                         out2 <= temp[2];
                         out3 <= temp[3];
                         out_param <= read4; // Param0
-                        image_ram_addr <= image_ram_addr + 12;
+                        ram_addr_b <= ram_addr_b + 12;
                     end
                     2: begin
                         temp[8] <= read0;
@@ -233,7 +233,7 @@ LAYER 12
                         out2 <= temp[3];
                         out3 <= temp[6];
                         out_param <= read4; // Param1
-                        image_ram_addr <= image_ram_addr + 1;
+                        ram_addr_b <= ram_addr_b + 1;
                     end
                     3: begin
                         temp[12] <= read0;
@@ -245,12 +245,12 @@ LAYER 12
                         out2 <= temp[6];
                         out3 <= temp[7];
                         out_param <= read4; // Param2
-			case (z_counter)
-				0: image_ram_addr <= image_ram_addr - 13; // To upper right side block
-				1: image_ram_addr <= image_ram_addr - 2; // To lower left side block
-				2: image_ram_addr <= image_ram_addr - 13; // To lower right side block
-				3: image_ram_addr <= image_ram_addr - 26; // TO upper left side of the next block
-			endcase
+            case (z_counter)
+                0: ram_addr_b <= ram_addr_b - 13; // To upper right side block
+                1: ram_addr_b <= ram_addr_b - 2; // To lower left side block
+                2: ram_addr_b <= ram_addr_b - 13; // To lower right side block
+                3: ram_addr_b <= ram_addr_b - 26; // TO upper left side of the next block
+            endcase
                         z_counter <= z_counter + 1;
                     end
 
@@ -309,16 +309,15 @@ LAYER 12
                         out_param <= 8'b00101000;
                         layer12_count <= 0;
                         block_count <= block_count + 1; // Updating offset
-			wr_en <= 1; // write back once
-			if (block_count < 13*13) begin 
+                        wr_en <= 1; // write back once
+                        if (block_count < 13*13) begin 
                             conv_ram_addr <= conv_ram_addr - 1; //return to filter[0]
-                           image_ram_addr <= 0;
+                            ram_addr_b <= 0;
                         end
                         else
                             channel32_count <= channel32_count + 1; // 32 channel, when loop_count == 32, next state.
                             conv_ram_addr <= conv_ram_addr + 9;//move to next filter
-			    block_count <= 0;
-                            
+                        block_count <= 0;
                     end
                 endcase
             end//end STATE LAYER12.
@@ -332,7 +331,7 @@ LAYER 34
             LAYER34: begin
                 layer34_count <= layer34_count + 1;//next cycle for 3x3
                 conv_ram_addr <= conv_ram_addr + 1;//TODO: check if conv_ram start from right position : 9
-		//count for 32 channel from previous layer
+        //count for 32 channel from previous layer
                 //channel64_count //count for 64 channel from this layer
 
 
@@ -436,7 +435,6 @@ LAYER 34
                     end
 
                     10: begin
-                        
                         conv_ram_addr <= conv_ram_add - 1; //No adding parameter ram address this cycle
                         filter32_count <= filter32_count + 1; //go to next channel of prev layer
                         if (filter32_count < 32) begin 
@@ -459,14 +457,14 @@ LAYER 34
                             //next block
                             block34_count <= block34_count + 1;
 
-			    case (z_counter)
-				0: ram_addr_b <= ram_addr_b + 1; // To upper right side block
-				1: ram_addr_b <= ram_addr_b - 2; // To lower left side block
-				2: ram_addr_b <= ram_addr_b - 6; // To lower right side block
-				3: ram_addr_b <= ram_addr_b - 12; // TO upper left side of the next block
-			    endcase
+                            case (z_counter)
+                            0: ram_addr_b <= ram_addr_b + 1; // To upper right side block
+                            1: ram_addr_b <= ram_addr_b - 2; // To lower left side block
+                            2: ram_addr_b <= ram_addr_b - 6; // To lower right side block
+                            3: ram_addr_b <= ram_addr_b - 12; // TO upper left side of the next block
+                            endcase
                             z_counter <= z_counter + 1;
- 
+
                             if (block34_count == 35) begin 
                             //6x6 blocks finished , switch filter
                                 ram_addr_b <= layer34_start_position; //parameter ram address positon restart from 0
@@ -477,7 +475,9 @@ LAYER 34
                                 conv_ram_addr <= conv_ram_addr - 4608;  //12*12*32; Back to the same filter
                             end
                         end
+                    end
                 endcase
+            end
 
 /***************
 LAYER 5
@@ -588,7 +588,6 @@ LAYER 5
                     end
 
                     10: begin
-                        
                         conv_ram_addr <= conv_ram_add - 1; //No adding parameter ram address this cycle
                         filter32_count <= filter32_count + 1; //go to next channel of prev layer
                         if (filter32_count < 32) begin 
@@ -621,6 +620,7 @@ LAYER 5
                                 conv_ram_addr <= conv_ram_addr - 4608;  //12*12*32; Back to the same filter
                             end
                         end
+                    end
                 endcase
             end
 
