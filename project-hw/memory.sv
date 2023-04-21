@@ -5,41 +5,35 @@
 module memory(
     input logic        clk,
     input logic        reset,
+
+    //Indication of suffix.
+    //    a: read module port
+    //    b: write module port 
+
     //input from image_ram
-    input logic [] image_ram_addr,
-    input logic [] data_image_0,data_iamge_1,data_image_2,data_image_3,
-    input logic    we_image0,we_image1,we_iamge2,we_image3,
+    input logic [9:0] image_ram_addr_a,image_ram_addr_b,
+    input logic [7:0] data_image_0,data_iamge_1,data_image_2,data_image_3,
+    input logic       we_image0,we_image1,we_iamge2,we_image3,
 
     //input from conv_Ram
-    input logic [] conv_ram_addr,
-    input logic [] data_conv_ram,
-    input logic    we_conv,
+    input logic [14:0] conv_ram_addr_a,conv_ram_addr_b,
+    input logic [7:0]  data_conv_ram,
+    input logic        we_conv,
 
     //input from dense_ram
-    input logic [] dense_ram_addr,
-    input logic [] data_dense_ram,
-    input logic    we_dense,
+    input logic [14:0] dense_ram_addr_a,dense_ram_addr_b,
+    input logic [7:0]  data_dense_ram,
+    input logic        we_dense,
 
     //input from ram (access to write and read simultaniously)
-    //a: read module port
-    //b: write module port 
-    input logic [] ram_addr_a, ram_addr_b,
-    input logic [] ram_data0,ram_data1,ram_data2,ram_data3,
-    input logic    we_ram0,we_ram1,we_ram2,we_ram3,
+    input logic [15:0] res_ram_addr_a, res_ram_addr_b,
+    input logic [7:0]  res_ram_data0,res_ram_data1,res_ram_data2,res_ram_data3,
+    input logic        we_res0,we_res1,we_res2,we_res3,
 
     //outputs from RAM
     output logic [7:0] read_image0,read_image1,read_iamge2,read_iamge3,read_conv,read_dense,
-    output logic [7:0] read_ram0,read_ram1,read_ram2,read_ram3,
+    output logic [7:0] read_res0,read_res1,read_res2,read_res3,
 );
-
-logic [7:0] data0, data1, data2, data3;
-
-
-logic [13:0] ram_addr;
-logic [15:0] conv_ram_addr;
-logic [15:0] dense_ram_addr;
-
-logic wren1,wren2,wren3,wren0,wren_conv, wren_dense;
 
 
 // Memory module definitions
