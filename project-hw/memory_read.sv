@@ -3,20 +3,31 @@
 
 
 module memory_read(
+    //TODO: interface need to be modified
     input logic        clk,
     input logic        reset,
 
+    //read from outter ram
+    input logic [7:0] read_image0, read_image1, read_image2, read_image3;
+    input logic [7:0] read_conv,read_dense,
+
+    //TODO: output not fixed.
     output logic [7:0] out0, out1, out2, out3, out_para,
     //output logic [7:0] filter0,filter1,filter2,filter3,
     output logic [15:0] SSFR_instr,
-    //output to RAM module
-    output 
+
+    //output read address to upper level
+    output logic [9:0] image_ram_addr;
+    output logic [14:0] conv_ram_addr;
+    output logic [14:0] dense_ram_addr;
+
 );
 
+//send data to res_ram
 logic [7:0] data0, data1, data2, data3;
 
 
-//TODO: Size to be determined
+//TODO: Weird part, consider changing.
 parameter layer34_start_position = 0;
 
 // Counters
@@ -27,19 +38,18 @@ logic [4:0] block_count, block34_count, block5_count;
 logic [3:0] layer12_count, layer34_count, layer5_count;
 logic [1:0] z_counter; // To maintain write back sequence
 
-//Address Register
-logic [13:0] image_ram_addr;
-logic [15:0] conv_ram_addr;
-logic [15:0] dense_ram_addr;
+//Res ram Address Register
+logic [13:0] ram_addr_a,ram_addr_b;
 
+//temp addr served as a counter
 logic [13:0] ram_store_addr;
 
 //Write enable Signal
-logic wren1,wren2,wren3,wren0,wren_conv,wren_dense;
-logic wr_back;
+logic wren1,wren2,wren3,wren0;
+logic wr_en; //top write back signal
 
 //Temp Register to store data in one block
-logic [7:0] temp [15:0];
+logic [7:0] processing_unit_4x4 [15:0];
 
 //Register to calculate which ram to store in
 logic [2:0] reg_num;
@@ -49,23 +59,32 @@ logic start_write_back, stop_write_back;
 typedef enum logic [1:0] { IDLE, LAYER12, LAYER34 , LAYER5, DENSE} state_t;
 state_t current_state, next_state;
 
-// Memory module definitions //TODO: Need to mv to top module
-image_ram image_ram0 (.address(image_ram_addr), .clock(clk), .data(), .wren(), .q(read0));//address[13:0]
-image_ram image_ram1 (.address(image_ram_addr), .clock(clk), .data(), .wren(), .q(read1));
-image_ram image_ram2 (.address(image_ram_addr), .clock(clk), .data(), .wren(), .q(read2));
-image_ram image_ram3 (.address(image_ram_addr), .clock(clk), .data(), .wren(), .q(read3));
 
-//Dual Port ram //TODO: need to specify
+//residue ram to store output from each layer // address[13:0]
+//inner use in this module
+res_ram res_ram0 (.wraddress(ram_addr_a), .rdaddress(ram_addr_b), .clock(clk), .data(data0), .wren(wren0), .q(read_res0));//address[13:0]
+res_ram res_ram1 (.wraddress(ram_addr_a), .rdaddress(ram_addr_b), .clock(clk), .data(data1), .wren(wren1), .q(read_res1));
+res_ram res_ram2 (.wraddress(ram_addr_a), .rdaddress(ram_addr_b), .clock(clk), .data(data2), .wren(wren2), .q(read_res2));
+res_ram res_ram3 (.wraddress(ram_addr_a), .rdaddress(ram_addr_b), .clock(clk), .data(data3), .wren(wren3), .q(read_res3));
+
+
 //Port A: Write back
 //Port B: Read
-res_ram ram0 (.address(ram_addr_b), .clock(clk), .data(data0), .wren(wren0_a), .q(read0));//address[13:0]
-res_ram ram1 (.address(ram_addr_b), .clock(clk), .data(data1), .wren(wren1_a), .q(read1));
-res_ram ram2 (.address(ram_addr_b), .clock(clk), .data(data2), .wren(wren2_a), .q(read2));
-res_ram ram3 (.address(ram_addr_b), .clock(clk), .data(data3), .wren(wren3_a), .q(read3));
-
-conv_ram conv_ram0 (.address(conv_ram_addr), .clock(clk), .data(), .wren(wren_conv), .q(read4));//address [15:0]
-dense_ram dense_ram0 (.address(dense_ram_addr), .clock(clk), .data(), .wren(wren_dense), .q(read5));
-
+// memory memory( .clk(clk),
+//         .reset(reset),
+//         //connect image ram (read only)
+//         .image_ram_addr_b(image_ram_addr),
+//         .read_image0(read_image0),
+//         .read_image1(read_image1),
+//         .read_image2(read_image2),
+//         .read_image3(read_image3),
+//         //connect conv ram (read only)
+//         .conv_ram_addr_b(conv_ram_addr),
+//         .read_conv(read_conv)
+//         //connect dense ram (read only)
+//         .dense_ram_addr_b(dense_ram_addr),
+//         .read_dense(read_dense)
+//         );
 
 
 // State updates
@@ -112,23 +131,23 @@ always_ff @(posedge clk) begin
             stop_write_back <= 1;
             case (reg_num) // Write to corresponding ram
                 0: begin
-                    wren0_a <= 1;
-                    data0_a <= D_out;
+                    wren0 <= 1;
+                    data0 <= D_out;
                     ram_addr_a <= ram_store_addr;
                 end
                 1: begin
-                    wren1_a <= 1;
-                    data1_a <= D_out;
+                    wren1 <= 1;
+                    data1 <= D_out;
                     ram_addr_a <= ram_store_addr;
                 end
                 2: begin
-                    wren2_a <= 1;
-                    data2_a <= D_out;
+                    wren2 <= 1;
+                    data2 <= D_out;
                     ram_addr_a <= ram_store_addr;
                 end
                 3: begin
-                    wren3_a <= 1;
-                    data3_a <= D_out;
+                    wren3 <= 1;
+                    data3 <= D_out;
                     ram_addr_a <= ram_store_addr;
                     ram_store_addr <= ram_store_addr + 1;
                 end
@@ -136,10 +155,10 @@ always_ff @(posedge clk) begin
         end
         else if (stop_write_back) begin // Close all write enable
             stop_write_back <= 0;
-            wren0_a <= 0;
-            wren1_a <= 0;
-            wren2_a <= 0;
-            wren3_a <= 0;
+            wren0 <= 0;
+            wren1 <= 0;
+            wren2 <= 0;
+            wren3 <= 0;
             reg_num <= reg_num + 1;
         end
     end
@@ -153,13 +172,6 @@ always_ff @(posedge clk) begin
         data2 <= 8'b0;
         data3 <= 8'b0;
         data0 <= 8'b0;
-
-        read0 <= 8'b0;
-        read1 <= 8'b0;
-        read2 <= 8'b0;
-        read3 <= 8'b0;
-        read4 <= 8'b0;
-        read5 <= 8'b0;
 
     wr_en <= 0;
 
@@ -201,50 +213,50 @@ LAYER 12
                 //11 cycles in total to deal with a 4x4 block
                 case (layer12_count) 
                     0: begin // Outputting bias and counter = 32
-                        temp[0] <= read0;
-                        temp[1] <= read1;
-                        temp[2] <= read2;
-                        temp[3] <= read3;
+                        processing_unit_4x4[0] <= read_image0;
+                        processing_unit_4x4[1] <= read_image1;
+                        processing_unit_4x4[2] <= read_image2;
+                        processing_unit_4x4[3] <= read_image3;
                         //MAC counter = filter number = 9
                         out0 <= 8'd0; 
                         out1 <= 8'd9; 
-                        out_param <= read4; // Bias
+                        out_param <= read_conv; // Bias
                         ram_addr_b <= ram_addr_b + 1;
                     end
                     1: begin
-                        temp[4] <= read0;
-                        temp[5] <= read1;
-                        temp[6] <= read2;
-                        temp[7] <= read3;
-                        out0 <= temp[0];
-                        out1 <= temp[1];
-                        out2 <= temp[2];
-                        out3 <= temp[3];
-                        out_param <= read4; // Param0
+                        processing_unit_4x4[4] <= read_image0;
+                        processing_unit_4x4[5] <= read_image1;
+                        processing_unit_4x4[6] <= read_image2;
+                        processing_unit_4x4[7] <= read_image3;
+                        out0 <= processing_unit_4x4[0];
+                        out1 <= processing_unit_4x4[1];
+                        out2 <= processing_unit_4x4[2];
+                        out3 <= processing_unit_4x4[3];
+                        out_param <= read_conv; // Param0
                         ram_addr_b <= ram_addr_b + 12;
                     end
                     2: begin
-                        temp[8] <= read0;
-                        temp[9] <= read1;
-                        temp[10] <= read2;
-                        temp[11] <= read3;
-                        out0 <= temp[1];
-                        out1 <= temp[4];
-                        out2 <= temp[3];
-                        out3 <= temp[6];
-                        out_param <= read4; // Param1
+                        processing_unit_4x4[8] <= read_image0;
+                        processing_unit_4x4[9] <= read_image1;
+                        processing_unit_4x4[10] <= read_image2;
+                        processing_unit_4x4[11] <= read_image3;
+                        out0 <= processing_unit_4x4[1];
+                        out1 <= processing_unit_4x4[4];
+                        out2 <= processing_unit_4x4[3];
+                        out3 <= processing_unit_4x4[6];
+                        out_param <= read_conv; // Param1
                         ram_addr_b <= ram_addr_b + 1;
                     end
                     3: begin
-                        temp[12] <= read0;
-                        temp[13] <= read1;
-                        temp[14] <= read2;
-                        temp[15] <= read3;
-                        out0 <= temp[4];
-                        out1 <= temp[5];
-                        out2 <= temp[6];
-                        out3 <= temp[7];
-                        out_param <= read4; // Param2
+                        processing_unit_4x4[12] <= read_image0;
+                        processing_unit_4x4[13] <= read_image1;
+                        processing_unit_4x4[14] <= read_image2;
+                        processing_unit_4x4[15] <= read_image3;
+                        out0 <= processing_unit_4x4[4];
+                        out1 <= processing_unit_4x4[5];
+                        out2 <= processing_unit_4x4[6];
+                        out3 <= processing_unit_4x4[7];
+                        out_param <= read_conv; // Param2
             case (z_counter)
                 0: ram_addr_b <= ram_addr_b - 13; // To upper right side block
                 1: ram_addr_b <= ram_addr_b - 2; // To lower left side block
@@ -255,52 +267,52 @@ LAYER 12
                     end
 
                     4: begin
-                        out0 <= temp[2];
-                        out1 <= temp[3];
-                        out2 <= temp[8];
-                        out3 <= temp[9];
-                        out_param <= read4; // Param3
+                        out0 <= processing_unit_4x4[2];
+                        out1 <= processing_unit_4x4[3];
+                        out2 <= processing_unit_4x4[8];
+                        out3 <= processing_unit_4x4[9];
+                        out_param <= read_conv; // Param3
                         
                     end
 
                     5: begin
-                        out0 <= temp[3];
-                        out1 <= temp[6];
-                        out2 <= temp[9];
-                        out3 <= temp[12];
-                        out_param <= read4; // Param4
+                        out0 <= processing_unit_4x4[3];
+                        out1 <= processing_unit_4x4[6];
+                        out2 <= processing_unit_4x4[9];
+                        out3 <= processing_unit_4x4[12];
+                        out_param <= read_conv; // Param4
                     end
 
                     6: begin
-                        out0 <= temp[6];
-                        out1 <= temp[7];
-                        out2 <= temp[12];
-                        out3 <= temp[13];
-                        out_param <= read4; // Param5
+                        out0 <= processing_unit_4x4[6];
+                        out1 <= processing_unit_4x4[7];
+                        out2 <= processing_unit_4x4[12];
+                        out3 <= processing_unit_4x4[13];
+                        out_param <= read_conv; // Param5
                     end
 
                     7: begin
-                        out0 <= temp[8];
-                        out1 <= temp[9];
-                        out2 <= temp[10];
-                        out3 <= temp[11];
-                        out_param <= read4; // Param6
+                        out0 <= processing_unit_4x4[8];
+                        out1 <= processing_unit_4x4[9];
+                        out2 <= processing_unit_4x4[10];
+                        out3 <= processing_unit_4x4[11];
+                        out_param <= read_conv; // Param6
                     end
 
                     8: begin
-                        out0 <= temp[9];
-                        out1 <= temp[12];
-                        out2 <= temp[11];
-                        out3 <= temp[14];
-                        out_param <= read4; // Param7
+                        out0 <= processing_unit_4x4[9];
+                        out1 <= processing_unit_4x4[12];
+                        out2 <= processing_unit_4x4[11];
+                        out3 <= processing_unit_4x4[14];
+                        out_param <= read_conv; // Param7
                     end
 
                     9: begin
-                        out0 <= temp[12];
-                        out1 <= temp[13];
-                        out2 <= temp[14];
-                        out3 <= temp[15];
-                        out_param <= read4;// Param8
+                        out0 <= processing_unit_4x4[12];
+                        out1 <= processing_unit_4x4[13];
+                        out2 <= processing_unit_4x4[14];
+                        out3 <= processing_unit_4x4[15];
+                        out_param <= read_conv;// Param8
                         conv_ram_addr <= conv_ram_addr - 9;//return to filter [0]
                     end
 
@@ -337,104 +349,105 @@ LAYER 34
 
                 case (layer34_count) 
                     0: begin // Outputting bias and MACcounter = 32
-                        temp[0] <= read0;
-                        temp[1] <= read1;
-                        temp[2] <= read2;
-                        temp[3] <= read3;
+                        processing_unit_4x4[0] <= read_res0;
+                        processing_unit_4x4[1] <= read_res1;
+                        processing_unit_4x4[2] <= read_res2;
+                        processing_unit_4x4[3] <= read_res3;
                         //MAC counter = filter number = 288
                         out0 <= 8'd1; //256
                         out1 <= 8'd32;//32
-                        out_param <= read4; // Bias
+                        out_param <= read_conv; // Bias
                         ram_addr_b <= ram_addr_b + 1; 
                     end
                     1: begin
-                        temp[4] <= read0;
-                        temp[5] <= read1;
-                        temp[6] <= read2;
-                        temp[7] <= read3;
-                        out0 <= temp[0];
-                        out1 <= temp[1];
-                        out2 <= temp[2];
-                        out3 <= temp[3];
-                        out_param <= read4; // Param0
+                        processing_unit_4x4[4] <= read_res0;
+                        processing_unit_4x4[5] <= read_res1;
+                        processing_unit_4x4[6] <= read_res2;
+                        processing_unit_4x4[7] <= read_res3;
+                        out0 <= processing_unit_4x4[0];
+                        out1 <= processing_unit_4x4[1];
+                        out2 <= processing_unit_4x4[2];
+                        out3 <= processing_unit_4x4[3];
+                        out_param <= read_conv; // Param0
                         ram_addr_b <= ram_addr_b + 5;
                     end
                     2: begin
-                        temp[8] <= read0;
-                        temp[9] <= read1;
-                        temp[10] <= read2;
-                        temp[11] <= read3;
-                        out0 <= temp[1];
-                        out1 <= temp[4];
-                        out2 <= temp[3];
-                        out3 <= temp[6];
-                        out_param <= read4; // Param1
+                        processing_unit_4x4[8] <= read_res0;
+                        processing_unit_4x4[9] <= read_res1;
+                        processing_unit_4x4[10] <= read_res2;
+                        processing_unit_4x4[11] <= read_res3;
+                        out0 <= processing_unit_4x4[1];
+                        out1 <= processing_unit_4x4[4];
+                        out2 <= processing_unit_4x4[3];
+                        out3 <= processing_unit_4x4[6];
+                        out_param <= read_conv; // Param1
                         ram_addr_b <= ram_addr_b + 1;
                     end
                     3: begin
-                        temp[12] <= read0;
-                        temp[13] <= read1;
-                        temp[14] <= read2;
-                        temp[15] <= read3;
-                        out0 <= temp[4];
-                        out1 <= temp[5];
-                        out2 <= temp[6];
-                        out3 <= temp[7];
-                        out_param <= read4; // Param2
+                        processing_unit_4x4[12] <= read_res0;
+                        processing_unit_4x4[13] <= read_res1;
+                        processing_unit_4x4[14] <= read_res2;
+                        processing_unit_4x4[15] <= read_res3;
+                        out0 <= processing_unit_4x4[4];
+                        out1 <= processing_unit_4x4[5];
+                        out2 <= processing_unit_4x4[6];
+                        out3 <= processing_unit_4x4[7];
+                        out_param <= read_conv; // Param2
                         ram_addr_b <= ram_addr_b - 7;
                         //return to the original para ram place since next layer use same address
                     end
 
                     4: begin
-                        out0 <= temp[2];
-                        out1 <= temp[3];
-                        out2 <= temp[8];
-                        out3 <= temp[9];
-                        out_param <= read4; // Param3
+                        out0 <= processing_unit_4x4[2];
+                        out1 <= processing_unit_4x4[3];
+                        out2 <= processing_unit_4x4[8];
+                        out3 <= processing_unit_4x4[9];
+                        out_param <= read_conv; // Param3
                     end
 
                     5: begin
-                        out0 <= temp[3];
-                        out1 <= temp[6];
-                        out2 <= temp[9];
-                        out3 <= temp[12];
-                        out_param <= read4; // Param4
+                        out0 <= processing_unit_4x4[3];
+                        out1 <= processing_unit_4x4[6];
+                        out2 <= processing_unit_4x4[9];
+                        out3 <= processing_unit_4x4[12];
+                        out_param <= read_conv; // Param4
                     end
 
                     6: begin
-                        out0 <= temp[6];
-                        out1 <= temp[7];
-                        out2 <= temp[12];
-                        out3 <= temp[13];
-                        out_param <= read4; // Param5
+                        out0 <= processing_unit_4x4[6];
+                        out1 <= processing_unit_4x4[7];
+                        out2 <= processing_unit_4x4[12];
+                        out3 <= processing_unit_4x4[13];
+                        out_param <= read_conv; // Param5
                     end
 
                     7: begin
-                        out0 <= temp[8];
-                        out1 <= temp[9];
-                        out2 <= temp[10];
-                        out3 <= temp[11];
-                        out_param <= read4; // Param6
+                        out0 <= processing_unit_4x4[8];
+                        out1 <= processing_unit_4x4[9];
+                        out2 <= processing_unit_4x4[10];
+                        out3 <= processing_unit_4x4[11];
+                        out_param <= read_conv; // Param6
                     end
 
                     8: begin
-                        out0 <= temp[9];
-                        out1 <= temp[12];
-                        out2 <= temp[11];
-                        out3 <= temp[14];
-                        out_param <= read4; // Param7
+                        out0 <= processing_unit_4x4[9];
+                        out1 <= processing_unit_4x4[12];
+                        out2 <= processing_unit_4x4[11];
+                        out3 <= processing_unit_4x4[14];
+                        out_param <= read_conv; // Param7
                     end
 
                     9: begin
-                        out0 <= temp[12];
-                        out1 <= temp[13];
-                        out2 <= temp[14];
-                        out3 <= temp[15];
-                        out_param <= read4;// Param8
+                        out0 <= processing_unit_4x4[12];
+                        out1 <= processing_unit_4x4[13];
+                        out2 <= processing_unit_4x4[14];
+                        out3 <= processing_unit_4x4[15];
+                        out_param <= read_conv;// Param8
 
                     end
 
                     10: begin
+                        //TODO: FIXME: need to add wr_en signal to start write back
                         conv_ram_addr <= conv_ram_add - 1; //No adding parameter ram address this cycle
                         filter32_count <= filter32_count + 1; //go to next channel of prev layer
                         if (filter32_count < 32) begin 
@@ -483,111 +496,111 @@ LAYER 34
 LAYER 5
 ****************/
 
-            LAYER5: begin
-                layer5_count <= layer5_count + 1;//next cycle for 3x3
+            LAYER5: begin //TODO: Need to modify
+                layer34_count <= layer34_count + 1;//next cycle for 3x3
                 conv_ram_addr <= conv_ram_addr + 1;//TODO: check if conv_ram start from right position : 9
-
 
                 case (layer34_count) 
                     0: begin // Outputting bias and MACcounter = 32
-                        temp[0] <= read0;
-                        temp[1] <= read1;
-                        temp[2] <= read2;
-                        temp[3] <= read3;
+                        processing_unit_4x4[0] <= read_res0;
+                        processing_unit_4x4[1] <= read_res1;
+                        processing_unit_4x4[2] <= read_res2;
+                        processing_unit_4x4[3] <= read_res3;
                         //MAC counter = filter number = 288
                         out0 <= 8'd1; //256
                         out1 <= 8'd32;//32
-                        out_param <= read4; // Bias
+                        out_param <= read_conv; // Bias
                         ram_addr_b <= ram_addr_b + 1; 
                     end
                     1: begin
-                        temp[4] <= read0;
-                        temp[5] <= read1;
-                        temp[6] <= read2;
-                        temp[7] <= read3;
-                        out0 <= temp[0];
-                        out1 <= temp[1];
-                        out2 <= temp[2];
-                        out3 <= temp[3];
-                        out_param <= read4; // Param0
+                        processing_unit_4x4[4] <= read_res0;
+                        processing_unit_4x4[5] <= read_res1;
+                        processing_unit_4x4[6] <= read_res2;
+                        processing_unit_4x4[7] <= read_res3;
+                        out0 <= processing_unit_4x4[0];
+                        out1 <= processing_unit_4x4[1];
+                        out2 <= processing_unit_4x4[2];
+                        out3 <= processing_unit_4x4[3];
+                        out_param <= read_conv; // Param0
                         ram_addr_b <= ram_addr_b + 5;
                     end
                     2: begin
-                        temp[8] <= read0;
-                        temp[9] <= read1;
-                        temp[10] <= read2;
-                        temp[11] <= read3;
-                        out0 <= temp[1];
-                        out1 <= temp[4];
-                        out2 <= temp[3];
-                        out3 <= temp[6];
-                        out_param <= read4; // Param1
+                        processing_unit_4x4[8] <= read_res0;
+                        processing_unit_4x4[9] <= read_res1;
+                        processing_unit_4x4[10] <= read_res2;
+                        processing_unit_4x4[11] <= read_res3;
+                        out0 <= processing_unit_4x4[1];
+                        out1 <= processing_unit_4x4[4];
+                        out2 <= processing_unit_4x4[3];
+                        out3 <= processing_unit_4x4[6];
+                        out_param <= read_conv; // Param1
                         ram_addr_b <= ram_addr_b + 1;
                     end
                     3: begin
-                        temp[12] <= read0;
-                        temp[13] <= read1;
-                        temp[14] <= read2;
-                        temp[15] <= read3;
-                        out0 <= temp[4];
-                        out1 <= temp[5];
-                        out2 <= temp[6];
-                        out3 <= temp[7];
-                        out_param <= read4; // Param2
+                        processing_unit_4x4[12] <= read_res0;
+                        processing_unit_4x4[13] <= read_res1;
+                        processing_unit_4x4[14] <= read_res2;
+                        processing_unit_4x4[15] <= read_res3;
+                        out0 <= processing_unit_4x4[4];
+                        out1 <= processing_unit_4x4[5];
+                        out2 <= processing_unit_4x4[6];
+                        out3 <= processing_unit_4x4[7];
+                        out_param <= read_conv; // Param2
                         ram_addr_b <= ram_addr_b - 7;
                         //return to the original para ram place since next layer use same address
                     end
 
                     4: begin
-                        out0 <= temp[2];
-                        out1 <= temp[3];
-                        out2 <= temp[8];
-                        out3 <= temp[9];
-                        out_param <= read4; // Param3
+                        out0 <= processing_unit_4x4[2];
+                        out1 <= processing_unit_4x4[3];
+                        out2 <= processing_unit_4x4[8];
+                        out3 <= processing_unit_4x4[9];
+                        out_param <= read_conv; // Param3
                     end
 
                     5: begin
-                        out0 <= temp[3];
-                        out1 <= temp[6];
-                        out2 <= temp[9];
-                        out3 <= temp[12];
-                        out_param <= read4; // Param4
+                        out0 <= processing_unit_4x4[3];
+                        out1 <= processing_unit_4x4[6];
+                        out2 <= processing_unit_4x4[9];
+                        out3 <= processing_unit_4x4[12];
+                        out_param <= read_conv; // Param4
                     end
 
                     6: begin
-                        out0 <= temp[6];
-                        out1 <= temp[7];
-                        out2 <= temp[12];
-                        out3 <= temp[13];
-                        out_param <= read4; // Param5
+                        out0 <= processing_unit_4x4[6];
+                        out1 <= processing_unit_4x4[7];
+                        out2 <= processing_unit_4x4[12];
+                        out3 <= processing_unit_4x4[13];
+                        out_param <= read_conv; // Param5
                     end
 
                     7: begin
-                        out0 <= temp[8];
-                        out1 <= temp[9];
-                        out2 <= temp[10];
-                        out3 <= temp[11];
-                        out_param <= read4; // Param6
+                        out0 <= processing_unit_4x4[8];
+                        out1 <= processing_unit_4x4[9];
+                        out2 <= processing_unit_4x4[10];
+                        out3 <= processing_unit_4x4[11];
+                        out_param <= read_conv; // Param6
                     end
 
                     8: begin
-                        out0 <= temp[9];
-                        out1 <= temp[12];
-                        out2 <= temp[11];
-                        out3 <= temp[14];
-                        out_param <= read4; // Param7
+                        out0 <= processing_unit_4x4[9];
+                        out1 <= processing_unit_4x4[12];
+                        out2 <= processing_unit_4x4[11];
+                        out3 <= processing_unit_4x4[14];
+                        out_param <= read_conv; // Param7
                     end
 
                     9: begin
-                        out0 <= temp[12];
-                        out1 <= temp[13];
-                        out2 <= temp[14];
-                        out3 <= temp[15];
-                        out_param <= read4;// Param8
+                        out0 <= processing_unit_4x4[12];
+                        out1 <= processing_unit_4x4[13];
+                        out2 <= processing_unit_4x4[14];
+                        out3 <= processing_unit_4x4[15];
+                        out_param <= read_conv;// Param8
 
                     end
 
                     10: begin
+                        //TODO: FIXME: need to add wr_en signal to start write back
                         conv_ram_addr <= conv_ram_add - 1; //No adding parameter ram address this cycle
                         filter32_count <= filter32_count + 1; //go to next channel of prev layer
                         if (filter32_count < 32) begin 
@@ -600,19 +613,27 @@ LAYER 5
 
                             //RESET counters and address position
                             filter32_count <= 0;                      //next filter counter begin
-                            ram_addr_b = ram_addr_b - 36*64 + 1;      //restart ram from next block
-                            layer5_count <= 0;                       //Filter finished, read same bias for next filter
+                            ram_addr_b = ram_addr_b - 36*32;      //restart ram from original block, incremented later
+                            layer34_count <= 0;                       //Filter finished, read same bias for next filter
                             
                             // SSFR output
-                            out0 <= 8'b11000001;                      
-                            out_param <= 8'b00101000; 
+                            out0 <= 8'b11000001;
+                            out_param <= 8'b00101000;
                             
                             //next block
-                            block5_count <= block5_count + 1;  
- 
-                            if (block5_count == 35) begin 
+                            block34_count <= block34_count + 1;
+
+                            case (z_counter)
+                            0: ram_addr_b <= ram_addr_b + 1; // To upper right side block
+                            1: ram_addr_b <= ram_addr_b - 2; // To lower left side block
+                            2: ram_addr_b <= ram_addr_b - 6; // To lower right side block
+                            3: ram_addr_b <= ram_addr_b - 12; // TO upper left side of the next block
+                            endcase
+                            z_counter <= z_counter + 1;
+
+                            if (block34_count == 35) begin 
                             //6x6 blocks finished , switch filter
-                                ram_addr_b <= layer5_start_position; //parameter ram address positon restart from TODO
+                                ram_addr_b <= layer34_start_position; //parameter ram address positon restart from 0
                                 channel64_count <= channel64_count + 1;
                             end  
                             else begin 
