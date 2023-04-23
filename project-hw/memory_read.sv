@@ -10,6 +10,7 @@ module memory_read(
     //read from outter ram
     input logic [7:0] read_image0, read_image1, read_image2, read_image3;
     input logic [7:0] read_conv,read_dense,
+    input logic [7:0] D_out;
 
     //TODO: output not fixed.
     output logic [7:0] out0, out1, out2, out3, out_param, out_param1, out_param2. out_param3,
