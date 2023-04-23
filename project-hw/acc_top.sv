@@ -81,15 +81,15 @@ memory memory1(
     .read_image1(read_image1), 
     .read_image2(read_image2), 
     .read_image3(read_image3),
-    .read_conv(read_conv)
-    .read_dense(read_dense),
+    .read_conv(read_conv),
+    .read_dense(read_dense)
 );
 
 memory_write memory_write1(
     .clk(clk),
     .reset(reset),
-    .writedata(//TODO),
-    .control_reg(//TODO),
+    .writedata(/*TODO*/),
+    .control_reg(/*TODO*/),
     
     .wren0(we_image0),
     .wren1(we_image1),
@@ -119,21 +119,21 @@ memory_read memory_read1(
     .read_image1(read_image1), 
     .read_image2(read_image2), 
     .read_image3(read_image3),
-    .read_conv(read_conv)
+    .read_conv(read_conv),
     .read_dense(read_dense),
 
     //TODO: NOT WIRED
-    .out0(//TODO), 
-    .out1(//TODO), 
-    .out2(//TODO), 
-    .out3(//TODO), 
-    .out_param(//TODO),
+    .out0(/*TODO*/), 
+    .out1(/*TODO*/), 
+    .out2(/*TODO*/), 
+    .out3(/*TODO*/), 
+    .out_param(/*TODO*/),
     //output logic [7:0] filter0,filter1,filter2,filter3,
 
     //output read address to upper level
-    .image_ram_addr(image_ram_addr_b);
-    .conv_ram_addr(conv_ram_addr_b);
-    .dense_ram_addr(dense_ram_addr_b);
+    .image_ram_addr(image_ram_addr_b),
+    .conv_ram_addr(conv_ram_addr_b),
+    .dense_ram_addr(dense_ram_addr_b)
 
 );
 
