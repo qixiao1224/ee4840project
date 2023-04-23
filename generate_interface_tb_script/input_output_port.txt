@@ -1,0 +1,18 @@
+module
+sync_fifo
+----------break----------
+input
+a_123_en 16 wire
+b 8 reg
+c 1 wire
+d 16 wire
+clk 1 wire
+rst 1 reg
+DA 8 reg
+----------break----------
+output
+data_out 8 wire
+full 1 wire
+empty 1 wire
+SEL_CON 3 reg
+port1 2 reg
