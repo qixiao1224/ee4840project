@@ -31,7 +31,7 @@ parameter layer34_start_position = 0;
 
 // Counters
 logic [4:0] channel_count;
-logic [5:0] filter32_count;
+logic [5:0] filter32_count, filter32_count_1;
 logic [6:0] channel64_count;
 logic [4:0] block_count, block34_count, block5_count;
 logic [3:0] layer12_count, layer34_count, layer5_count;
@@ -111,7 +111,7 @@ always_comb begin
 end
 
 
-// Responsible for writing back to memory
+// Responsible for WRITING BACK to memory
 always_ff @(posedge clk) begin
     if (reset) begin
     reg_num <= 0;
@@ -164,7 +164,7 @@ always_ff @(posedge clk) begin
 end
 
 
-// REAd
+// READ
 always_ff @(posedge clk) begin
     if (reset) begin
         data1 <= 8'b0;
@@ -172,7 +172,7 @@ always_ff @(posedge clk) begin
         data3 <= 8'b0;
         data0 <= 8'b0;
 
-    wr_en <= 0;
+   	wr_en <= 0;
 
         //addr
         image_ram_addr <= 0;
@@ -185,7 +185,7 @@ always_ff @(posedge clk) begin
         case (current_state)
             //STATE 0: IDLE
             IDLE: begin
-        z_counter <= 0;
+        	z_counter <= 0;
                 //layer 12
                 layer12_count <= 0;
                 block_count <= 0;
@@ -194,9 +194,11 @@ always_ff @(posedge clk) begin
                 filter32_count <= 5'b0;
                 channel64_count <= 6'b0;
                 block34_count <= 0;
-        //layer 5
-        block5_count <= 0;
-        layer5_count <= 0;
+		layer34_count <= 0;
+        	//layer 5
+        	block5_count <= 0;
+        	layer5_count <= 0;
+		filter32_count_1 <= 0;
             end
 
 /***************
@@ -448,10 +450,10 @@ LAYER 34
                     10: begin
                         //TODO: FIXME: need to add wr_en signal to start write back
                         conv_ram_addr <= conv_ram_add - 1; //No adding parameter ram address this cycle
-                        filter32_count <= filter32_count + 1; //go to next channel of prev layer
+                        filter32_count_1 <= filter32_count_1 + 1; //go to next channel of prev layer
                         if (filter32_count < 32) begin 
                             //Have Not Finish ONE Filter
-                            ram_addr_b <= ram_addr_b + 36*(filter32_count+1);//restart ram from the start position in this block
+                            ram_addr_b <= ram_addr_b + 49*(filter32_count_1 + 1);//restart ram from the start position in this block
                             layer34_count <= 1;                              //Filter not finished, do not return to 0
                         end
                         else begin 
@@ -459,7 +461,7 @@ LAYER 34
 
                             //RESET counters and address position
                             filter32_count <= 0;                      //next filter counter begin
-                            ram_addr_b = ram_addr_b - 36*32;      //restart ram from original block, incremented later
+                            ram_addr_b = ram_addr_b - 49*32;      //restart ram from original block, incremented later
                             layer34_count <= 0;                       //Filter finished, read same bias for next filter
                             
                             // SSFR output
@@ -479,7 +481,7 @@ LAYER 34
 
                             if (block34_count == 35) begin 
                             //6x6 blocks finished , switch filter
-                                ram_addr_b <= layer34_start_position; //parameter ram address positon restart from 0
+                                ram_addr_b <= layer34_start_position; //TODO parameter ram address positon restart from ?
                                 channel64_count <= channel64_count + 1;
                             end  
                             else begin 
@@ -496,10 +498,10 @@ LAYER 5
 ****************/
 
             LAYER5: begin //TODO: Need to modify
-                layer34_count <= layer34_count + 1;//next cycle for 3x3
-                conv_ram_addr <= conv_ram_addr + 1;//TODO: check if conv_ram start from right position : 9
+                layer5_count <= layer5_count + 1;//next cycle for 3x3
+                conv_ram_addr <= conv_ram_addr + 1;//TODO: check if conv_ram start from right position
 
-                case (layer34_count) 
+                case (layer5_count) 
                     0: begin // Outputting bias and MACcounter = 32
                         processing_unit_4x4[0] <= read_res0;
                         processing_unit_4x4[1] <= read_res1;
@@ -604,23 +606,23 @@ LAYER 5
                         filter32_count <= filter32_count + 1; //go to next channel of prev layer
                         if (filter32_count < 32) begin 
                             //Have Not Finish ONE Filter
-                            ram_addr_b <= ram_addr_b + 36*(filter32_count+1);//restart ram from the start position in this block
-                            layer34_count <= 1;                              //Filter not finished, do not return to 0
+                            ram_addr_b <= ram_addr_b + 9*(filter32_count+1);//restart ram from the start position in this block
+                            layer5_count <= 1;                              //Filter not finished, do not return to 0
                         end
                         else begin 
                             //One Filter Finished
 
                             //RESET counters and address position
                             filter32_count <= 0;                      //next filter counter begin
-                            ram_addr_b = ram_addr_b - 36*32;      //restart ram from original block, incremented later
-                            layer34_count <= 0;                       //Filter finished, read same bias for next filter
+                            ram_addr_b = ram_addr_b - 9*32;      //restart ram from original block, incremented later
+                            layer5_count <= 0;                       //Filter finished, read same bias for next filter
                             
                             // SSFR output
-                            out0 <= 8'b11000001;
+                            out0 <= 8'b01000001;
                             out_param <= 8'b00101000;
                             
                             //next block
-                            block34_count <= block34_count + 1;
+                            block5_count <= block5_count + 1;
 
                             case (z_counter)
                             0: ram_addr_b <= ram_addr_b + 1; // To upper right side block
@@ -630,9 +632,9 @@ LAYER 5
                             endcase
                             z_counter <= z_counter + 1;
 
-                            if (block34_count == 35) begin 
+                            if (block5_count == 35) begin 
                             //6x6 blocks finished , switch filter
-                                ram_addr_b <= layer34_start_position; //parameter ram address positon restart from 0
+                                ram_addr_b <= layer5_start_position; //TODO parameter ram address positon restart from ?
                                 channel64_count <= channel64_count + 1;
                             end  
                             else begin 
