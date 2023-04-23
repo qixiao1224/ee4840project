@@ -4,10 +4,11 @@ module memory_write(
         input logic [31:0] writedata,
         input logic [31:0] control_reg,
     
-        output logic [7:0] read0, read1, read2, read3, read4, read5;
-        output logic [13:0] ram_addr_output, //TODO Test signal.
-        output logic [15:0] conv_ram_addr_output,dense_ram_addr_output//TODO Test signal.
-        output logic [15:0] SSFR_instr;
+        output logic wren0,wren1,wren2,wren3,wren_conv,wren_dense,
+        output logic [7:0] data0,data1,data2,data3,
+        output logic [9:0] image_ram_addr,
+        output logic [14:0] conv_ram_addr,
+        output logic [14:0] dense_ram_addr,
 );
 
 
@@ -44,6 +45,8 @@ always_ff @(posedge clk) begin
         data2 <= 8'b0;
         data3 <= 8'b0;
         data0 <= 8'b0;
+        data4 <= 8'b0;
+        data5 <= 8'b0;
         wren0 <= 0;
         wren1 <= 0;
         wren2 <= 0;
@@ -66,6 +69,10 @@ always_ff @(posedge clk) begin
                     dense_write_count <= 0;
             end
         WRITE_FOUR: begin // Data is splitted into 4. store in different memories
+            data0 <= writedata[31:24];
+            data1 <= writedata[23:16];
+            data2 <= writedata[15:8];
+            data3 <= writedata[7:0];
             wren0 <= 1;
             wren1 <= 1;
             wren2 <= 1;
@@ -78,6 +85,7 @@ always_ff @(posedge clk) begin
                     end	  
         end
             WRITE_SEQ_CONV: begin
+            data4 <= writedata[7:0];
             wren0 <= 0;
             wren1 <= 0;
             wren2 <= 0;
@@ -90,6 +98,7 @@ always_ff @(posedge clk) begin
                     end
         end
             WRITE_SEQ_DENSE: begin
+            data6 <= writedata[7:0]
             wren0 <= 0;
             wren1 <= 0;
             wren2 <= 0;

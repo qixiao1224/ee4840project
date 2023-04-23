@@ -34,11 +34,109 @@ module vga_ball(input logic        clk,
 // vga counter
    vga_counters counters(.clk50(clk), .*);
 
-// Initialize Memory control moduel
-//   mem_cntrl();
+//wire between modules
+logic [7:0] read_image0,read_image1,read_image2,read_image3,read_conv,read_dense;
+logic [14:0] conv_ram_addr_a,conv_ram_addr_b,dense_ram_addr_a,dense_ram_addr_b;
+logic [9:0] image_ram_addr_a,image_ram_addr_b;
+logic we_image0,we_image1,we_image2,we_image3,we_conv,we_dense;
+logic [7:0] data_image0,data_image1,data_image2,data_image3,data_conv,data_dense;
 
-// Initialize accelerator module
-//   acc();
+memory memory1( 
+    .clk(clk),
+    .reset(reset),
+
+//input from image_ram
+    //memory_read
+    .image_ram_addr_b(image_ram_addr_b),
+    //memory_write
+    .image_ram_addr_a(image_ram_addr_a),
+    .data_image0(data_image0),
+    .data_image1(data_image1),
+    .data_image2(data_image2),
+    .data_image3(data_image3),
+    .we_image0(we_image0),
+    .we_image1(we_image1),
+    .we_iamge2(we_image2),
+    .we_image3(we_image3),
+
+//input from conv_Ram
+//memory_read
+    .conv_ram_addr_b(conv_ram_addr_b),
+//memory_write
+    .conv_ram_addr_a(conv_ram_addr_a),
+    .data_conv(data_conv),
+    .we_conv(we_conv),
+
+//input from dense_ram
+//memory_read
+.dense_ram_addr_b(conv_ram_addr_b),
+//memory_write
+    .dense_ram_addr_a(dense_ram_addr_a),
+    .data_dense(data_dense),
+    .we_dense(we_dense),
+
+//outputs from RAM
+//memory_read 
+    .read_image0(read_image0), 
+    .read_image1(read_image1), 
+    .read_image2(read_image2), 
+    .read_image3(read_image3),
+    .read_conv(read_conv)
+    .read_dense(read_dense),
+);
+
+memory_write memory_write1(
+    .clk(clk),
+    .reset(reset),
+    .writedata(//TODO),
+    .control_reg(//TODO),
+    
+    .wren0(we_image0),
+    .wren1(we_image1),
+    .wren2(we_image2),
+    .wren3(we_image3),
+    .wren_conv(we_conv),
+    .wren_dense(we_conv),
+    .data0(data_image0),
+    .data1(data_image1),
+    .data2(data_image2),
+    .data3(data_image3),
+    .data4(data_conv),
+    .data5(data_dense),
+    .image_ram_addr(image_ram_addr_a),
+    .conv_ram_addr(conv_ram_addr_a),
+    .dense_ram_addr(dense_ram_addr_a)
+);
+
+
+
+memory_read memory_read1(
+    .clk(clk),
+    .reset(reset),
+
+    //read from outter ram
+    .read_image0(read_image0), 
+    .read_image1(read_image1), 
+    .read_image2(read_image2), 
+    .read_image3(read_image3),
+    .read_conv(read_conv)
+    .read_dense(read_dense),
+
+    //TODO: NOT WIRED
+    .out0(//TODO), 
+    .out1(//TODO), 
+    .out2(//TODO), 
+    .out3(//TODO), 
+    .out_param(//TODO),
+    //output logic [7:0] filter0,filter1,filter2,filter3,
+
+    //output read address to upper level
+    .image_ram_addr(image_ram_addr_b);
+    .conv_ram_addr(conv_ram_addr_b);
+    .dense_ram_addr(dense_ram_addr_b);
+
+);
+
 
    always_ff @(posedge clk)
      if (reset) begin
