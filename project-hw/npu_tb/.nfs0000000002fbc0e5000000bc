@@ -26,7 +26,7 @@ vmap work work
 vlog +acc -incr ./memory_test.v
 vlog +acc -incr ./memory_read_layer12_test.sv
 vlog +acc -incr ./conv_ram.v
-vlog +acc -incr ./res_ram.v
+#vlog +acc -incr ./res_ram.v
 vlog +acc -incr ./image_ram.v
 
 #vlog +acc -incr ./memory.sv

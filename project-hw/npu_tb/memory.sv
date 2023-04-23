@@ -2,149 +2,66 @@
 //Memory Access
 
 
-module top_memory(
+module memory(
     input logic        clk,
     input logic        reset,
-    input logic [31:0] writedata,
-    input logic [31:0] control_reg,
-    
-    output logic [7:0] read0, read1, read2, read3, read4, read5;
-    output logic [13:0] ram_addr_output, //TODO Test signal.
-    output logic [15:0] conv_ram_addr_output,dense_ram_addr_output//TODO Test signal.
+
+    //Indication of suffix.
+    //    a: write to address
+    //    b: read to address
+
+    //input from image_ram
+    input logic [9:0] image_ram_addr_a,image_ram_addr_b,
+    input logic [7:0] data_image0,data_iamge1,data_image2,data_image3,
+    input logic       we_image0,we_image1,we_iamge2,we_image3,
+
+    //input from conv_Ram
+    input logic [14:0] conv_ram_addr_a,conv_ram_addr_b,
+    input logic [7:0]  data_conv,
+    input logic        we_conv,
+
+    //input from dense_ram
+    input logic [14:0] dense_ram_addr_a,dense_ram_addr_b,
+    input logic [7:0]  data_dense,
+    input logic        we_dense,
+
+    //input from res_ram 
+    //input logic [13:0] res_ram_addr_a, res_ram_addr_b,
+    //input logic [7:0]  data_res0, data_res1, data_res2, data_res3
+    //input logic        we_res0, we_res1, we_res2, we_res3,
+
+    //TODO: Place Reserved for memory_read and memory_write
+
+    //outputs from RAM
+    output logic [7:0] read_image0,read_image1,read_iamge2,read_iamge3,read_conv,read_dense
+    //output logic [7:0] read_res0,read_res1,read_res2,read_res3,
 );
 
-logic [7:0] data0, data1, data2, data3;
-
-// Counters
-logic [7:0] image_count;
-logic [15:0] conv_write_count;
-logic [15:0] dense_write_count;
-
-logic [13:0] ram_addr;
-logic [15:0] conv_ram_addr;
-logic [15:0] dense_ram_addr;
-
-logic wren1,wren2,wren3,wren0,wren_conv, wren_dense;
-
-
-typedef enum logic [1:0] { IDLE, WRITE_FOUR, WRITE_SEQ_CONV, WRITE_SEQ_DENSE} state_t;
-state_t current_state, next_state;
 
 // Memory module definitions
-image_ram ram0 (.address(ram_addr), .clock(clk), .data(data0), .wren(wren0), .q(read0));//address[13:0]
-image_ram ram1 (.address(ram_addr), .clock(clk), .data(data1), .wren(wren1), .q(read1));
-image_ram ram2 (.address(ram_addr), .clock(clk), .data(data2), .wren(wren2), .q(read2));
-image_ram ram3 (.address(ram_addr), .clock(clk), .data(data3), .wren(wren3), .q(read3));
-conv_ram conv_ram0 (.address(conv_ram_addr), .clock(clk), .data(data0), .wren(wren_conv), .q(read4));//address [15:0]
-dense_ram dense_ram0 (.address(dense_ram_addr), .clock(clk), .data(data0), .wren(wren_dense), .q(read5));
+//image ram: Store the input image //address[9:0]
+image_ram image_ram0 (.wraddress(image_ram_addr_a), .rdaddress(image_ram_addr_b), .clock(clk), .data(data_image0), .wren(we_image0), .q(read_image0));
+image_ram image_ram1 (.wraddress(image_ram_addr_a), .rdaddress(image_ram_addr_b), .clock(clk), .data(data_image1), .wren(we_image1), .q(read_image1));
+image_ram image_ram2 (.wraddress(image_ram_addr_a), .rdaddress(image_ram_addr_b), .clock(clk), .data(data_image2), .wren(we_image2), .q(read_image2));
+image_ram image_ram3 (.wraddress(image_ram_addr_a), .rdaddress(image_ram_addr_b), .clock(clk), .data(data_image3), .wren(we_image3), .q(read_image3));
 
-assign ram_addr_output = ram_addr;//TODO: Test signal
-assign dense_ram_addr_output = dense_ram_addr;//TODO: Test signal
-assign conv_ram_addr_output = conv_ram_addr;//TODO: Test signal
+//convolution paramter ram // address [14:0]
+conv_ram conv_ram0 (.wraddress(conv_ram_addr_a), .rdaddress(conv_ram_addr_b), .clock(clk), .data(data_conv), .wren(wren_conv), .q(read_conv));//address [15:0]
 
-// State updates
-always_ff @(posedge clk) begin
-   if (reset)
-     current_state <= IDLE;
-   else 
-     current_state <= next_state;
-     
-end
+//dense layer parameter ram // address [14:0]
+dense_ram dense_ram0 (.wraddress(dense_ram_addr_a), .rdaddress(dense_ram_addr_b), .clock(clk), .data(data_dense), .wren(wren_dense), .q(read_dense));
 
-// State Switching
-always_comb begin
-    next_state = current_state;
-    if (control_reg == 32'h0001)
-        next_state = WRITE_FOUR;
-    else if (image_count == 8'd196 && current_state == WRITE_FOUR)
-        next_state = WRITE_SEQ_CONV;
-    else if (conv_write_count == 16'd55744 && current_state == WRITE_SEQ_CONV)
-        next_state = WRITE_SEQ_DENSE;
-    else if (dense_write_count == 16'd37578 && current_state == WRITE_SEQ_DENSE)
-        next_state = IDLE;
-end
+// //residue ram to store output from each layer // address[13:0] // Moved to lower module
+// res_ram res_ram0 (.wraddress(res_ram_addr_a), .rdaddress(res_ram_addr_b), .clock(clk), .data(data_res0), .wren(we_res0), .q(read_res0));//address[13:0]
+// res_ram res_ram1 (.wraddress(res_ram_addr_a), .rdaddress(res_ram_addr_b), .clock(clk), .data(data_res1), .wren(we_res1), .q(read_res1));
+// res_ram res_ram2 (.wraddress(res_ram_addr_a), .rdaddress(res_ram_addr_b), .clock(clk), .data(data_res2), .wren(we_res2), .q(read_res2));
+// res_ram res_ram3 (.wraddress(res_ram_addr_a), .rdaddress(res_ram_addr_b), .clock(clk), .data(data_res3), .wren(we_res3), .q(read_res3));
 
 
-// WRITE
-always_ff @(posedge clk) begin
-  if (reset) begin
-    image_count <= 8'b0;
-    data1 <= 8'b0;
-    data2 <= 8'b0;
-    data3 <= 8'b0;
-    data0 <= 8'b0;
-    wren0 <= 0;
-    wren1 <= 0;
-    wren2 <= 0;
-    wren3 <= 0;
-    wren_conv <= 0;
-    wren_dense <= 0;
-    ram_addr <= 0;
-    conv_ram_addr <= 0;
-    dense_ram_addr <= 0;
-  end else begin
-    data0 <= writedata[31:24];
-    data1 <= writedata[23:16];
-    data2 <= writedata[15:8];
-    data3 <= writedata[7:0];
-    case (current_state)
-        IDLE: begin
-              image_count <= 0;
-              conv_write_count <= 0;
-              dense_write_count <= 0;
-        end
-	WRITE_FOUR: begin // Data is splitted into 4. store in different memories
-		wren0 <= 1;
-		wren1 <= 1;
-		wren2 <= 1;
-		wren3 <= 1;
-		wren_conv <= 0;
-		wren_dense <= 0;
-                if (image_count < 8'd196) begin
-		  image_count <= image_count + 1;
-		  ram_addr <= ram_addr + 1; // TODO check memory addr continuity// We are getting back to this memory later
-                end	  
-	end
-        WRITE_SEQ_CONV: begin
-		wren0 <= 0;
-		wren1 <= 0;
-		wren2 <= 0;
-		wren3 <= 0;
-		wren_conv <= 1;
-		wren_dense <= 0;
-                if (conv_write_count < 16'd55744) begin
-		  conv_write_count <= conv_write_count + 1;
-		  conv_ram_addr <= conv_ram_addr + 1;
-                end
-	end
-        WRITE_SEQ_DENSE: begin
-		wren0 <= 0;
-		wren1 <= 0;
-		wren2 <= 0;
-		wren3 <= 0;
-		wren_conv <= 0;
-		wren_dense <= 1;
-                if (dense_write_count < 16'd37578) begin
-		  dense_write_count <= dense_write_count + 1;
-		  dense_ram_addr <= dense_ram_addr + 1;
-                end
-	end
-	// TODO Two additional states for wrting during calculation
-	default: begin
-		wren0 <= 0;
-		wren1 <= 0;
-		wren2 <= 0;
-		wren3 <= 0;
-		wren_conv <= 0;
-		wren_dense <= 0;
-	end
-    endcase  
-  end//end if
-end//end for ff
+memory_read memory_read0(/*TODO:*/);
+memory_write memory_write0(/*TODO:*/);
 
 endmodule
-
-
 
 
 
