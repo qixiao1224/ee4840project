@@ -12,9 +12,8 @@ module memory_read(
     input logic [7:0] read_conv,read_dense,
 
     //TODO: output not fixed.
-    output logic [7:0] out0, out1, out2, out3, out_para,
+    output logic [7:0] out0, out1, out2, out3, out_param,
     //output logic [7:0] filter0,filter1,filter2,filter3,
-    output logic [15:0] SSFR_instr,
 
     //output read address to upper level
     output logic [9:0] image_ram_addr;
@@ -165,7 +164,7 @@ always_ff @(posedge clk) begin
 end
 
 
-// WRITE
+// REAd
 always_ff @(posedge clk) begin
     if (reset) begin
         data1 <= 8'b0;
@@ -181,7 +180,7 @@ always_ff @(posedge clk) begin
         ram_addr_b <= 0;
         dense_ram_addr <= 0;
     end else begin
-        SSFR_instr <= 16'b0010000010101000; // TODO: change with states // ?
+        //SSFR_instr <= 16'b0010000010101000; // TODO: change with states // ?
         //*****CASE OF DIFFERENT STATE*****//
         case (current_state)
             //STATE 0: IDLE
