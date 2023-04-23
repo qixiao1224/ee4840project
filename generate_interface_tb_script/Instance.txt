@@ -1,0 +1,14 @@
+sync_fifo sync_fifo_0(
+	.a_123_en(a_123_en),
+	.b(b),
+	.c(c),
+	.d(d),
+	.clk(clk),
+	.rst(rst),
+	.DA(DA),
+	.data_out(data_out),
+	.full(full),
+	.empty(empty),
+	.SEL_CON(SEL_CON),
+	.port1(port1)
+);
