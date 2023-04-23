@@ -3,17 +3,41 @@ quietly WaveActivateNextPane {} 0
 
 add wave -noupdate -radix unsigned /testbench/clk
 add wave -noupdate -radix unsigned /testbench/reset
-add wave -noupdate -radix unsigned /testbench/writedata
-add wave -noupdate -radix unsigned /testbench/write
-add wave -noupdate -radix unsigned /testbench/chipselect
-add wave -noupdate -radix unsigned /testbench/reading
-add wave -noupdate -radix unsigned /testbench/data0
-add wave -noupdate -radix unsigned /testbench/data1
-add wave -noupdate -radix unsigned /testbench/data2
-add wave -noupdate -radix unsigned /testbench/data3
-add wave -noupdate -radix unsigned /testbench/ram_addr_output
-add wave -noupdate -radix unsigned /testbench/dense_ram_addr_output
-add wave -noupdate -radix unsigned /testbench/conv_ram_addr_output
+add wave -noupdate -radix unsigned /testbench/read0
+add wave -noupdate -radix unsigned /testbench/out0
+add wave -noupdate -radix unsigned /testbench/out1
+add wave -noupdate -radix unsigned /testbench/out2
+add wave -noupdate -radix unsigned /testbench/out3
+add wave -noupdate -radix unsigned /testbench/out_param
+#add wave -noupdate -radix unsigned /testbench/data2
+#add wave -noupdate -radix unsigned /testbench/data3
+add wave -noupdate -radix unsigned /testbench/image_ram_addr
+add wave -noupdate -radix unsigned /testbench/conv_ram_addr
+add wave -noupdate -radix unsigned /testbench/u0 
+add wave -noupdate -radix unsigned /testbench/u1 
+add wave -noupdate -radix unsigned /testbench/u2 
+add wave -noupdate -radix unsigned /testbench/u3 
+add wave -noupdate -radix unsigned /testbench/u4 
+add wave -noupdate -radix unsigned /testbench/u5 
+add wave -noupdate -radix unsigned /testbench/u6 
+add wave -noupdate -radix unsigned /testbench/u7 
+add wave -noupdate -radix unsigned /testbench/u8 
+add wave -noupdate -radix unsigned /testbench/u9 
+add wave -noupdate -radix unsigned /testbench/u10 
+add wave -noupdate -radix unsigned /testbench/u11 
+add wave -noupdate -radix unsigned /testbench/u12 
+add wave -noupdate -radix unsigned /testbench/u13 
+add wave -noupdate -radix unsigned /testbench/u14 
+add wave -noupdate -radix unsigned /testbench/u15 
+add wave -noupdate -radix unsigned /testbench/ram_addr_a
+add wave -noupdate -radix unsigned /testbench/ram_addr_b
+add wave -noupdate -radix unsigned /testbench/reg_num
+add wave -noupdate -radix unsigned /testbench/start_write_back
+add wave -noupdate -radix unsigned /testbench/stop_write_back
+add wave -noupdate -radix unsigned /testbench/wr_en
+add wave -noupdate -radix unsigned /testbench/ram_store_addr
+add wave -noupdate -radix unsigned /testbench/memory1/block_count
+
 
 
 #add wave -noupdate -radix decimal /testbench/CLKEXT
