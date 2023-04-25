@@ -36,7 +36,7 @@ module vga_ball(input logic        clk,
 
 //wire between modules
 logic [7:0] read_image0,read_image1,read_image2,read_image3,read_conv,read_dense;
-logic [14:0] conv_ram_addr_a,conv_ram_addr_b,dense_ram_addr_a,dense_ram_addr_b;
+logic [14:0] conv_ram_addr_a,conv_ram_addr_b,dense_ram_addr_a,dense_ram_addr_b,denseb_ram_addr_a,denseb_ram_addr_b;
 logic [9:0] image_ram_addr_a,image_ram_addr_b;
 logic we_image0,we_image1,we_image2,we_image3,we_conv,we_dense;
 logic [7:0] data_image0,data_image1,data_image2,data_image3,data_conv,data_dense;
@@ -69,11 +69,19 @@ memory memory1(
 
 //input from dense_ram
 //memory_read
-.dense_ram_addr_b(conv_ram_addr_b),
+.dense_ram_addr_b(dense_ram_addr_b),
 //memory_write
     .dense_ram_addr_a(dense_ram_addr_a),
     .data_dense(data_dense),
     .we_dense(we_dense),
+
+//memory_read
+.denseb_ram_addr_b(denseb_ram_addr_b),
+//memory_write
+    .denseb_ram_addr_a(denseb_ram_addr_a),
+    .data_denseb(data_denseb),
+    .we_denseb(we_denseb),
+
 
 //outputs from RAM
 //memory_read 
@@ -82,7 +90,8 @@ memory memory1(
     .read_image2(read_image2), 
     .read_image3(read_image3),
     .read_conv(read_conv),
-    .read_dense(read_dense)
+    .read_dense(read_dense),
+    .read_denseb(read_denseb)
 );
 
 memory_write memory_write1(
@@ -96,16 +105,19 @@ memory_write memory_write1(
     .wren2(we_image2),
     .wren3(we_image3),
     .wren_conv(we_conv),
-    .wren_dense(we_conv),
+    .wren_dense(we_dense),
+    .wren_denseb(we_denseb),
     .data0(data_image0),
     .data1(data_image1),
     .data2(data_image2),
     .data3(data_image3),
     .data4(data_conv),
     .data5(data_dense),
+    .data6(data_denseb),
     .image_ram_addr(image_ram_addr_a),
     .conv_ram_addr(conv_ram_addr_a),
-    .dense_ram_addr(dense_ram_addr_a)
+    .dense_ram_addr(dense_ram_addr_a),
+    .denseb_ram_addr(denseb_ram_addr_a)
 );
 
 
@@ -121,6 +133,7 @@ memory_read memory_read1(
     .read_image3(read_image3),
     .read_conv(read_conv),
     .read_dense(read_dense),
+    .read_denseb(read_denseb)
 
     //TODO: NOT WIRED
     .out0(/*TODO*/), 
@@ -134,6 +147,7 @@ memory_read memory_read1(
     .image_ram_addr(image_ram_addr_b),
     .conv_ram_addr(conv_ram_addr_b),
     .dense_ram_addr(dense_ram_addr_b)
+    .dense_ram_bias_addr(denseb_ram_addr_b)
 
 );
 
