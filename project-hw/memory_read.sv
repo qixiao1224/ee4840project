@@ -28,15 +28,15 @@ logic [7:0] data0, data1, data2, data3;
 
 
 //TODO: Weird part, consider changing.
-parameter layer34_start_position = 0;
-parameter layer5_start_position = 0;
-parameter layer_dense_start_position = 0;
+parameter layer34_start_position = 0; // This is the first time actually reads conv result, position should be 0
+parameter layer5_start_position = 1568; // Layer 34 gives out a result size of 14*14*32, divide by 4 into mems
+parameter layer_dense_start_position = 1856; // Layer 5 gives out a result size of 6*6*32, div 4, plus previous result
 
 // Counters
 logic [4:0] channel_count;
 logic [5:0] filter32_count, filter32_count_1, filter_dense_count;
 logic [6:0] channel64_count;
-logic [4:0] block_count, block34_count, block5_count, block_dense_count;
+logic [7:0] block_count, block34_count, block5_count, block_dense_count;
 logic [3:0] layer12_count, layer34_count, layer5_count;
 logic [5:0] layer_dense_count;
 logic [1:0] z_counter; // To maintain write back sequence
@@ -172,8 +172,9 @@ always_ff @(posedge clk) begin
     end
 end
 
-
-// READ
+/***
+READ
+***/
 always_ff @(posedge clk) begin
     if (reset) begin
         data1 <= 8'b0;
@@ -237,7 +238,7 @@ LAYER 12
                         out0 <= 8'd0; 
                         out1 <= 8'd9; 
                         out_param <= read_conv; // Bias
-                        ram_addr_b <= ram_addr_b + 1;
+                        ram_addr_b <= ram_addr_b + 1; // TODO ??? Do we really need to manipulate ram_addr_b here and now?
                     end
                     1: begin
                         processing_unit_4x4[4] <= read_image0;
@@ -464,7 +465,7 @@ LAYER 34
 
                     10: begin
                         //TODO: FIXME: need to add wr_en signal to start write back
-                        conv_ram_addr <= conv_ram_add - 1; //No adding parameter ram address this cycle
+                        conv_ram_addr <= conv_ram_addr - 1; //No adding parameter ram address this cycle
                         filter32_count_1 <= filter32_count_1 + 1; //go to next channel of prev layer
                         if (filter32_count < 32) begin 
                             //Have Not Finish ONE Filter
@@ -496,7 +497,7 @@ LAYER 34
 
                             if (block34_count == 35) begin 
                             //6x6 blocks finished , switch filter
-                                ram_addr_b <= layer34_start_position; //TODO parameter ram address positon restart from ?
+                                ram_addr_b <= layer34_start_position;
                                 channel64_count <= channel64_count + 1;
                             end  
                             else begin 
@@ -617,7 +618,7 @@ LAYER 5
 
                     10: begin
                         //TODO: FIXME: need to add wr_en signal to start write back, write 4 entries per cycle
-                        conv_ram_addr <= conv_ram_add - 1; //No adding parameter ram address this cycle
+                        conv_ram_addr <= conv_ram_addr - 1; //No adding parameter ram address this cycle
                         filter32_count <= filter32_count + 1; //go to next channel of prev layer
                         if (filter32_count < 32) begin 
                             //Have Not Finish ONE Filter
@@ -643,14 +644,14 @@ LAYER 5
                             0: ram_addr_b <= ram_addr_b + 1; // To upper right side block
                             1: ram_addr_b <= ram_addr_b + 5; // To lower left side block
                             2: ram_addr_b <= ram_addr_b + 1; // To lower right side block
-                            3: ram_addr_b <= ram_addr_b - 9; // TO upper left side of the next block
+                            3: ram_addr_b <= ram_addr_b - 9; // To upper left side of the next block
                             endcase
                             z_counter <= z_counter + 1;
 
                             if (block5_count == 3) begin 
                             //3*3 blocks finished , switch filter
-                                ram_addr_b <= layer5_start_position; //TODO parameter ram address positon restart from ?
-                                channel64_count <= channel64_count + 1;
+                                ram_addr_b <= layer5_start_position;
+                                channel64_count_1 <= channel64_count_1 + 1;
                             end  
                             else begin 
                             // block not finished, same filter, restart conv_ram
@@ -730,7 +731,7 @@ DENSE LAYER
 				else begin // Switch to next filter (1 + 512 * 1)
 					block_dense_count <= 0;
 					dense_ram_bias_addr <= dense_ram_bias_addr + 1;
-					ram_addr_b <= layer_dense_start_position // TODO calculate this constant
+					ram_addr_b <= layer_dense_start_position;
 
 					// SSFR output
                         		out0 <= 8'b01000001;
