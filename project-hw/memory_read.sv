@@ -29,6 +29,8 @@ logic [7:0] data0, data1, data2, data3;
 
 //TODO: Weird part, consider changing.
 parameter layer34_start_position = 0;
+parameter layer5_start_position = 0;
+parameter layer_dense_start_position = 0;
 
 // Counters
 logic [4:0] channel_count;
@@ -669,6 +671,7 @@ DENSE LAYER
 		// dense_ram_bias_addr increment for every (1 bias + 512 params)
                 block_dense_count <= block_dense_count + 1;
 		if (|dense_block_count) dense_ram_addr <= dense_ram_addr + 1; //dense_block_count != 0
+
 		case (block_dense_count) // Every 4 cycles/blocks reads a conv result layer, 32 layers in total, 0 is for bias and CTR
 			0: begin
 				// MAC counter 512
@@ -682,6 +685,10 @@ DENSE LAYER
 				out_param_1 <= dense_ram_out_1;
 				out_param_2 <= dense_ram_out_2;
 				out_param_3 <= dense_ram_out_3;
+				out0 <= read_res0;
+				out1 <= read_res1;
+				out2 <= read_res2;
+				out3 <= read_res3;
 			end
 			2: begin
 				ram_addr_b <= ram_addr_b + 1;
@@ -689,6 +696,10 @@ DENSE LAYER
 				out_param_1 <= dense_ram_out_1;
 				out_param_2 <= dense_ram_out_2;
 				out_param_3 <= dense_ram_out_3;
+				out0 <= read_res0;
+				out1 <= read_res1;
+				out2 <= read_res2;
+				out3 <= read_res3;
 			end
 			3: begin
 				ram_addr_b <= ram_addr_b + 1;
@@ -696,6 +707,10 @@ DENSE LAYER
 				out_param_1 <= dense_ram_out_1;
 				out_param_2 <= dense_ram_out_2;
 				out_param_3 <= dense_ram_out_3;
+				out0 <= read_res0;
+				out1 <= read_res1;
+				out2 <= read_res2;
+				out3 <= read_res3;
 			end
 			4: begin
 				ram_addr_b <= ram_addr_b + 1;
@@ -703,6 +718,10 @@ DENSE LAYER
 				out_param_1 <= dense_ram_out_1;
 				out_param_2 <= dense_ram_out_2;
 				out_param_3 <= dense_ram_out_3;
+				out0 <= read_res0;
+				out1 <= read_res1;
+				out2 <= read_res2;
+				out3 <= read_res3;
 				layer_dense_count <= layer_dense_count + 1;
 
 				if (layer_dense_count < 30) begin
@@ -721,8 +740,6 @@ DENSE LAYER
 				end
 			end
 		endcase
-
-
             end
 
 /********
