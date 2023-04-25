@@ -8,19 +8,19 @@ module memory_read(
     input logic        reset,
 
     //read from outter ram
-    input logic [7:0] read_image0, read_image1, read_image2, read_image3;
-    input logic [7:0] read_conv,read_dense,
-    input logic [7:0] D_out;
+    input logic [7:0] read_image0, read_image1, read_image2, read_image3,
+    input logic [7:0] read_conv,read_dense,read_denseb,
+    input logic [7:0] D_out,
 
     //TODO: output not fixed.
     output logic [7:0] out0, out1, out2, out3, out_param, out_param1, out_param2. out_param3,
     //output logic [7:0] filter0,filter1,filter2,filter3,
 
     //output read address to upper level
-    output logic [9:0] image_ram_addr;
-    output logic [14:0] conv_ram_addr;
-    output logic [14:0] dense_ram_addr;
-    output logic [14:0] dense_ram_bias_addr;
+    output logic [9:0] image_ram_addr,
+    output logic [14:0] conv_ram_addr,
+    output logic [14:0] dense_ram_addr,
+    output logic [14:0] dense_ram_bias_addr
 );
 
 //send data to res_ram

@@ -1842,3 +1842,5 @@ do runsim.do
 # ** Note: $stop    : ./memory_test.v(110)
 #    Time: 60023 ns  Iteration: 1  Instance: /testbench
 # Break in Module testbench at ./memory_test.v line 110
+# End time: 18:56:57 on Apr 23,2023, Elapsed time: 0:08:36
+# Errors: 0, Warnings: 5

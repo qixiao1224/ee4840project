@@ -20,6 +20,7 @@ module memory_read(
     output logic [14:0] conv_ram_addr;
     output logic [14:0] dense_ram_addr;
 
+
 );
 
 //send data to res_ram
@@ -198,6 +199,7 @@ always_ff @(posedge clk) begin
         block5_count <= 0;
         layer5_count <= 0;
             end
+sim:/testbench/conv_ram_addr
 
 /***************
 LAYER 12
