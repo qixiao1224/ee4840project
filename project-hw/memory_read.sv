@@ -40,6 +40,7 @@ logic [7:0] block_count, block34_count, block5_count, block_dense_count;
 logic [3:0] layer12_count, layer34_count, layer5_count;
 logic [5:0] layer_dense_count;
 logic [1:0] z_counter; // To maintain write back sequence
+logic z_counter_end;
 
 //Res ram Address Register
 logic [13:0] ram_addr_a,ram_addr_b;
@@ -58,7 +59,7 @@ logic wr_en; //top write back signal
 logic [7:0] processing_unit_4x4 [15:0];
 
 //Register to calculate which ram to store in
-logic [2:0] reg_num;
+logic [2:0] ram_num;
 logic start_write_back, stop_write_back;
 
 //State Initialization
@@ -125,7 +126,7 @@ end
 // TODO might only be responsible for the conv layers' writeback
 always_ff @(posedge clk) begin
     if (reset) begin
-    reg_num <= 0;
+    ram_num <= 0;
     start_write_back <= 0;
     stop_write_back <= 0;
     ram_store_addr <= 0; // Starting from 0
@@ -139,7 +140,7 @@ always_ff @(posedge clk) begin
         else if (start_write_back)begin
             start_write_back <= 0;
             stop_write_back <= 1;
-            case (reg_num) // Write to corresponding ram
+            case (ram_num) // Write to corresponding ram
                 0: begin
                     wren0 <= 1;
                     data0 <= D_out;
@@ -159,7 +160,9 @@ always_ff @(posedge clk) begin
                     wren3 <= 1;
                     data3 <= D_out;
                     ram_addr_a <= ram_store_addr;
-                    ram_store_addr <= ram_store_addr + 1;
+		    // Increment after per z_counter finishes
+                    ram_store_addr <= z_counter_end ? ram_store_addr + 1 : ram_store_addr;
+		    z_counter_end <= 0;
                 end
             endcase
         end
@@ -169,7 +172,7 @@ always_ff @(posedge clk) begin
             wren1 <= 0;
             wren2 <= 0;
             wren3 <= 0;
-            reg_num <= reg_num + 1;
+            ram_num <= ram_num + 1;
         end
     end
 end
@@ -200,6 +203,7 @@ always_ff @(posedge clk) begin
             //STATE 0: IDLE
             IDLE: begin
         	z_counter <= 0;
+		z_counter_end <= 0;
                 //layer 12
                 layer12_count <= 0;
                 block_count <= 0;
@@ -284,6 +288,7 @@ LAYER 12
                 3: begin  // TO upper left side of the next block
                        if ((image_ram_addr-44)%30 == 0) image_ram_addr <= image_ram_addr -14;
                        else  image_ram_addr <= image_ram_addr - 30;
+			z_counter_end <= 1;
                    end
             endcase
                         z_counter <= z_counter + 1;
