@@ -4,11 +4,12 @@ module memory_write(
         input logic [31:0] writedata,
         input logic [31:0] control_reg,
     
-        output logic wren0,wren1,wren2,wren3,wren_conv,wren_dense,
-        output logic [7:0] data0,data1,data2,data3,data4,data5,
+        output logic wren0,wren1,wren2,wren3,wren_conv,wren_dense,wren_denseb,
+        output logic [7:0] data0,data1,data2,data3,data4,data5,data6,
         output logic [9:0] image_ram_addr,
         output logic [14:0] conv_ram_addr,
         output logic [14:0] dense_ram_addr,
+        output logic [14:0] denseb_ram_addr
 );
 
 

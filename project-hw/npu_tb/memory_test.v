@@ -85,7 +85,7 @@ reset = 1;
 reset = 0;
  
 
-  repeat (30000) begin
+  repeat (800000) begin
   @(posedge clk);
   read0 = read0 +1;
   read1 = read1 +1;

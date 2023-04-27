@@ -8,19 +8,19 @@ module memory_read(
     input logic        reset,
 
     //read from outter ram
-    input logic [7:0] read_image0, read_image1, read_image2, read_image3;
-    input logic [7:0] read_conv,read_dense,
-    input logic [7:0] D_out;
+    input logic [7:0] read_image0, read_image1, read_image2, read_image3,
+    input logic [7:0] read_conv,read_dense,read_denseb,
+    input logic [7:0] D_out,
 
     //TODO: output not fixed.
     output logic [7:0] out0, out1, out2, out3, out_param, out_param1, out_param2. out_param3,
     //output logic [7:0] filter0,filter1,filter2,filter3,
 
     //output read address to upper level
-    output logic [9:0] image_ram_addr;
-    output logic [14:0] conv_ram_addr;
-    output logic [14:0] dense_ram_addr;
-    output logic [14:0] dense_ram_bias_addr;
+    output logic [9:0] image_ram_addr,
+    output logic [14:0] conv_ram_addr,
+    output logic [14:0] dense_ram_addr,
+    output logic [14:0] dense_ram_bias_addr
 );
 
 //send data to res_ram
@@ -28,13 +28,15 @@ logic [7:0] data0, data1, data2, data3;
 
 
 //TODO: Weird part, consider changing.
-parameter layer34_start_position = 0;
+parameter layer34_start_position = 0; // This is the first time actually reads conv result, position should be 0
+parameter layer5_start_position = 1568; // Layer 34 gives out a result size of 14*14*32, divide by 4 into mems
+parameter layer_dense_start_position = 1856; // Layer 5 gives out a result size of 6*6*32, div 4, plus previous result
 
 // Counters
 logic [4:0] channel_count;
 logic [5:0] filter32_count, filter32_count_1, filter_dense_count;
 logic [6:0] channel64_count;
-logic [4:0] block_count, block34_count, block5_count, block_dense_count;
+logic [7:0] block_count, block34_count, block5_count, block_dense_count;
 logic [3:0] layer12_count, layer34_count, layer5_count;
 logic [5:0] layer_dense_count;
 logic [1:0] z_counter; // To maintain write back sequence
@@ -103,6 +105,7 @@ end
 // State Switching
 always_comb begin
     next_state = current_state;
+
     if (control_reg == 32'h0002)
         next_state = LAYER12; // Counter + CNN + SSFR ( Maxpooling/ReLU )
     else if (channel32_count == 5'd32 && current_state == LAYER12) //TODO: Counter need to be determined
@@ -119,6 +122,7 @@ end
 
 
 // Responsible for WRITING BACK to memory
+// TODO might only be responsible for the conv layers' writeback
 always_ff @(posedge clk) begin
     if (reset) begin
     reg_num <= 0;
@@ -170,8 +174,10 @@ always_ff @(posedge clk) begin
     end
 end
 
+/***
+READ
+***/
 
-// READ
 always_ff @(posedge clk) begin
     if (reset) begin
         data1 <= 8'b0;
@@ -235,7 +241,7 @@ LAYER 12
                         out0 <= 8'd0; 
                         out1 <= 8'd9; 
                         out_param <= read_conv; // Bias
-                        ram_addr_b <= ram_addr_b + 1;
+                        image_ram_addr <= image_ram_addr + 1;
                     end
                     1: begin
                         processing_unit_4x4[4] <= read_image0;
@@ -247,7 +253,7 @@ LAYER 12
                         out2 <= processing_unit_4x4[2];
                         out3 <= processing_unit_4x4[3];
                         out_param <= read_conv; // Param0
-                        ram_addr_b <= ram_addr_b + 12;
+                        image_ram_addr <= image_ram_addr + 14;
                     end
                     2: begin
                         processing_unit_4x4[8] <= read_image0;
@@ -259,7 +265,7 @@ LAYER 12
                         out2 <= processing_unit_4x4[3];
                         out3 <= processing_unit_4x4[6];
                         out_param <= read_conv; // Param1
-                        ram_addr_b <= ram_addr_b + 1;
+                        image_ram_addr <= image_ram_addr + 1;
                     end
                     3: begin
                         processing_unit_4x4[12] <= read_image0;
@@ -271,12 +277,13 @@ LAYER 12
                         out2 <= processing_unit_4x4[6];
                         out3 <= processing_unit_4x4[7];
                         out_param <= read_conv; // Param2
-            case (z_counter) //TODO check
-                0: ram_addr_b <= ram_addr_b - 13; // To upper right side block
-                1: ram_addr_b <= ram_addr_b - 2; // To lower left side block
-                2: ram_addr_b <= ram_addr_b - 13; // To lower right side block
-                3: ram_addr_b <= ram_addr_b - 26; // TO upper left side of the next block
-            endcase
+
+            		case (z_counter) //TODO check
+                		0: image_ram_addr <= image_ram_addr - 14; // To upper right side block
+                		1: image_ram_addr <= image_ram_addr + 12; // To lower left side block
+                		2: image_ram_addr <= image_ram_addr - 14; // To lower right side block
+                		3: image_ram_addr <= image_ram_addr - 44; // TO upper left side of the next block
+            		endcase
                         z_counter <= z_counter + 1;
                     end
 
@@ -334,16 +341,18 @@ LAYER 12
                         out0 <= 8'b11000001; // SSFR
                         out_param <= 8'b00101000;
                         layer12_count <= 0;
-                        block_count <= block_count + 1; // Updating offset
+                        
                         wr_en <= 1; // write back once
-                        if (block_count < 13*13) begin 
-                            conv_ram_addr <= conv_ram_addr - 1; //return to filter[0]
-                            ram_addr_b <= 0;
-                        end
-                        else
+
+                        if (block_count == 168) begin // 13 * 13
                             channel32_count <= channel32_count + 1; // 32 channel, when loop_count == 32, next state.
-                            conv_ram_addr <= conv_ram_addr + 9;//move to next filter
-                        block_count <= 0;
+                            conv_ram_addr <= conv_ram_addr + 9; // move to next filter
+			    image_ram_addr <= 0;	// Back to the start of image
+                            block_count <= 0;
+			end else if (block_count < 168) begin
+                            conv_ram_addr <= conv_ram_addr - 1; //return to filter[0]
+			    block_count <= block_count + 1; // Updating offset
+                        end
                     end
                 endcase
             end//end STATE LAYER12.
@@ -449,6 +458,11 @@ LAYER 34
                         out2 <= processing_unit_4x4[11];
                         out3 <= processing_unit_4x4[14];
                         out_param <= read_conv; // Param7
+
+			filter32_count <= filter32_count + 1; //go to next channel of prev layer
+			if (filter32_count < 32) begin
+			   ram_addr_b <= ram_addr_b + 49;		     //restart ram from the start position in this block
+			end
                     end
 
                     9: begin
@@ -458,23 +472,28 @@ LAYER 34
                         out3 <= processing_unit_4x4[15];
                         out_param <= read_conv;// Param8
 
+			if (filter32_count < 32) begin 
+                            //Have Not Finish ONE Filter
+                            layer34_count <= 1;                              //Filter not finished, do not return to 0
+			    ram_addr_b <= ram_addr_b + 1;
+
+			    processing_unit_4x4[0] <= read_res0;
+                            processing_unit_4x4[1] <= read_res1;
+                            processing_unit_4x4[2] <= read_res2;
+                            processing_unit_4x4[3] <= read_res3;
+                        end
                     end
 
                     10: begin
                         //TODO: FIXME: need to add wr_en signal to start write back
-                        conv_ram_addr <= conv_ram_add - 1; //No adding parameter ram address this cycle
-                        filter32_count_1 <= filter32_count_1 + 1; //go to next channel of prev layer
-                        if (filter32_count < 32) begin 
-                            //Have Not Finish ONE Filter
-                            ram_addr_b <= ram_addr_b + 49*(filter32_count_1 + 1);//restart ram from the start position in this block
-                            layer34_count <= 1;                              //Filter not finished, do not return to 0
-                        end
-                        else begin 
+                        conv_ram_addr <= conv_ram_addr - 1; //No adding parameter ram address this cycle
+                        
+                        begin 
                             //One Filter Finished
 
                             //RESET counters and address position
                             filter32_count <= 0;                      //next filter counter begin
-                            ram_addr_b = ram_addr_b - 49*32;      //restart ram from original block, incremented later
+                            //ram_addr_b = ram_addr_b - 49*32;      //restart ram from original block, incremented later
                             layer34_count <= 0;                       //Filter finished, read same bias for next filter
                             
                             // SSFR output
@@ -485,21 +504,22 @@ LAYER 34
                             block34_count <= block34_count + 1;
 
                             case (z_counter)
-                            0: ram_addr_b <= ram_addr_b + 1; // To upper right side block
-                            1: ram_addr_b <= ram_addr_b + 13; // To lower left side block
-                            2: ram_addr_b <= ram_addr_b + 1; // To lower right side block
-                            3: ram_addr_b <= ram_addr_b - 14; // TO upper left side of the next block
+                            0: ram_addr_b <= ram_addr_b - 49*32 + 1; // To upper right side block
+                            1: ram_addr_b <= ram_addr_b - 49*32 + 13; // To lower left side block
+                            2: ram_addr_b <= ram_addr_b - 49*32 + 1; // To lower right side block
+                            3: ram_addr_b <= ram_addr_b - 49*32 - 14; // TO upper left side of the next block
                             endcase
                             z_counter <= z_counter + 1;
 
                             if (block34_count == 35) begin 
                             //6x6 blocks finished , switch filter
-                                ram_addr_b <= layer34_start_position; //TODO parameter ram address positon restart from ?
+                                ram_addr_b <= layer34_start_position;
                                 channel64_count <= channel64_count + 1;
+				block34_count <= 0;
                             end  
                             else begin 
                             // block not finished, same filter, restart conv_ram
-                                conv_ram_addr <= conv_ram_addr - 4608;  //12*12*32; Back to the same filter
+                                conv_ram_addr <= conv_ram_addr - 288;  //3*3*32; Back to the same filter
                             end
                         end
                     end
@@ -615,18 +635,18 @@ LAYER 5
 
                     10: begin
                         //TODO: FIXME: need to add wr_en signal to start write back, write 4 entries per cycle
-                        conv_ram_addr <= conv_ram_add - 1; //No adding parameter ram address this cycle
-                        filter32_count <= filter32_count + 1; //go to next channel of prev layer
-                        if (filter32_count < 32) begin 
+                        conv_ram_addr <= conv_ram_addr - 1; //No adding parameter ram address this cycle
+                        filter32_count_1 <= filter32_count_1 + 1; //go to next channel of prev layer
+                        if (filter32_count_1 < 32) begin 
                             //Have Not Finish ONE Filter
-                            ram_addr_b <= ram_addr_b + 9*(filter32_count+1);//restart ram from the start position in this block
+                            ram_addr_b <= ram_addr_b + 9*(filter32_count_1+1);//restart ram from the start position in this block
                             layer5_count <= 1;                              //Filter not finished, do not return to 0
                         end
                         else begin 
                             //One Filter Finished
 
                             //RESET counters and address position
-                            filter32_count <= 0;                      //next filter counter begin
+                            filter32_count_1 <= 0;                      //next filter counter begin
                             ram_addr_b = ram_addr_b - 9*32;      //restart ram from original block, incremented later
                             layer5_count <= 0;                       //Filter finished, read same bias for next filter
                             
@@ -641,14 +661,14 @@ LAYER 5
                             0: ram_addr_b <= ram_addr_b + 1; // To upper right side block
                             1: ram_addr_b <= ram_addr_b + 5; // To lower left side block
                             2: ram_addr_b <= ram_addr_b + 1; // To lower right side block
-                            3: ram_addr_b <= ram_addr_b - 9; // TO upper left side of the next block
+                            3: ram_addr_b <= ram_addr_b - 9; // To upper left side of the next block
                             endcase
                             z_counter <= z_counter + 1;
 
                             if (block5_count == 3) begin 
                             //3*3 blocks finished , switch filter
-                                ram_addr_b <= layer5_start_position; //TODO parameter ram address positon restart from ?
-                                channel64_count <= channel64_count + 1;
+                                ram_addr_b <= layer5_start_position;
+                                channel64_count_1 <= channel64_count_1 + 1;
                             end  
                             else begin 
                             // block not finished, same filter, restart conv_ram
@@ -669,6 +689,7 @@ DENSE LAYER
 		// dense_ram_bias_addr increment for every (1 bias + 512 params)
                 block_dense_count <= block_dense_count + 1;
 		if (|dense_block_count) dense_ram_addr <= dense_ram_addr + 1; //dense_block_count != 0
+
 		case (block_dense_count) // Every 4 cycles/blocks reads a conv result layer, 32 layers in total, 0 is for bias and CTR
 			0: begin
 				// MAC counter 512
@@ -682,6 +703,10 @@ DENSE LAYER
 				out_param_1 <= dense_ram_out_1;
 				out_param_2 <= dense_ram_out_2;
 				out_param_3 <= dense_ram_out_3;
+				out0 <= read_res0;
+				out1 <= read_res1;
+				out2 <= read_res2;
+				out3 <= read_res3;
 			end
 			2: begin
 				ram_addr_b <= ram_addr_b + 1;
@@ -689,6 +714,10 @@ DENSE LAYER
 				out_param_1 <= dense_ram_out_1;
 				out_param_2 <= dense_ram_out_2;
 				out_param_3 <= dense_ram_out_3;
+				out0 <= read_res0;
+				out1 <= read_res1;
+				out2 <= read_res2;
+				out3 <= read_res3;
 			end
 			3: begin
 				ram_addr_b <= ram_addr_b + 1;
@@ -696,6 +725,10 @@ DENSE LAYER
 				out_param_1 <= dense_ram_out_1;
 				out_param_2 <= dense_ram_out_2;
 				out_param_3 <= dense_ram_out_3;
+				out0 <= read_res0;
+				out1 <= read_res1;
+				out2 <= read_res2;
+				out3 <= read_res3;
 			end
 			4: begin
 				ram_addr_b <= ram_addr_b + 1;
@@ -703,6 +736,10 @@ DENSE LAYER
 				out_param_1 <= dense_ram_out_1;
 				out_param_2 <= dense_ram_out_2;
 				out_param_3 <= dense_ram_out_3;
+				out0 <= read_res0;
+				out1 <= read_res1;
+				out2 <= read_res2;
+				out3 <= read_res3;
 				layer_dense_count <= layer_dense_count + 1;
 
 				if (layer_dense_count < 30) begin
@@ -711,7 +748,7 @@ DENSE LAYER
 				else begin // Switch to next filter (1 + 512 * 1)
 					block_dense_count <= 0;
 					dense_ram_bias_addr <= dense_ram_bias_addr + 1;
-					ram_addr_b <= layer_dense_start_position // TODO calculate this constant
+					ram_addr_b <= layer_dense_start_position;
 
 					// SSFR output
                         		out0 <= 8'b01000001;
@@ -721,8 +758,6 @@ DENSE LAYER
 				end
 			end
 		endcase
-
-
             end
 
 /********

@@ -13,32 +13,23 @@ add wave -noupdate -radix unsigned /testbench/out_param
 #add wave -noupdate -radix unsigned /testbench/data3
 add wave -noupdate -radix unsigned /testbench/image_ram_addr
 add wave -noupdate -radix unsigned /testbench/conv_ram_addr
-add wave -noupdate -radix unsigned /testbench/u0 
-add wave -noupdate -radix unsigned /testbench/u1 
-add wave -noupdate -radix unsigned /testbench/u2 
-add wave -noupdate -radix unsigned /testbench/u3 
-add wave -noupdate -radix unsigned /testbench/u4 
-add wave -noupdate -radix unsigned /testbench/u5 
-add wave -noupdate -radix unsigned /testbench/u6 
-add wave -noupdate -radix unsigned /testbench/u7 
-add wave -noupdate -radix unsigned /testbench/u8 
-add wave -noupdate -radix unsigned /testbench/u9 
-add wave -noupdate -radix unsigned /testbench/u10 
-add wave -noupdate -radix unsigned /testbench/u11 
-add wave -noupdate -radix unsigned /testbench/u12 
-add wave -noupdate -radix unsigned /testbench/u13 
-add wave -noupdate -radix unsigned /testbench/u14 
-add wave -noupdate -radix unsigned /testbench/u15 
-add wave -noupdate -radix unsigned /testbench/ram_addr_a
-add wave -noupdate -radix unsigned /testbench/ram_addr_b
+
+
+add wave -noupdate -radix unsigned /testbench/memory1/ram_addr_a
+add wave -noupdate -radix unsigned /testbench/memory1/ram_addr_b
 add wave -noupdate -radix unsigned /testbench/reg_num
 add wave -noupdate -radix unsigned /testbench/start_write_back
 add wave -noupdate -radix unsigned /testbench/stop_write_back
 add wave -noupdate -radix unsigned /testbench/wr_en
 add wave -noupdate -radix unsigned /testbench/ram_store_addr
 add wave -noupdate -radix unsigned /testbench/memory1/block_count
-
-
+add wave -noupdate -radix unsigned /testbench/memory1/layer12_count
+add wave -noupdate -radix unsigned /testbench/memory1/layer34_count
+add wave -noupdate -radix unsigned /testbench/memory1/block34_count
+add wave -noupdate -radix unsigned /testbench/memory1/channel64_count
+add wave -noupdate -radix unsigned /testbench/memory1/channel32_count
+add wave -noupdate -radix unsigned /testbench/memory1/current_state
+add wave -noupdate -radix unsigned /testbench/memory1/processing_unit_4x4[0]
 
 #add wave -noupdate -radix decimal /testbench/CLKEXT
 #add wave -noupdate -radix binary /testbench/DA
