@@ -265,7 +265,10 @@ LAYER 12
                 0: image_ram_addr <= image_ram_addr - 15; // To upper right side block
                 1: image_ram_addr <= image_ram_addr -  2; // To lower left side block
                 2: image_ram_addr <= image_ram_addr - 15; // To lower right side block
-                3: image_ram_addr <= image_ram_addr - 30; // TO upper left side of the next block
+                3: begin  // TO upper left side of the next block
+                       if ((image_ram_addr-44)%30 == 0) image_ram_addr <= image_ram_addr -14;
+                       else  image_ram_addr <= image_ram_addr - 30;
+                   end
             endcase
                         z_counter <= z_counter + 1;
                     end
@@ -326,14 +329,14 @@ LAYER 12
                         layer12_count <= 0;
                         block_count <= block_count + 1; // Updating offset
                         wr_en <= 1; // write back once
-                        if (block_count < 15*15) begin 
+                        if (block_count < 224) begin 
                             conv_ram_addr <= conv_ram_addr - 1; //return to filter[0]
                         end
                         else begin
                             channel32_count <= channel32_count + 1; // 32 channel, when loop_count == 32, next state.
                             conv_ram_addr <= conv_ram_addr + 9;//move to next filter
-                        block_count <= 0;
-                                                      image_ram_addr <= 0;
+                            block_count <= 0;
+                            image_ram_addr <= 0;
                         end
                     end
                 endcase

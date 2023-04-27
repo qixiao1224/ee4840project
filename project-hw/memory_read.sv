@@ -224,7 +224,6 @@ always_ff @(posedge clk) begin
 LAYER 12
 ****************/
 
-            //STATE 1: Convolute and maxpooling 26x26 into 12x12x32
             LAYER12: begin 
                 //read image from 4 memories. read filter parameters from conv.
                 conv_ram_addr <= conv_ram_addr  + 1; // Reading Bias and filter
@@ -232,7 +231,8 @@ LAYER 12
 
                 //11 cycles in total to deal with a 4x4 block
                 case (layer12_count) 
-                    0: begin // Outputting bias and counter = 32
+                    0: begin // Outputting bias and cosim:/testbench/memory1/layer12_count
+
                         processing_unit_4x4[0] <= read_image0;
                         processing_unit_4x4[1] <= read_image1;
                         processing_unit_4x4[2] <= read_image2;
@@ -277,13 +277,15 @@ LAYER 12
                         out2 <= processing_unit_4x4[6];
                         out3 <= processing_unit_4x4[7];
                         out_param <= read_conv; // Param2
-
-            		case (z_counter) //TODO check
-                		0: image_ram_addr <= image_ram_addr - 14; // To upper right side block
-                		1: image_ram_addr <= image_ram_addr + 12; // To lower left side block
-                		2: image_ram_addr <= image_ram_addr - 14; // To lower right side block
-                		3: image_ram_addr <= image_ram_addr - 44; // TO upper left side of the next block
-            		endcase
+            case (z_counter) //TODO check
+                0: image_ram_addr <= image_ram_addr - 15; // To upper right side block
+                1: image_ram_addr <= image_ram_addr -  2; // To lower left side block
+                2: image_ram_addr <= image_ram_addr - 15; // To lower right side block
+                3: begin  // TO upper left side of the next block
+                       if ((image_ram_addr-44)%30 == 0) image_ram_addr <= image_ram_addr -14;
+                       else  image_ram_addr <= image_ram_addr - 30;
+                   end
+            endcase
                         z_counter <= z_counter + 1;
                     end
 
@@ -334,24 +336,23 @@ LAYER 12
                         out2 <= processing_unit_4x4[14];
                         out3 <= processing_unit_4x4[15];
                         out_param <= read_conv;// Param8
-                        conv_ram_addr <= conv_ram_addr - 9;//return to filter [0]
+                        conv_ram_addr <= conv_ram_addr - 8;//return to filter [0]
                     end
 
                     10: begin
                         out0 <= 8'b11000001; // SSFR
                         out_param <= 8'b00101000;
                         layer12_count <= 0;
-                        
+                        block_count <= block_count + 1; // Updating offset
                         wr_en <= 1; // write back once
-
-                        if (block_count == 168) begin // 13 * 13
-                            channel32_count <= channel32_count + 1; // 32 channel, when loop_count == 32, next state.
-                            conv_ram_addr <= conv_ram_addr + 9; // move to next filter
-			    image_ram_addr <= 0;	// Back to the start of image
-                            block_count <= 0;
-			end else if (block_count < 168) begin
+                        if (block_count < 224) begin 
                             conv_ram_addr <= conv_ram_addr - 1; //return to filter[0]
-			    block_count <= block_count + 1; // Updating offset
+                        end
+                        else begin
+                            channel32_count <= channel32_count + 1; // 32 channel, when loop_count == 32, next state.
+                            conv_ram_addr <= conv_ram_addr + 9;//move to next filter
+                            block_count <= 0;
+                            image_ram_addr <= 0;
                         end
                     end
                 endcase
