@@ -69,11 +69,10 @@ res_ram res_ram3 (.wraddress(ram_addr_a), .rdaddress(ram_addr_b), .clock(clk), .
 
 always_ff @(posedge clk) begin
     if (reset) begin
-    reg_num <= 0;
+    ram_num <= 0;
     start_write_back <= 0;
     stop_write_back <= 0;
-    ram_store_addr = 0; // Starting from 0
-layer34_entry = 0;
+    ram_store_addr <= 0; // Starting from 0
     end
     else begin
         if (wr_en) begin
@@ -84,7 +83,7 @@ layer34_entry = 0;
         else if (start_write_back)begin
             start_write_back <= 0;
             stop_write_back <= 1;
-            case (reg_num) // Write to corresponding ram
+            case (ram_num) // Write to corresponding ram
                 0: begin
                     wren0 <= 1;
                     data0 <= D_out;
@@ -104,7 +103,9 @@ layer34_entry = 0;
                     wren3 <= 1;
                     data3 <= D_out;
                     ram_addr_a <= ram_store_addr;
-                    ram_store_addr <= ram_store_addr + 1;
+		    // Increment after per z_counter finishes
+                    ram_store_addr <= z_counter_end ? ram_store_addr + 1 : ram_store_addr;
+		    z_counter_end <= 0;
                 end
             endcase
         end
@@ -114,11 +115,10 @@ layer34_entry = 0;
             wren1 <= 0;
             wren2 <= 0;
             wren3 <= 0;
-            reg_num <= reg_num + 1;
+            ram_num <= ram_num + 1;
         end
     end
 end
-
 
 
 
