@@ -12,7 +12,7 @@ input logic [7:0] read_image0, read_image1, read_image2, read_image3,read_conv,
     output logic [7:0] u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,
     output logic [13:0] ram_addr_a_test, ram_addr_b_test,
     //writeback parameter
-    output logic [2:0] reg_num,
+    output logic [2:0] ram_num,
     output logic start_write_back, stop_write_back,
     output logic wr_en, //top write back signal
     output logic [13:0] ram_store_addr
@@ -35,7 +35,7 @@ logic [6:0] channel32_count,channel64_count,channel64_count_1;
 logic [7:0] block_count, block34_count, block5_count;
 logic [3:0] layer12_count, layer34_count, layer5_count;
 logic [1:0] z_counter; // To maintain write back sequence
-
+logic z_counter_end;
 //Res ram Address Register
 logic [13:0] ram_addr_a,ram_addr_b;
 
@@ -104,7 +104,8 @@ always_ff @(posedge clk) begin
                     data3 <= D_out;
                     ram_addr_a <= ram_store_addr;
 		    // Increment after per z_counter finishes
-                    ram_store_addr <= z_counter_end ? ram_store_addr + 1 : ram_store_addr;
+                    //ram_store_addr <= z_counter_end ? ram_store_addr + 1 : ram_store_addr;
+                    ram_store_addr <= ram_store_addr + 1 ;
 		    z_counter_end <= 0;
                 end
             endcase
@@ -329,7 +330,7 @@ LAYER 12
                         layer12_count <= 0;
                         block_count <= block_count + 1; // Updating offset
                         wr_en <= 1; // write back once
-                        if (block_count < 224) begin 
+                        if (block_count < 196) begin 
                             conv_ram_addr <= conv_ram_addr - 1; //return to filter[0]
                         end
                         else begin
