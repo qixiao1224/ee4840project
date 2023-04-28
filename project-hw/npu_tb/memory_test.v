@@ -12,7 +12,7 @@ module testbench(  );
   wire [9:0] image_ram_addr;
   wire [7:0] u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15;
   wire [13:0] ram_addr_a, ram_addr_b;
-     wire [2:0] ram_num;
+     wire [1:0] ram_num;
      wire start_write_back, stop_write_back;
      wire wr_en; //top write back signal
      wire [13:0] ram_store_addr;

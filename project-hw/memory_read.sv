@@ -59,7 +59,7 @@ logic wr_en; //top write back signal
 logic [7:0] processing_unit_4x4 [15:0];
 
 //Register to calculate which ram to store in
-logic [2:0] ram_num;
+logic [1:0] ram_num;
 logic start_write_back, stop_write_back;
 
 //State Initialization
@@ -127,6 +127,7 @@ end
 always_ff @(posedge clk) begin
     if (reset) begin
     ram_num <= 0;
+    ram_addr_a <= 0;
     start_write_back <= 0;
     stop_write_back <= 0;
     ram_store_addr <= 0; // Starting from 0
@@ -144,25 +145,28 @@ always_ff @(posedge clk) begin
                 0: begin
                     wren0 <= 1;
                     data0 <= D_out;
-                    ram_addr_a <= ram_store_addr;
+                    //ram_addr_a <= ram_store_addr;
                 end
                 1: begin
                     wren1 <= 1;
                     data1 <= D_out;
-                    ram_addr_a <= ram_store_addr;
+                    //ram_addr_a <= ram_store_addr;
                 end
                 2: begin
                     wren2 <= 1;
                     data2 <= D_out;
-                    ram_addr_a <= ram_store_addr;
+                    //ram_addr_a <= ram_store_addr;
                 end
                 3: begin
                     wren3 <= 1;
                     data3 <= D_out;
-                    ram_addr_a <= ram_store_addr;
+                    //ram_addr_a <= ram_store_addr;
 		    // Increment after per z_counter finishes
-                    ram_store_addr <= z_counter_end ? ram_store_addr + 1 : ram_store_addr;
-		    z_counter_end <= 0;
+                    //ram_store_addr <= z_counter_end ? ram_store_addr + 1 : ram_store_addr;
+                    //ram_addr_a <= z_counter_end ? ram_addr_a + 1 : ram_addr_a;
+                    ram_addr_a <= ram_addr_a +1 ;
+                    //ram_store_addr <= ram_store_addr + 1 ;
+		    z_counter_end <= 0;//TODO:Not used?
                 end
             endcase
         end
@@ -507,6 +511,7 @@ LAYER 34
 
                             layer34_count <= 0;                       //Filter finished, read same bias for next filter
                             
+                            wr_en <= 1; //write back after finishing one block
                             // SSFR output
                             out0 <= 8'b11000001;
                             out_param <= 8'b00101000;

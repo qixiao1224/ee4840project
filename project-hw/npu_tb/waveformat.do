@@ -17,7 +17,7 @@ add wave -noupdate -radix unsigned /testbench/conv_ram_addr
 
 add wave -noupdate -radix unsigned /testbench/memory1/ram_addr_a
 add wave -noupdate -radix unsigned /testbench/memory1/ram_addr_b
-add wave -noupdate -radix unsigned /testbench/reg_num
+add wave -noupdate -radix unsigned /testbench/ram_num
 add wave -noupdate -radix unsigned /testbench/start_write_back
 add wave -noupdate -radix unsigned /testbench/stop_write_back
 add wave -noupdate -radix unsigned /testbench/wr_en
