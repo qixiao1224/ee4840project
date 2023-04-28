@@ -379,7 +379,7 @@ LAYER 34
                         out2 <= processing_unit_4x4[2];
                         out3 <= processing_unit_4x4[3];
                         out_param <= read_conv; // Param0
-                        ram_addr_b <= ram_addr_b + 5;
+                        ram_addr_b <= ram_addr_b + 6;
                     end
                     2: begin
                         processing_unit_4x4[8] <= read_res0;
@@ -403,7 +403,7 @@ LAYER 34
                         out2 <= processing_unit_4x4[6];
                         out3 <= processing_unit_4x4[7];
                         out_param <= read_conv; // Param2
-                        ram_addr_b <= ram_addr_b - 7;
+                        ram_addr_b <= ram_addr_b - 8;
                         //return to the original para ram place since next layer use same address
                     end
 
@@ -446,7 +446,7 @@ LAYER 34
                         out3 <= processing_unit_4x4[14];
                         out_param <= read_conv; // Param7
                         filter32_count <= filter32_count + 1; //go to next channel of prev layer
-                        if (filter32_count < 32) begin 
+                        if (filter32_count < 31) begin 
                             //Have Not Finish ONE Filter
                             ram_addr_b <= ram_addr_b + 49;//restart ram from the start position in this block
                             //layer34_count <= 1;                              //Filter not finished, do not return to 0
@@ -465,7 +465,7 @@ LAYER 34
                         processing_unit_4x4[2] <= read_res2;
                         processing_unit_4x4[3] <= read_res3;
                         
-                        //ram_addr_b <= ram_addr_b + 1;
+
                         if (filter32_count < 32) begin 
                             ram_addr_b <= ram_addr_b + 1;
                             //Have Not Finish ONE Filter
@@ -480,7 +480,7 @@ LAYER 34
 			    conv_ram_addr <= conv_ram_addr - 1; //No adding parameter ram address this cycle
                             //RESET counters and address position
                             filter32_count <= 0;                      //next filter counter begin
-                            //ram_addr_b = ram_addr_b - 49*32;      //restart ram from original block, incremented later
+
                             layer34_count <= 0;                       //Filter finished, read same bias for next filter
                             
                             // SSFR output
@@ -491,10 +491,13 @@ LAYER 34
                             block34_count <= block34_count + 1;
 
                             case (z_counter)
-                            0: ram_addr_b <= ram_addr_b - 49*32+ 1; // To upper right side block
-                            1: ram_addr_b <= ram_addr_b - 49*32+ 13; // To lower left side block
-                            2: ram_addr_b <= ram_addr_b - 49*32+ 1; // To lower right side block
-                            3: ram_addr_b <= ram_addr_b - 49*32- 14; // TO upper left side of the next block
+                            0: ram_addr_b <= ram_addr_b - 49*31 + 1; // To upper right side block
+                            1: ram_addr_b <= ram_addr_b - 49*31 + 6; // To lower left side block
+                            2: ram_addr_b <= ram_addr_b - 49*31 + 1; // To lower right side block
+                            3: begin
+				if ((ram_addr_b -49*31 +2) % 14 == 0) ram_addr_b <= ram_addr_b -49*31+2;
+				else ram_addr_b <= ram_addr_b - 49*31- 6; // TO upper left side of the next block
+			    end
                             endcase
                             z_counter <= z_counter + 1;
 

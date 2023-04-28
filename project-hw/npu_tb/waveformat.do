@@ -25,11 +25,13 @@ add wave -noupdate -radix unsigned /testbench/ram_store_addr
 add wave -noupdate -radix unsigned /testbench/memory1/block_count
 add wave -noupdate -radix unsigned /testbench/memory1/layer12_count
 add wave -noupdate -radix unsigned /testbench/memory1/layer34_count
+add wave -noupdate -radix unsigned /testbench/memory1/filter32_count
 add wave -noupdate -radix unsigned /testbench/memory1/block34_count
 add wave -noupdate -radix unsigned /testbench/memory1/channel64_count
 add wave -noupdate -radix unsigned /testbench/memory1/channel32_count
 add wave -noupdate -radix unsigned /testbench/memory1/current_state
 add wave -noupdate -radix unsigned /testbench/memory1/processing_unit_4x4[0]
+add wave -noupdate -radix unsigned /testbench/memory1/z_counter
 
 #add wave -noupdate -radix decimal /testbench/CLKEXT
 #add wave -noupdate -radix binary /testbench/DA
