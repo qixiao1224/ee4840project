@@ -1,60 +1,34 @@
 `timescale 1ns/1ps
 `define HALF_CLOCK_PERIOD #1
 
+`define IMG_INPUT "../img0_z.txt"
+`define CONV_FILTER_INPUT "../weight_bias_conv2d1.txt"
+`define CONV1_RESULT "../conv2d1_result.txt"
+
 module testbench(  );
 
   reg clk;
   reg reset;
 
-  reg [7:0] read0,read1,read2,read3,read_conv;
-  wire [7:0] out0,out1,out2,out3,out_param;
-  wire [14:0] conv_ram_addr;
-  wire [9:0] image_ram_addr;
-  wire [7:0] u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15;
-  wire [13:0] ram_addr_a, ram_addr_b;
-     wire [1:0] ram_num;
-     wire start_write_back, stop_write_back;
-     wire wr_en; //top write back signal
-     wire [13:0] ram_store_addr;
-memory_read_layer12_test memory1
-(.clk(clk),
- .reset(reset),    
-.read_image0(read0), 
-.read_image1(read1), 
-.read_image2(read2), 
-.read_image3(read3),
-.read_conv(read_conv),
-.out0(out0),
-.out1(out1), 
-.out2(out2), 
-.out3(out3), 
-.out_param(out_param),
-.image_ram_addr(image_ram_addr),
-.conv_ram_addr(conv_ram_addr),
-.u0(u0),
-.u1(u1),
-.u2(u2),
-.u3(u3),
-.u4(u4),
-.u5(u5),
-.u6(u6),
-.u7(u7),
-.u8(u8),
-.u9(u9),
-.u10(u10),
-.u11(u11),
-.u12(u12),
-.u13(u13),
-.u14(u14),
-.u15(u15),
-.ram_addr_a_test(ram_addr_a),
-.ram_addr_b_test(ram_addr_b),
-.ram_num(ram_num),
-.start_write_back(start_write_back),
-.stop_write_back(stop_write_back),
-.wr_en(wr_en),
-.ram_store_addr(ram_store_addr)
-);
+  reg [31:0] writedata;
+  reg [31:0] control_reg;
+  wire [7:0] D_OUT;
+
+  integer img_input;
+  integer conv_filter_input;
+  integer conv1_result;
+  integer i;
+
+  reg [7:0] conv_filter_array;
+  reg [7:0] conv1_result_array;
+  reg  [7:0] img_array;
+  reg [7:0] tmp0,tmp1,tmp2,tmp3,tmp4;
+mem_top mem_top1( .clk(clk),
+                 .reset(reset),
+                 .writedata(writedata),
+                 .control_reg(control_reg),
+                 .D_OUT(D_OUT)
+                );
 
 
 initial begin
@@ -62,44 +36,79 @@ initial begin
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Example 1: Using PISO_OUT to get output, doing accumulation for a 3*3 kernel
 
-
 //Initialization
 
-reset = 0;
+
+img_input = $fopen (`IMG_INPUT, "r");
+conv_filter_input = $fopen (`CONV_FILTER_INPUT, "r");
+conv1_result = $fopen (`CONV1_RESULT, "r");
+
+
+if (!img_input) begin 
+    $display("Cannot Open IMG!");
+    $finish;
+end
+
+if (!conv_filter_input) begin 
+    $display("Cannot Open IMG!");
+    $finish;
+end
+
+if (!conv1_result) begin 
+    $display("Cannot Open IMG!");
+    $finish;
+end
+
 clk = 0;
-read0 = 0;
-read1 = 0;
-read2 = 0;
-read3 = 0;
-read_conv=8'd2;
+reset = 0;
+writedata = 0;
 
-
-
-
-
-@(posedge clk);
+@(posedge clk); 
 reset = 1;
 
 
 @(posedge clk);
 reset = 0;
- 
 
-  repeat (800000) begin
-  @(posedge clk);
-  read0 = read0 +1;
-  read1 = read1 +1;
-  read2 = read2 +1;
-  read3 = read3 +1;
-  end
+@(posedge clk);
+@(posedge clk);
+@(posedge clk);
+control_reg = 32'b1;
+
+for (i = 0; i < 224; i = i + 1)begin
+    $fscanf(img_input, "%8b", tmp0);
+    writedata = tmp0;
+    
+    $fscanf(img_input, "%8b", tmp1);
+    writedata = (writedata << 8)+ tmp1;
+
+    $fscanf(img_input, "%8b", tmp2);
+    writedata = (writedata << 8)+ tmp2;
+
+    $fscanf(img_input, "%8b", tmp3);
+    writedata = (writedata << 8)+ tmp3;
+
+    @(posedge clk);
+end
+
+for (i = 0; i < 18815; i = i + 1)begin
+    $fscanf(conv_filter_input, "%8b", tmp4);
+    writedata = tmp4;
+
+    @(posedge clk);
+end
 
 
 
 
-
+ @(posedge clk);
+ @(posedge clk);
+ @(posedge clk);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  repeat(10)  @(posedge clk); //give FSM a few cycles to complete output operation
+control_reg = 32'h2;
+
+  repeat(1000000)  @(posedge clk); //give FSM a few cycles to complete output operation
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 

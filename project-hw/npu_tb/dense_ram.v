@@ -1,7 +1,7 @@
 module dense_ram( 
     output reg [7:0] q,
     input [7:0] data,
-    input [14:0] rdaddress,wraddress
+    input [14:0] rdaddress,wraddress,
     input wren, clock
 );
 	 // force M10K ram style
