@@ -18,7 +18,9 @@ logic [7:0] data_image0,data_image1,data_image2,data_image3,data_conv,data_dense
 
 logic [7:0] DA,DB,DC,DD,DE,DF,DG,DH;
 logic EN_FSM, EN_CONFIG;
+logic SEL_CON = 1'b1;
 
+/************MEMORY MODULE**********/
 memory memory1( 
     .clk(clk),
     .reset(reset),
@@ -72,6 +74,7 @@ memory memory1(
     .read_denseb(read_denseb)
 );
 
+/************WRITE MODULE**********/
 memory_write memory_write1(
     .clk(clk),
     .reset(reset),
@@ -99,7 +102,7 @@ memory_write memory_write1(
 );
 
 
-
+/************READ MODULE**********/
 memory_read memory_read1(
     .clk(clk),
     .reset(reset),
@@ -114,16 +117,16 @@ memory_read memory_read1(
     .read_denseb(read_denseb),
 
     //TODO: NOT WIRED
-    .out0(DA), 
-    .out1(DB), 
-    .out2(DC), 
-    .out3(DD), 
-    .out_param(DE),
-    .out_param1(DF),
-    .out_param2(DG),
-    .out_param3(DH),
+    .out0(DB), 
+    .out1(DD), 
+    .out2(DF), 
+    .out3(DH), 
+    .out_param(DA),
+    .out_param1(DC),
+    .out_param2(DE),
+    .out_param3(DG),
     .control_reg(control_reg),
-    
+    .D_out(D_OUT),
     //output logic [7:0] filter0,filter1,filter2,filter3,
 
     //output read address to upper level
@@ -146,7 +149,7 @@ memory_read memory_read1(
     .DG(DG), 
     .DH(DH),  
     .CLKEXT(clk), 
-    .SEL_CON(1'b1), //TODO
+    .SEL_CON(SEL_CON), //TODO
     .EN_FSM(EN_FSM), //TODO
     .D_OUT(D_OUT),//OUtput 
     //.RD_EN(RD_EN),

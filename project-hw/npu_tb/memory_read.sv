@@ -123,6 +123,10 @@ always_ff @(posedge clk) begin
     start_write_back <= 0;
     stop_write_back <= 0;
     ram_store_addr <= 0; // Starting from 0
+    wren0 <=0;
+    wren1 <=0;
+    wren2 <=0;
+    wren3 <=0;
     end
     else begin
         if (wr_en) begin
@@ -160,7 +164,7 @@ always_ff @(posedge clk) begin
 		    // Increment after per z_counter finishes
                     //ram_store_addr <= z_counter_end ? ram_store_addr + 1 : ram_store_addr;
                     //ram_addr_a <= z_counter_end ? ram_addr_a + 1 : ram_addr_a;
-                    ram_addr_a <= ram_addr_a +1 ;
+                    
                     //ram_store_addr <= ram_store_addr + 1 ;
 		    //z_counter_end <= 0;//TODO:Not used?
                 end
@@ -173,6 +177,9 @@ always_ff @(posedge clk) begin
             wren2 <= 0;
             wren3 <= 0;
             ram_num <= ram_num + 1;
+       if (ram_num == 3) begin
+		ram_addr_a <= ram_addr_a +1 ;
+            end
         end
     end
 end
@@ -183,12 +190,10 @@ READ
 
 always_ff @(posedge clk) begin
     if (reset) begin
-        data1 <= 8'b0;
-        data2 <= 8'b0;
-        data3 <= 8'b0;
-        data0 <= 8'b0;
 
    	wr_en <= 0;
+        EN_CONFIG <= 0;
+        EN_FSM <= 0;
 
         //addr
         image_ram_addr <= 0;
@@ -200,10 +205,7 @@ always_ff @(posedge clk) begin
         //delay_Sig
         delayed <= 1;
 
-    end else if (delayed) begin
-        delayed <= 0;
-        EN_FSM <= 1;
-    end else if (delayed == 0) begin
+    end else begin
         EN_FSM <= 0;
         //SSFR_instr <= 16'b0010000010101000; // TODO: change with states // ?
         //*****CASE OF DIFFERENT STATE*****//
@@ -233,6 +235,7 @@ always_ff @(posedge clk) begin
                 if (next_state == LAYER12) begin
                 image_ram_addr <= image_ram_addr + 1;
                 conv_ram_addr <= conv_ram_addr +1;
+                EN_FSM <= 1;
                 end
             end
 
@@ -259,6 +262,8 @@ LAYER 12
                         out0 <= 8'd0; 
                         out1 <= 8'd9; 
                         out_param <= read_conv; // Bias
+			EN_CONFIG <= 0;
+                        EN_FSM <= 0;
                         if (block_count ==0 && channel32_count == 0)
                             image_ram_addr <= image_ram_addr + 14;
                         else
@@ -390,15 +395,14 @@ LAYER 12
                         //conv_ram_addr <= conv_ram_addr - 10;//return to filter [0]
                         if(block_count != 195) conv_ram_addr <= conv_ram_addr - 10;
                         //else conv_ram_addr <= conv_ram_addr - 1;
-                        EN_CONFIG <= 1;
-                        EN_FSM <= 1;
-
+                        
+                        
 
                     end
 
                     10: begin
-                        EN_CONFIG <= 0;
-                        EN_FSM <= 0;
+                        EN_CONFIG <= 1;
+                        EN_FSM <= 1;
                         conv_ram_addr <= conv_ram_addr + 1;
                         out0 <= 8'b11000001; // SSFR
                         out_param <= 8'b00101000;
@@ -445,6 +449,9 @@ LAYER 34
                         out0 <= 8'd1; //256
                         out1 <= 8'd32;//32
                         out_param <= read_conv; // Bias
+
+			EN_CONFIG <= 0;
+                        EN_FSM <= 0;
                         if (channel64_count == 32) begin 
                              ram_addr_b <= 1568; // already in layer5
                            

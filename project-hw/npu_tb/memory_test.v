@@ -71,9 +71,12 @@ reset = 1;
 reset = 0;
 
 @(posedge clk);
-@(posedge clk);
-@(posedge clk);
+
 control_reg = 32'b1;
+
+@(posedge clk);
+
+
 
 for (i = 0; i < 224; i = i + 1)begin
     $fscanf(img_input, "%8b", tmp0);

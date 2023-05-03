@@ -54,10 +54,10 @@ always_ff @(posedge clk) begin
         data0 <= 8'b0;
         data4 <= 8'b0;
         data5 <= 8'b0;
-        wren0 <= 0;
-        wren1 <= 0;
-        wren2 <= 0;
-        wren3 <= 0;
+        wren0 <= 1;
+        wren1 <= 1;
+        wren2 <= 1;
+        wren3 <= 1;
         wren_conv <= 0;
         wren_dense <= 0;
         image_ram_addr <= 0;
@@ -80,25 +80,32 @@ always_ff @(posedge clk) begin
             data1 <= writedata[23:16];
             data2 <= writedata[15:8];
             data3 <= writedata[7:0];
-            wren0 <= 1;
-            wren1 <= 1;
-            wren2 <= 1;
-            wren3 <= 1;
+
             wren_conv <= 0;
             wren_dense <= 0;
                     if (image_count < 8'd224) begin
                         image_count <= image_count + 1;
                         image_ram_addr <= image_ram_addr + 1; // TODO check memory addr continuity// We are getting back to this memory later
-                    end	  
+                    end
+                    else begin
+                                   wren0 <= 0;
+				    wren1 <= 0;
+				    wren2 <= 0;
+				    wren3 <= 0;
+				    wren_conv <= 1;
+				    wren_dense <= 0;
+				data4 <= writedata[7:0];
+                    end
+            
         end
             WRITE_SEQ_CONV: begin
             data4 <= writedata[7:0];
-            wren0 <= 0;
-            wren1 <= 0;
-            wren2 <= 0;
-            wren3 <= 0;
-            wren_conv <= 1;
-            wren_dense <= 0;
+            //wren0 <= 0;
+            //wren1 <= 0;
+            //wren2 <= 0;
+            //wren3 <= 0;
+            //wren_conv <= 1;
+            //wren_dense <= 0;
                     if (conv_write_count < 15'd18815) begin
             conv_write_count <= conv_write_count + 1;
             conv_ram_addr <= conv_ram_addr + 1;
