@@ -2,14 +2,14 @@
 //Memory Access
 
 
-module memory_read(
+module memory_read_sim(
     //TODO: interface need to be modified
     input logic        clk,
     input logic        reset,
 
     //read from outter ram
     input logic [7:0] read_image0, read_image1, read_image2, read_image3,
-    input logic [7:0] read_conv,read_dense,read_denseb_0,read_denseb_1,read_denseb_2,read_denseb_3,
+    input logic [7:0] read_conv,read_dense,read_denseb,
     input logic [7:0] D_out,
     input logic [31:0] control_reg,
 
@@ -234,11 +234,11 @@ always_ff @(posedge clk) begin
 		//layer_dense_count <= 0;
 		//block_dense_count <= 0;
 		//filter_dense_count <= 0;
-                if (next_state == LAYER12) begin
-                image_ram_addr <= image_ram_addr + 1;
-                conv_ram_addr <= conv_ram_addr +1;
-                EN_FSM <= 1;
-                end
+//                if (next_state == LAYER12) begin
+//                image_ram_addr <= image_ram_addr + 1;
+//                conv_ram_addr <= conv_ram_addr +1;
+//                EN_FSM <= 1;
+//                end
             end
 
 /***************
@@ -259,7 +259,7 @@ LAYER 12
                 case (layer12_count) 
                     0: begin // Outputting bias and coefficient
                 conv_ram_addr <= conv_ram_addr  + 1; // Reading Bias and filter
-                        processing_unit_4x4[0] <= read_image0;
+                        processing_unit_4x4[0] <= read_image0; // already has image0[0]
                         processing_unit_4x4[1] <= read_image1;
                         processing_unit_4x4[2] <= read_image2;
                         processing_unit_4x4[3] <= read_image3;
@@ -272,10 +272,9 @@ LAYER 12
                         DG <= read_conv;
 			EN_CONFIG <= 0;
                         EN_FSM <= 0;
-                        if (block_count ==0 && channel32_count == 0)
-                            image_ram_addr <= image_ram_addr + 14;
-                        else
-                            image_ram_addr <= image_ram_addr + 1;
+
+
+                        image_ram_addr <= image_ram_addr + 1;
                         
                     end
                     1: begin
@@ -918,7 +917,7 @@ LAYER 5
 
                             layer5_count <= 0;                       //Filter finished, read same bias for next filter
                             
-                            wr_en <= 1; // special write back, write sequentially
+                            wr_en <= 1; //write back after finishing one block
                             // SSFR output
                             DA <= 8'b01000001;
                             DB <= 8'b00101000;
@@ -955,41 +954,59 @@ DENSE LAYER
 ********/
 
 
-            DENSE: begin 
+            DENSE: begin /*
 		// TODO need write back
+		// dense_ram_bias_addr increment for every (1 bias + 512 params)
+                block_dense_count <= block_dense_count + 1;
+		if (|dense_block_count) dense_ram_addr <= dense_ram_addr + 1; //dense_block_count != 0
 
-		case (dense_case) // Every 4 cycles/blocks reads a conv result layer, 32 layers in total, 0 is for bias and CTR
+		case (block_dense_count) // Every 4 cycles/blocks reads a conv result layer, 32 layers in total, 0 is for bias and CTR
 			0: begin
 				// MAC counter 512
 				DB <= 8'd2; //512
 				DD <= 8'd0; //0
-				// make sure this is getting different bias
-				DA <= read_denseb_0; // Bias
-				DC <= read_denseb_1;
-				DE <= read_denseb_2;
-				DG <= read_denseb_3;
-
-				ram_addr_b <= ram_addr_b + 1; // Next cycle reads next position of conv result
-				dense_ram_addr <= dense_ram_addr + 1; // Next param
-
-				dense_case <= dense_case + 1; // switch case
+				// make sure this is getting the bias
+				DA <= dense_ram_bias_out_0; // Bias
+				DC <= dense_ram_bias_out_0;
+				DE <= dense_ram_bias_out_0;
+				DG <= dense_ram_bias_out_0;
+				
 			end
 			1: begin
-				DB <= read_dense;
-				DD <= read_dense;
-				DF <= read_dense;
-				DH <= read_dense;
-				DA <= read_res0; // Different conv results correspond to different dense parameters
+				ram_addr_b <= ram_addr_b + 1; // Next cycle reads next position of conv result
+				DB <= dense_ram_out_0; // Different conv results correspond to different dense parameters
+				DD <= dense_ram_out_1;
+				DF <= dense_ram_out_2;
+				DH <= dense_ram_out_3;
+				DA <= read_res0;
 				DC <= read_res1;
 				DE <= read_res2;
 				DG <= read_res3;
-
-				if () begin
-					ram_addr_b <= ram_addr_b + 1;
-					dense_ram_addr <= dense_ram_addr + 1;
-				end
 			end
 			2: begin
+				ram_addr_b <= ram_addr_b + 1;
+				DB <= dense_ram_out_0;
+				DD <= dense_ram_out_1;
+				DF <= dense_ram_out_2;
+				DH <= dense_ram_out_3;
+				DA <= read_res0;
+				DC <= read_res1;
+				DE <= read_res2;
+				DG <= read_res3;
+			end
+			3: begin
+				ram_addr_b <= ram_addr_b + 1;
+				DB <= dense_ram_out_0;
+				DD <= dense_ram_out_1;
+				DF <= dense_ram_out_2;
+				DH <= dense_ram_out_3;
+				DA <= read_res0;
+				DC <= read_res1;
+				DE <= read_res2;
+				DG <= read_res3;
+			end
+			4: begin
+				ram_addr_b <= ram_addr_b + 1;
 				DB <= dense_ram_out_0;
 				DD <= dense_ram_out_1;
 				DF <= dense_ram_out_2;
@@ -1015,7 +1032,7 @@ DENSE LAYER
 					filter_dense_count <= filter_dense_count + 1; // 32 filters total
 				end
 			end
-		endcase
+		endcase*/
             end
 
 /********
@@ -1037,7 +1054,5 @@ end//end for ff
 
 
 endmodule
-
-
 
 
