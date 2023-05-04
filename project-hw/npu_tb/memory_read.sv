@@ -639,16 +639,14 @@ LAYER 34
                         processing_unit_4x4[3] <= read_res3;
                         
 
-                        if (filter32_count < 32) begin 
-                            ram_addr_b <= ram_addr_b + 1;
+                       // if (filter32_count < 32) begin 
+                        //    ram_addr_b <= ram_addr_b + 1;
                             //Have Not Finish ONE Filter
-                            layer34_count <= 1;                              //Filter not finished, do not return to 0
-                        end
+                        //    layer34_count <= 1;                              //Filter not finished, do not return to 0
+                       // end
 
 
                         if (filter32_count == 32) begin
-                            if (block34_count != 35) begin
-                                conv_ram_addr <= conv_ram_addr - 289;
                             case (z_counter)
                             0: ram_addr_b <= ram_addr_b - 49*31 + 1; // To upper right side block
                             1: ram_addr_b <= ram_addr_b - 49*31 + 6; // To lower left side block
@@ -659,16 +657,25 @@ LAYER 34
 			    end
                             endcase
                             z_counter <= z_counter + 1;
-                            end else begin
+
+                            if (block34_count != 35) begin
+                                conv_ram_addr <= conv_ram_addr - 289;
+
+                            end else begin //block34_count == 35
                                 conv_ram_addr <= conv_ram_addr;
+                                if (channel64_count == 31) ram_addr_b <= 1568;
+                                else if (channel64_count < 31) ram_addr_b <= layer34_start_position; 
                             end
                         end else begin
                             conv_ram_addr <= conv_ram_addr + 1;
+                            ram_addr_b <= ram_addr_b + 1;
+                            //Have Not Finish ONE Filter
+                            layer34_count <= 1;                              //Filter not finished, do not return to 0
                         end
 
-                                if (filter32_count == 32 && channel64_count == 31 && block34_count == 35)
-                                    ram_addr_b <= 1568;
-                                else if (channel64_count < 31 && filter32_count ==32) ram_addr_b <= layer34_start_position; 
+                        //if (filter32_count == 32 && channel64_count == 31 && block34_count == 35)
+                        //    ram_addr_b <= 1568;
+                        //else if (channel64_count < 31 && filter32_count ==32) ram_addr_b <= layer34_start_position; 
 
 			//if (filter32_count == 32 && block34_count !=35) begin 
                         //    conv_ram_addr <= conv_ram_addr -289;
