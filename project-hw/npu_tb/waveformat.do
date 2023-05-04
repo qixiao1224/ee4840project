@@ -4,6 +4,7 @@ quietly WaveActivateNextPane {} 0
 add wave -noupdate -radix unsigned /testbench/clk
 add wave -noupdate -radix unsigned /testbench/reset
 add wave -noupdate -radix unsigned /testbench/mem_top1/image_ram_addr_a
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory_write1/image_count
 add wave -noupdate -radix unsigned /testbench/mem_top1/image_ram_addr_b
 add wave -noupdate -radix unsigned /testbench/mem_top1/conv_ram_addr_a
 add wave -noupdate -radix unsigned /testbench/mem_top1/we_conv
@@ -14,12 +15,17 @@ add wave -noupdate -radix unsigned /testbench/mem_top1/data_image0
 add wave -noupdate -radix unsigned /testbench/mem_top1/data_image1
 add wave -noupdate -radix unsigned /testbench/mem_top1/data_image2
 add wave -noupdate -radix unsigned /testbench/mem_top1/data_image3
+add wave -noupdate -radix unsigned /testbench/mem_top1/data_conv
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory_write1/data0
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory_write1/data1
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory_write1/data2
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory_write1/data3
 
 #add wave -noupdate -radix unsigned /testbench/tmp0
 #add wave -noupdate -radix unsigned /testbench/tmp1
 #add wave -noupdate -radix unsigned /testbench/tmp2
 #add wave -noupdate -radix unsigned /testbench/tmp3
-#add wave -noupdate -radix unsigned /testbench/i
+
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_image0
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_image1
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_image2
@@ -28,52 +34,59 @@ add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_res0
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_res1
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_res2
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_res3
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[0]
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[1]
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[2]
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[3]
 
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_num
+add wave -group {layer12} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/layer12_count
+add wave -group {layer12} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/channel32_count
+add wave -group {layer12} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/block_count
+
+add wave -group {layer34} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/layer34_count
+add wave -group {layer34} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/channel64_count
+add wave -group {layer34} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/filter32_count
+add wave -group {layer34} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/block34_count
+
+add wave -group {layer5} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/layer5_count
+add wave -group {layer5} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/block5_count
+add wave -group {layer5} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/channel64_count_1
+add wave -group {layer5} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/filter32_count_1
+
+
+add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_num
+add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_addr_a
+add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_addr_b
 
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram_addr_a
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram_addr_b
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/image_ram_addr_b
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/data_conv
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/we_conv
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/read_conv
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram0/mem[0]
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram0/mem[1]
 
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/out0
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/out1
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/out2
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/out3
 
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/out_param
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/out_param1
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/out_param2
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/out_param3
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/layer12_count
 
 
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/current_state
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_write1/current_state
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/control_reg
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/EN_FSM
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/EN_CONFIG
-add wave -noupdate -radix unsigned /testbench/mem_top1/DA
-add wave -noupdate -radix unsigned /testbench/mem_top1/DB
-add wave -noupdate -radix unsigned /testbench/mem_top1/DC
-add wave -noupdate -radix unsigned /testbench/mem_top1/DD
-add wave -noupdate -radix unsigned /testbench/mem_top1/DE
-add wave -noupdate -radix unsigned /testbench/mem_top1/DF
-add wave -noupdate -radix unsigned /testbench/mem_top1/DG
-add wave -noupdate -radix unsigned /testbench/mem_top1/DH
-
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_addr_a
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_addr_b
+add wave -group {state} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/current_state
+add wave -group {state} -noupdate -radix unsigned /testbench/mem_top1/memory_write1/current_state
 
 
-add wave -noupdate -radix hexadecimal /testbench/writedata
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/D_out
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/D_out
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/D_out
+add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/control_reg
+add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/EN_FSM
+add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/EN_CONFIG
+add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/DA
+add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/DB
+add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/DC
+add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/DD
+add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/DE
+add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/DF
+add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/DG
+add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/DH
+
+add wave -group {writedata} -noupdate -radix hexadecimal /testbench/writedata
+
+add wave -group {npu_out} -noupdate -radix unsigned /testbench/mem_top1/D_OUT
+add wave -group {npu_out} -noupdate -radix unsigned /testbench/mem_top1/npu_top/MAC1_output
+add wave -group {npu_out} -noupdate -radix unsigned /testbench/mem_top1/npu_top/MAC2_output
 
 #add wave -noupdate -radix decimal /testbench/CLKEXT
 #add wave -noupdate -radix binary /testbench/DA

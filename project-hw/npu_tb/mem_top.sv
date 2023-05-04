@@ -19,6 +19,7 @@ logic [7:0] data_image0,data_image1,data_image2,data_image3,data_conv,data_dense
 logic [7:0] DA,DB,DC,DD,DE,DF,DG,DH;
 logic EN_FSM, EN_CONFIG;
 logic SEL_CON = 1'b1;
+logic [15:0] MAC1_output, MAC2_output;
 
 /************MEMORY MODULE**********/
 memory memory1( 
@@ -117,14 +118,14 @@ memory_read memory_read1(
     .read_denseb(read_denseb),
 
     //TODO: NOT WIRED
-    .out0(DB), 
-    .out1(DD), 
-    .out2(DF), 
-    .out3(DH), 
-    .out_param(DA),
-    .out_param1(DC),
-    .out_param2(DE),
-    .out_param3(DG),
+    .DA(DA), 
+    .DB(DB), 
+    .DC(DC), 
+    .DD(DD), 
+    .DE(DE),
+    .DF(DF),
+    .DG(DG),
+    .DH(DH),
     .control_reg(control_reg),
     .D_out(D_OUT),
     //output logic [7:0] filter0,filter1,filter2,filter3,
@@ -133,7 +134,9 @@ memory_read memory_read1(
     .image_ram_addr(image_ram_addr_b),
     .conv_ram_addr(conv_ram_addr_b),
     .dense_ram_addr(dense_ram_addr_b),
-    .dense_ram_bias_addr(denseb_ram_addr_b)
+    .dense_ram_bias_addr(denseb_ram_addr_b),
+    .EN_FSM(EN_FSM), 
+    .EN_CONFIG(EN_CONFIG)
 
 );
 
@@ -154,13 +157,13 @@ memory_read memory_read1(
     .D_OUT(D_OUT),//OUtput 
     //.RD_EN(RD_EN),
     .EN_CONFIG(EN_CONFIG),
-    .RST_GLO(reset)
+    .RST_GLO(reset),
     //.FULL(FULL),
     //.EMPTY(EMPTY),
     ///////////////////////////////
     //the following for debugging purpose
-    //.MAC1_output(MAC1_output),
-    //.MAC2_output(MAC2_output),
+    .MAC1_output(MAC1_output),
+    .MAC2_output(MAC2_output)
     //.ReLU1_output(ReLU1_output),
     //.ReLU2_output(ReLU2_output),
     //.FSM_EN_PISO_OUT_output(FSM_EN_PISO_OUT_output),
