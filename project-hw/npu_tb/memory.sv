@@ -37,7 +37,7 @@ module memory(
     //TODO: Place Reserved for memory_read and memory_write
 
     //outputs from RAM
-    output logic [7:0] read_image0,read_image1,read_image2,read_image3,read_conv,read_dense,read_denseb
+    output logic [7:0] read_image0,read_image1,read_image2,read_image3,read_conv,read_dense,read_denseb_0,read_denseb_1,read_denseb_2,read_denseb_3
     //output logic [7:0] read_res0,read_res1,read_res2,read_res3,
 );
 
@@ -53,8 +53,12 @@ image_ram image_ram3 (.wraddress(image_ram_addr_a), .rdaddress(image_ram_addr_b)
 conv_ram conv_ram0 (.wraddress(conv_ram_addr_a), .rdaddress(conv_ram_addr_b), .clock(clk), .data(data_conv), .wren(we_conv), .q(read_conv));//address [15:0]
 
 //dense layer parameter ram // address [14:0]
-dense_ram dense_ram0 (.wraddress(dense_ram_addr_a), .rdaddress(dense_ram_addr_b), .clock(clk), .data(data_dense), .wren(we_dense), .q(read_dense));
-dense_ram denseb_ram (.wraddress(denseb_ram_addr_a), .rdaddress(denseb_ram_addr_b), .clock(clk), .data(data_denseb), .wren(we_denseb), .q(read_denseb));
+dense_ram dense_ram0 (.wraddress(dense_ram_addr_a), .rdaddress(dense_ram_addr_b), .clock(clk), .data(data_dense), .wren(we_dense), .q(read_dense)); // parameter
+
+dense_ram denseb_ram0 (.wraddress(denseb_ram_addr_a), .rdaddress(denseb_ram_addr_b), .clock(clk), .data(data_denseb), .wren(we_denseb), .q(read_denseb_0)); // bias
+dense_ram denseb_ram1 (.wraddress(denseb_ram_addr_a), .rdaddress(denseb_ram_addr_b), .clock(clk), .data(data_denseb), .wren(we_denseb), .q(read_denseb_1));
+dense_ram denseb_ram2 (.wraddress(denseb_ram_addr_a), .rdaddress(denseb_ram_addr_b), .clock(clk), .data(data_denseb), .wren(we_denseb), .q(read_denseb_2));
+dense_ram denseb_ram3 (.wraddress(denseb_ram_addr_a), .rdaddress(denseb_ram_addr_b), .clock(clk), .data(data_denseb), .wren(we_denseb), .q(read_denseb_3));
 // //residue ram to store output from each layer // address[13:0] // Moved to lower module
 // res_ram res_ram0 (.wraddress(res_ram_addr_a), .rdaddress(res_ram_addr_b), .clock(clk), .data(data_res0), .wren(we_res0), .q(read_res0));//address[13:0]
 // res_ram res_ram1 (.wraddress(res_ram_addr_a), .rdaddress(res_ram_addr_b), .clock(clk), .data(data_res1), .wren(we_res1), .q(read_res1));

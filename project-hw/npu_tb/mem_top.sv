@@ -10,7 +10,7 @@ module mem_top (input logic clk,
 
 
 //wire between modules
-logic [7:0] read_image0,read_image1,read_image2,read_image3,read_conv,read_dense,read_denseb;
+logic [7:0] read_image0,read_image1,read_image2,read_image3,read_conv,read_dense,read_denseb_0,read_denseb_1,read_denseb_2,read_denseb_3;
 logic [14:0] conv_ram_addr_a,conv_ram_addr_b,dense_ram_addr_a,dense_ram_addr_b,denseb_ram_addr_a,denseb_ram_addr_b;
 logic [9:0] image_ram_addr_a,image_ram_addr_b;
 logic we_image0,we_image1,we_image2,we_image3,we_conv,we_dense;
@@ -72,7 +72,10 @@ memory memory1(
     .read_image3(read_image3),
     .read_conv(read_conv),
     .read_dense(read_dense),
-    .read_denseb(read_denseb)
+    .read_denseb_0(read_denseb_0),
+    .read_denseb_1(read_denseb_1),
+    .read_denseb_2(read_denseb_2),
+    .read_denseb_3(read_denseb_3)
 );
 
 /************WRITE MODULE**********/
@@ -115,7 +118,10 @@ memory_read memory_read1(
     .read_image3(read_image3),
     .read_conv(read_conv),
     .read_dense(read_dense),
-    .read_denseb(read_denseb),
+    .read_denseb_0(read_denseb_0),
+    .read_denseb_1(read_denseb_1),
+    .read_denseb_2(read_denseb_2),
+    .read_denseb_3(read_denseb_3),
 
     //TODO: NOT WIRED
     .DA(DA), 
