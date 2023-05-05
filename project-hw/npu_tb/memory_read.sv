@@ -448,7 +448,7 @@ LAYER 12
                        image_ram_addr <= image_ram_addr + 1;
                         block_count <= block_count + 1; // Updating offset
                         wr_en <= 1; // write back once
-                        if (next_state == LAYER34) ram_addr_b <= 1;
+                        //if (channel32_count == 32) ram_addr_b <= 1;
                         if (block_count < 195) begin 
                             //conv_ram_addr <= conv_ram_addr - 1; //return to filter[0]
                         end
@@ -763,7 +763,7 @@ LAYER 5
 			EN_CONFIG <= 0;
                         EN_FSM <= 0;
                         if (channel64_count_1 == 32) begin 
-                             ram_addr_b <= 1568 + 289; // already in layer dense
+                             ram_addr_b <= 1568 + 288; // already in layer dense
                         end
                         else begin 
 				if (filter32_count_1 == 0)
