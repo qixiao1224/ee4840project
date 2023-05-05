@@ -32,7 +32,7 @@ module memory_read_sim(
 logic [7:0] data0, data1, data2, data3;
 
 
-//TODO: Weird part, consider changing.
+//TODO: Weird part, consider changing. It is not weird, I endorse this part.
 parameter layer34_start_position = 0; // This is the first time actually reads conv result, position should be 0
 parameter layer5_start_position = 1568; // Layer 34 gives out a result size of 14*14*32, divide by 4 into mems
 parameter layer_dense_start_position = 1856; // Layer 5 gives out a result size of 6*6*32, div 4, plus previous result
@@ -224,7 +224,7 @@ always_ff @(posedge clk) begin
 
     end else begin
         EN_FSM <= 0;
-        //SSFR_instr <= 16'b0010000010101000; // TODO: change with states // ?
+
         //*****CASE OF DIFFERENT STATE*****//
         case (current_state)
             //STATE 0: IDLE
@@ -249,6 +249,8 @@ always_ff @(posedge clk) begin
 		dense_count <= 0;
 		dense_bias_count <= 0;
 		dense_case <= 0;
+		// dense 10
+		dense_10_case <= 0;
 
                 if (next_state == LAYER12) begin
 			// Preparing in advance
