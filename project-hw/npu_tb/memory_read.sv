@@ -65,7 +65,7 @@ logic [7:0] processing_unit_4x4 [15:0];
 
 //Register to calculate which ram to store in
 logic [1:0] ram_num;
-logic start_write_back, stop_write_back,writing;
+logic start_write_back, stop_write_back,writing,delayed_cycle1,delayed_cycle2;
 
 //delay
 logic delayed=0;
@@ -122,6 +122,9 @@ always_ff @(posedge clk) begin
     ram_addr_a <= 0;
     start_write_back <= 0;
     stop_write_back <= 0;
+    writing <= 0;
+    delayed_cycle1 <= 0;
+    delayed_cycle2 <= 0;
     ram_store_addr <= 0; // Starting from 0
     wren0 <=0;
     wren1 <=0;
@@ -136,7 +139,15 @@ always_ff @(posedge clk) begin
         end
         else if (start_write_back) begin
             start_write_back <= 0;
+            delayed_cycle1 <= 1;
+        end
+        else if (delayed_cycle1) begin
+            delayed_cycle2 <= 1;
+            delayed_cycle1 <= 0;
+        end
+        else if (delayed_cycle2) begin
             writing <= 1;
+            delayed_cycle2 <= 0;
         end
         else if (writing)begin
             writing <= 0;
@@ -761,7 +772,10 @@ LAYER 5
                              ram_addr_b <= 1568 + 288; // already in layer dense
                         end
                         else begin 
-                            ram_addr_b <= ram_addr_b+ 1; //still in layer5
+				if (filter32_count_1 == 0)
+                            		ram_addr_b <= ram_addr_b+ 2; //still in layer5
+                                else 
+ 					ram_addr_b <= ram_addr_b +1;
                             conv_ram_addr <= conv_ram_addr + 1; 
                         end
                     end
@@ -779,7 +793,8 @@ LAYER 5
 			DD <= read_conv;
 			DF <= read_conv;
 			DH <= read_conv;
-                        ram_addr_b <= ram_addr_b + 2;
+                        if ( filter32_count_1 == 0) ram_addr_b <= ram_addr_b + 1;
+                        else ram_addr_b <= ram_addr_b + 2;
                     end
                     2: begin
                 	conv_ram_addr <= conv_ram_addr + 1;//TODO: check if conv_ram start from right position
@@ -795,7 +810,8 @@ LAYER 5
 			DD <= read_conv;
 			DF <= read_conv;
 			DH <= read_conv;
-                        ram_addr_b <= ram_addr_b + 1;
+                        if (filter32_count_1 == 0) ram_addr_b <= ram_addr_b - 4;
+                        else ram_addr_b <= ram_addr_b + 1;
                     end
                     3: begin
                 	conv_ram_addr <= conv_ram_addr + 1;//TODO: check if conv_ram start from right position
@@ -811,7 +827,8 @@ LAYER 5
 			DD <= read_conv;
 			DF <= read_conv;
 			DH <= read_conv;
-                        ram_addr_b <= ram_addr_b - 4;
+                        if (filter32_count_1 == 0) begin end
+                        else ram_addr_b <= ram_addr_b - 4;
                         //return to the original para ram place since next layer use same address
                     end
 
@@ -896,22 +913,35 @@ LAYER 5
                         processing_unit_4x4[1] <= read_res1;
                         processing_unit_4x4[2] <= read_res2;
                         processing_unit_4x4[3] <= read_res3;
-                        
-                        if (filter32_count_1 < 32) begin 
-                            ram_addr_b <= ram_addr_b + 1;
-                            //Have Not Finish ONE Filter
-                            layer5_count <= 1;                              //Filter not finished, do not return to 0
-                        end
+
                         if (filter32_count_1 == 32) begin
-                            if (block_count != 3) begin
+                            case (z_counter)
+                            0: ram_addr_b <= ram_addr_b - 9*31 + 1; // To upper right side block
+                            1: ram_addr_b <= ram_addr_b - 9*31 + 2; // To lower left side block
+                            2: ram_addr_b <= ram_addr_b - 9*31 + 1; // To lower right side block
+                            3: begin
+				if ((ram_addr_b -9*31 +1) % 3  == 0) ram_addr_b <= ram_addr_b -9*31+2;
+				else ram_addr_b <= ram_addr_b - 9*31- 3; // TO upper left side of the next block
+			    end
+                            endcase
+                            z_counter <= z_counter + 1;
+                            
+                            if (block5_count != 3) begin
                                 conv_ram_addr <= conv_ram_addr - 289;
-                            end else begin
+
+                            end else begin //block34_count == 35
                                 conv_ram_addr <= conv_ram_addr;
+                                if (channel64_count_1 == 31) ram_addr_b <= 1568+288;
+                                else if (channel64_count_1 < 31) ram_addr_b <= layer5_start_position; 
                             end
                         end else begin
                             conv_ram_addr <= conv_ram_addr + 1;
-                        end
-                    end
+                            ram_addr_b <= ram_addr_b + 1;
+                            //Have Not Finish ONE Filter
+                            layer5_count <= 1;                              //Filter not finished, do not return to 0
+			end
+
+		    end
 
                     10: begin
                 conv_ram_addr <= conv_ram_addr + 1;
@@ -924,24 +954,19 @@ LAYER 5
                             
                             wr_en <= 1; //write back after finishing one block
                             // SSFR output
+
                             DA <= 8'b01000001;
                             DB <= 8'b00101000;
                             EN_CONFIG <= 1;
                             EN_FSM <= 1;
                             //next block
                             block5_count <= block5_count + 1;
+                            if (filter32_count_1 ==32) ram_addr_b <= ram_addr_b+1;
 
-                            case (z_counter)
-                            0: ram_addr_b <= ram_addr_b - 9*31 + 1; // To upper right side block
-                            1: ram_addr_b <= ram_addr_b - 9*31 + 2; // To lower left side block
-                            2: ram_addr_b <= ram_addr_b - 9*31 + 1; // To lower right side block
-                            3: ram_addr_b <= ram_addr_b - 9*31 - 4;
-                            endcase
-                            z_counter <= z_counter + 1;
 
                             if (block5_count == 3) begin 
                             //2x2 blocks finished , switch filter
-                                ram_addr_b <= layer5_start_position; 
+                                //ram_addr_b <= layer5_start_position; 
                                 channel64_count_1 <= channel64_count_1 + 1;
                                 block5_count <= 0;
                             end  

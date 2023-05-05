@@ -55,8 +55,12 @@ add wave -group {layer5} -noupdate -radix unsigned /testbench/mem_top1/memory_re
 
 
 add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_num
+add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/wr_en
+add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/writing
+add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/stop_write_back
 add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_addr_a
 add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_addr_b
+
 
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram_addr_a
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram_addr_b

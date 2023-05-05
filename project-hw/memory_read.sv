@@ -623,6 +623,8 @@ LAYER 5
                         processing_unit_4x4[1] <= read_res1;
                         processing_unit_4x4[2] <= read_res2;
                         processing_unit_4x4[3] <= read_res3;
+			EN_CONFIG <= 0;
+                        EN_FSM <= 0;
                         //MAC counter = filter number = 288
                         out0 <= 8'd1; //256
                         out1 <= 8'd32;//32
