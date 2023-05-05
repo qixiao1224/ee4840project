@@ -52,7 +52,7 @@ always @(posedge clk) begin
         largest<=16'h8000;                  //smallest 16-bit 2's complement number
         //largest_8bit<=8'b1000000;           //smallest 8-bit 2's complement number
         current_largest<=16'h8000;          
-        current_largest_8bit<=8'b1000000;
+        current_largest_8bit<=8'b10000000;
     end
 
     if (enable & trig_delayed) begin
