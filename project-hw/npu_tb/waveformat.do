@@ -66,6 +66,22 @@ add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory
 add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_addr_a
 add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_addr_b
 
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[0]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[1]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[2]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[3]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[4]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[5]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[6]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[7]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[8]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[9]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[10]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[11]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[12]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[13]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[14]
+add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[15]
 
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram_addr_a
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram_addr_b

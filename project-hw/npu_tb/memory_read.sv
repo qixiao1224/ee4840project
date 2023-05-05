@@ -288,10 +288,9 @@ LAYER 12
                         DG <= read_conv;
 			EN_CONFIG <= 0;
                         EN_FSM <= 0;
-                        if (block_count ==0 && channel32_count == 0)
-                            image_ram_addr <= image_ram_addr + 14;
-                        else
-                            image_ram_addr <= image_ram_addr + 1;
+
+                        image_ram_addr <= image_ram_addr + 14;
+
                         
                     end
                     1: begin
@@ -308,11 +307,10 @@ LAYER 12
                         DD <= read_conv;
                         DF <= read_conv;
                         DH <= read_conv;
-                        if (block_count ==0 && channel32_count == 0)
-                            image_ram_addr <= image_ram_addr + 1;
-                        else
-                            image_ram_addr <= image_ram_addr + 14;
-                    end
+
+                        image_ram_addr <= image_ram_addr + 1;
+                   end
+
                     2: begin
                 conv_ram_addr <= conv_ram_addr  + 1; // Reading Bias and filter
                         processing_unit_4x4[8] <= read_image0;
@@ -327,7 +325,7 @@ LAYER 12
                         DD <= read_conv;
                         DF <= read_conv;
                         DH <= read_conv;
-                        if (block_count ==0 && channel32_count == 0) begin
+
 			    case (z_counter) //TODO check
 				0: image_ram_addr <= image_ram_addr - 15; // To upper right side block
 				1: image_ram_addr <= image_ram_addr -  2; // To lower left side block
@@ -340,9 +338,7 @@ LAYER 12
 
                   
                         z_counter <= z_counter + 1;
-                        end
-                        else
-                            image_ram_addr <= image_ram_addr + 1;
+
                     end
                     3: begin
                 conv_ram_addr <= conv_ram_addr  + 1; // Reading Bias and filter
@@ -358,18 +354,7 @@ LAYER 12
                         DD <= read_conv;
                         DF <= read_conv;
                         DH <= read_conv;
-            if (block_count !=0 || channel32_count != 0)begin
-			    case (z_counter) //TODO check
-				0: image_ram_addr <= image_ram_addr - 15; // To upper right side block
-				1: image_ram_addr <= image_ram_addr -  2; // To lower left side block
-				2: image_ram_addr <= image_ram_addr - 15; // To lower right side block
-				3: begin  // TO upper left side of the next block
-				       if ((image_ram_addr-44)%30 == 0) image_ram_addr <= image_ram_addr -14;
-				       else  image_ram_addr <= image_ram_addr - 30;
-				   end
-			    endcase
-                        z_counter <= z_counter + 1;
-             end
+
                     end
 
                     4: begin
@@ -447,6 +432,7 @@ LAYER 12
                         //conv_ram_addr <= conv_ram_addr - 10;//return to filter [0]
                         if(block_count != 195) conv_ram_addr <= conv_ram_addr - 10;
                         //else conv_ram_addr <= conv_ram_addr - 1;
+                        else image_ram_addr <= 0;
                         
                         
 
@@ -459,6 +445,7 @@ LAYER 12
                         DA <= 8'b11000001; // SSFR
                         DB <= 8'b00101000;
                         layer12_count <= 0;
+                       image_ram_addr <= image_ram_addr + 1;
                         block_count <= block_count + 1; // Updating offset
                         wr_en <= 1; // write back once
                         if (next_state == LAYER34) ram_addr_b <= 1;
@@ -470,7 +457,6 @@ LAYER 12
                             
                             //conv_ram_addr <= conv_ram_addr + 10;//move to next filter
                             block_count <= 0;
-                            image_ram_addr <= 0;
                         end
                     end
                 endcase
