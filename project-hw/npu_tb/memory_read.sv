@@ -42,7 +42,9 @@ logic [4:0] channel_count;
 logic [5:0] filter32_count,filter32_count_1;
 logic [6:0] channel32_count,channel64_count,channel64_count_1;
 logic [7:0] block_count, block34_count, block5_count;
-logic [3:0] layer12_count, layer34_count, layer5_count;
+logic [3:0] layer12_count, layer34_count, layer5_count,dense_case;
+logic [3:0] dense_bias_count;
+logic [8:0] dense_count;
 logic [1:0] z_counter; // To maintain write back sequence
 logic z_counter_end;
 //Res ram Address Register
@@ -243,10 +245,11 @@ always_ff @(posedge clk) begin
         	layer5_count <= 0;
 		filter32_count_1 <= 0;
 		channel64_count_1 <= 0;
-		// layer dense
-		//layer_dense_count <= 0;
-		//block_dense_count <= 0;
-		//filter_dense_count <= 0;
+		// dense
+		dense_count <= 0;
+		dense_bias_count <= 0;
+		dense_case <= 0;
+
                 if (next_state == LAYER12) begin
                 image_ram_addr <= image_ram_addr + 1;
                 conv_ram_addr <= conv_ram_addr +1;
@@ -774,7 +777,7 @@ LAYER 5
 			EN_CONFIG <= 0;
                         EN_FSM <= 0;
                         if (channel64_count_1 == 32) begin 
-                             ram_addr_b <= 1568 + 288; // already in layer dense
+                             ram_addr_b <= 1568 + 289; // already in layer dense
                         end
                         else begin 
 				if (filter32_count_1 == 0)
