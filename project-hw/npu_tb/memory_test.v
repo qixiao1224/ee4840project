@@ -1,111 +1,250 @@
 `timescale 1ns/1ps
 `define HALF_CLOCK_PERIOD #1
 
+`define IMG_INPUT "../../data/img0_z.txt"
+`define CONV12_FILTER_INPUT "../../data/weight_bias_conv2d1.txt"
+`define CONV34_FILTER_INPUT "../../data/weight_bias_conv2d2.txt"
+`define CONV5_FILTER_INPUT "../../data/weight_bias_conv2d3.txt"
+`define POOLING1_RESULT "../../data/pooling1_result_z.txt"
+`define POOLING2_RESULT "../../data/pooling2_result_z.txt"
+
 module testbench(  );
 
+  //input and output from top module
   reg clk;
   reg reset;
+  reg [31:0] writedata;
+  reg [31:0] control_reg;
+  wire [7:0] D_OUT;
 
-  reg [7:0] read0,read1,read2,read3,read_conv;
-  wire [7:0] out0,out1,out2,out3,out_param;
-  wire [14:0] conv_ram_addr;
-  wire [9:0] image_ram_addr;
-  wire [7:0] u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15;
-  wire [13:0] ram_addr_a, ram_addr_b;
-     wire [2:0] reg_num;
-     wire start_write_back, stop_write_back;
-     wire wr_en; //top write back signal
-     wire [13:0] ram_store_addr;
-memory_read_layer12_test memory1
-(.clk(clk),
- .reset(reset),    
-.read_image0(read0), 
-.read_image1(read1), 
-.read_image2(read2), 
-.read_image3(read3),
-.read_conv(read_conv),
-.out0(out0),
-.out1(out1), 
-.out2(out2), 
-.out3(out3), 
-.out_param(out_param),
-.image_ram_addr(image_ram_addr),
-.conv_ram_addr(conv_ram_addr),
-.u0(u0),
-.u1(u1),
-.u2(u2),
-.u3(u3),
-.u4(u4),
-.u5(u5),
-.u6(u6),
-.u7(u7),
-.u8(u8),
-.u9(u9),
-.u10(u10),
-.u11(u11),
-.u12(u12),
-.u13(u13),
-.u14(u14),
-.u15(u15),
-.ram_addr_a_test(ram_addr_a),
-.ram_addr_b_test(ram_addr_b),
-.reg_num(reg_num),
-.start_write_back(start_write_back),
-.stop_write_back(stop_write_back),
-.wr_en(wr_en),
-.ram_store_addr(ram_store_addr)
-);
+  //Iteration num
+  integer i;
+
+  //FILE flags
+  integer img_input;
+  integer conv12_filter_input;
+  integer conv34_filter_input;
+  integer conv5_filter_input;
+  integer conv1_result;
+  integer pooling1_result;
+  integer pooling2_result;
+  
+  //error counters
+  reg [10:0] error_count_layer12;
+  reg [10:0] error_count_layer34;
+  reg [10:0] error_count_layer5;
+
+  //temp value to compare
+  reg [7:0] out0, out1, out2, out3;
+  reg [7:0] out0_ff, out1_ff, out2_ff, out3_ff;
+
+  reg [7:0] conv_filter_array;
+  reg [7:0] conv1_result_array;
+  reg  [7:0] img_array;
+  reg [7:0] tmp0,tmp1,tmp2,tmp3,tmp4;
 
 
+
+//Module
+mem_top mem_top1( .clk(clk),
+                 .reset(reset),
+                 .writedata(writedata),
+                 .control_reg(control_reg),
+                 .D_OUT(D_OUT)
+                );
+
+
+//TB start
 initial begin
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Example 1: Using PISO_OUT to get output, doing accumulation for a 3*3 kernel
+//Open files
+img_input = $fopen (`IMG_INPUT, "r");
+conv12_filter_input = $fopen (`CONV12_FILTER_INPUT, "r");
+conv34_filter_input = $fopen (`CONV34_FILTER_INPUT, "r");
+conv5_filter_input = $fopen (`CONV5_FILTER_INPUT, "r");
+pooling1_result = $fopen(`POOLING1_RESULT,"r");
+pooling2_result = $fopen(`POOLING2_RESULT,"r");
+
+//test file opening
+if (!img_input) begin 
+    $display("Cannot Open IMG!");
+    $finish;
+end
+
+if (!conv12_filter_input) begin 
+    $display("Cannot Open LAYER12 PARA!");
+    $finish;
+end
+
+if (!conv34_filter_input) begin 
+    $display("Cannot Open LAYER34 PARA!");
+    $finish;
+end
+
+if (!conv5_filter_input) begin 
+    $display("Cannot Open LAYER5 PARA!");
+    $finish;
+end
 
 
-//Initialization
+if (!pooling1_result) begin 
+    $display("Cannot Open POOLING RESULT 1!");
+    $finish;
+end
 
-reset = 0;
+if (!pooling2_result) begin 
+    $display("Cannot Open POOLING RESULT 2!");
+    $finish;
+end
+
+//Start signal
 clk = 0;
-read0 = 0;
-read1 = 0;
-read2 = 0;
-read3 = 0;
-read_conv=8'd2;
+reset = 0;
+writedata = 0;
+error_count_layer12 = 0;
+error_count_layer34 = 0;
+error_count_layer5 = 0;
 
-
-
-
-
-@(posedge clk);
+@(posedge clk); 
 reset = 1;
 
-
 @(posedge clk);
 reset = 0;
- 
 
-  repeat (800000) begin
-  @(posedge clk);
-  read0 = read0 +1;
-  read1 = read1 +1;
-  read2 = read2 +1;
-  read3 = read3 +1;
-  end
+@(posedge clk);
 
 
+//////////////////////Start Model LOADING//////////////////////////////////////////////////////
+control_reg = 32'b1;
+
+@(posedge clk);
 
 
+//write image
+for (i = 0; i < 224; i = i + 1)begin
+    $fscanf(img_input, "%8b", tmp0);
+    writedata = tmp0;
+    
+    $fscanf(img_input, "%8b", tmp1);
+    writedata = (writedata << 8)+ tmp1;
+
+    $fscanf(img_input, "%8b", tmp2);
+    writedata = (writedata << 8)+ tmp2;
+
+    $fscanf(img_input, "%8b", tmp3);
+    writedata = (writedata << 8)+ tmp3;
+
+    @(posedge clk);
+end
+
+//write convolution parameters layer 12
+for (i = 0; i < 320; i = i + 1)begin
+    $fscanf(conv12_filter_input, "%8b", tmp4);
+    writedata = tmp4;
+
+    @(posedge clk);
+end
+
+//write convolution parameters layer 34
+for (i = 0; i < 9248; i = i + 1)begin
+    $fscanf(conv34_filter_input, "%8b", tmp4);
+    writedata = tmp4;
+
+    @(posedge clk);
+end
+
+//write convolution parameters layer 5
+for (i = 0; i < 9248; i = i + 1)begin
+    $fscanf(conv5_filter_input, "%8b", tmp4);
+    writedata = tmp4;
+
+    @(posedge clk);
+end
+
+
+ @(posedge clk);
+ @(posedge clk);
+ @(posedge clk);
+
+
+//////////////////////Start Model Inferncing//////////////////////////////////////////////////////
+
+control_reg = 32'h2;
+
+  repeat(1000000)  @(posedge clk);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  repeat(10)  @(posedge clk); //give FSM a few cycles to complete output operation
+/*Layer 12 TESTING*/
+for (i = 0; i < 1568; i = i + 1) begin
+	out0 = testbench.mem_top1.memory_read1.res_ram0.mem[i];
+        out1 = testbench.mem_top1.memory_read1.res_ram1.mem[i];
+	out2 = testbench.mem_top1.memory_read1.res_ram2.mem[i];
+	out3 = testbench.mem_top1.memory_read1.res_ram3.mem[i];
+	
+	$fscanf(pooling1_result,"%b",out0_ff);
+	$fscanf(pooling1_result,"%b",out1_ff);
+	$fscanf(pooling1_result,"%b",out2_ff);
+	$fscanf(pooling1_result,"%b",out3_ff);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	if (out0 != out0_ff) begin 
+              error_count_layer12 = error_count_layer12 + 1;
+        end
+	if (out1 != out1_ff) begin 
+              error_count_layer12 = error_count_layer12 + 1;
+        end
+	if (out2 != out2_ff) begin 
+              error_count_layer12 = error_count_layer12 + 1;
+        end
+	if (out3 != out3_ff) begin 
+              error_count_layer12 = error_count_layer12 + 1;
+        end
+
+end
+
+/*Layer 34 TESTING*/
+for (i = 1568; i < 1568+288; i = i + 1) begin
+	out0 = testbench.mem_top1.memory_read1.res_ram0.mem[i];
+        out1 = testbench.mem_top1.memory_read1.res_ram1.mem[i];
+	out2 = testbench.mem_top1.memory_read1.res_ram2.mem[i];
+	out3 = testbench.mem_top1.memory_read1.res_ram3.mem[i];
+	
+	$fscanf(pooling2_result,"%b",out0_ff);
+	$fscanf(pooling2_result,"%b",out1_ff);
+	$fscanf(pooling2_result,"%b",out2_ff);
+	$fscanf(pooling2_result,"%b",out3_ff);
+
+	if (out0 != out0_ff) begin 
+              error_count_layer34 = error_count_layer34 + 1;
+              $display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out0);
+		$display ("file out:" ,out0_ff);
+        end
+	if (out1 != out1_ff) begin 
+              error_count_layer34 = error_count_layer34 + 1;
+		$display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out1);
+		$display ("file out:" ,out1_ff);
+        end
+	if (out2 != out2_ff) begin 
+              error_count_layer34 = error_count_layer34 + 1;
+		$display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out2);
+		$display ("file out:" ,out2_ff);
+        end
+	if (out3 != out3_ff) begin 
+              error_count_layer34 = error_count_layer34 + 1;
+		$display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out3);
+		$display ("file out:" ,out3_ff);
+        end
+
+end
 
 
-
-
+/* ERROR DISPLAY*/
+$display ("Error of Layer 12 = %d" ,error_count_layer12);
+$display ("Error of Layer 34 = %d" ,error_count_layer34);
 
   $stop;
 
