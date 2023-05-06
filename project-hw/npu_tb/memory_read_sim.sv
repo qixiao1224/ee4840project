@@ -33,7 +33,8 @@ logic [7:0] data0, data1, data2, data3;
 
 
 //TODO: Weird part, consider changing. It is not weird, I endorse this part.
-parameter layer34_start_position = 0; // This is the first time actually reads conv result, position should be 0
+// This is for reading res_mem addr
+parameter layer34_start_position = 0; // This is the first time actually reads conv result (from layer12), position should be 0
 parameter layer5_start_position = 1568; // Layer 34 gives out a result size of 14*14*32, divide by 4 into mems
 parameter layer_dense_start_position = 1856; // Layer 5 gives out a result size of 6*6*32, div 4, plus previous result
 
@@ -108,13 +109,6 @@ always_comb begin
         next_state = DENSE;  // Counter + MAC
     else if (dense_bias_count == 29 && dense_case == 2 && current_state == DENSE)//TODO: I am testing to seemlessly connect DENSE and DENSE_FINAL
         next_state = DENSE_10;  // Counter + MAC
-
-/*
-    else if (filter_dense_count == 6'd32 && current_state = DENSE)//TODO: Counter need to be determined
-        next_state = DENSE_FINAL;
-    else if (filter_dense_count == 6'd32 && current_state = DENSE_FINAL)//TODO: Counter need to be determined
-        next_state = IDLE;
-*/
 end
 
 
@@ -692,7 +686,7 @@ LAYER 34
 						z_counter <= 0;
 
 						// Ram addr goes back to pos 0, conv addr is normally increased
-						// TODO Check conv addr starts from 289
+						// Check conv addr starts from 289
 						ram_addr_b <= layer34_start_position;
 					end
 				end

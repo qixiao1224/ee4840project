@@ -107,7 +107,7 @@ memory_write memory_write1(
 
 
 /************READ MODULE**********/
-memory_read memory_read1(
+memory_read_sim memory_read1(
     .clk(clk),
     .reset(reset),
 
