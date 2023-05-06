@@ -6,8 +6,7 @@
 % bias2=load("C:\Users\teren\Desktop\weight_bias\bias2.mat");
 % bias3=load("C:\Users\teren\Desktop\weight_bias\bias3.mat");
 
-weight_bias = load("data/weight_bias.mat");
-
+weight_bias = load("weight_bias.mat");
 wordlength = 16; %total number of bits
 fractionlength = 7; %bits assigned for fraction
 
@@ -18,65 +17,85 @@ F16.ProductFractionLength = fractionlength;
 F16.SumMode = 'SpecifyPrecision';
 F16.SumWordLength = wordlength;
 F16.SumFractionLength = fractionlength;
-
-img0 = load("data/img0.mat").data;
-img1 = load("data/img1.mat").data;
-img2 = load("data/img2.mat").data;
-img3 = load("data/img3.mat").data;
-img4 = load("data/img4.mat").data;
-img5 = load("data/img5.mat").data;
-img6 = load("data/img6.mat").data;
-img7 = load("data/img7.mat").data;
-img8 = load("data/img8.mat").data;
-img9 = load("data/img9.mat").data;
+weights0 = fopen('conv2d_weights.txt','r');
+weights= fscanf(weights0,'%f');
+weights = reshape(weights,3,3,32);
+weightsf = fi(weights,1,wordlength,fractionlength,F16);
+bias0 = fopen('conv2d_biases.txt','r');
+biases = fscanf(bias0,'%f');
+biasesf = fi(biases,1,wordlength,fractionlength,F16);
+image = fopen('image0.txt','r');
+image0 = fscanf(image,'%f');
+image0sf = fi(image0,1,wordlength,fractionlength,F16);
+% img0 = load("data/img0.mat").data;
+% img1 = load("data/img1.mat").data;
+% img2 = load("data/img2.mat").data;
+% img3 = load("data/img3.mat").data;
+% img4 = load("data/img4.mat").data;
+% img5 = load("data/img5.mat").data;
+% img6 = load("data/img6.mat").data;
+% img7 = load("data/img7.mat").data;
+% img8 = load("data/img8.mat").data;
+% img9 = load("data/img9.mat").data;
 
 %data ending in "f": fixed point data
-img0f = fi(img0, 1, wordlength, fractionlength, F16);
-img1f = fi(img1, 1, wordlength, fractionlength, F16);
-img2f = fi(img2, 1, wordlength, fractionlength, F16);
-img3f = fi(img3, 1, wordlength, fractionlength, F16);
-img4f = fi(img4, 1, wordlength, fractionlength, F16);
-img5f = fi(img5, 1, wordlength, fractionlength, F16);
-img6f = fi(img6, 1, wordlength, fractionlength, F16);
-img7f = fi(img7, 1, wordlength, fractionlength, F16);
-img8f = fi(img8, 1, wordlength, fractionlength, F16);
-img9f = fi(img9, 1, wordlength, fractionlength, F16);
-
-photof = zeros(16,16,10);
-photof(:,:,1) = img0f;
-photof(:,:,2) = img1f;
-photof(:,:,3) = img2f;
-photof(:,:,4) = img3f;
-photof(:,:,5) = img4f;
-photof(:,:,6) = img5f;
-photof(:,:,7) = img6f;
-photof(:,:,8) = img7f;
-photof(:,:,9) = img8f;
-photof(:,:,10) = img9f;
-
-photos_labels = [0,1,2,3,4,5,6,7,8,9];
-
-weight1 = weight_bias.weight1;
-weight2 = weight_bias.weight2;
-weight3 = weight_bias.weight3;
-bias1 = weight_bias.bias1;
-bias2 = weight_bias.bias2;
-bias3 = weight_bias.bias3;
-
-
-weight1f = fi(weight1, 1, wordlength, fractionlength, F16);
-weight2f = fi(weight2, 1, wordlength, fractionlength, F16);
-weight3f = fi(weight3, 1, wordlength, fractionlength, F16);
-bias1f = fi(bias1, 1, wordlength, fractionlength, F16);
-bias2f = fi(bias2, 1, wordlength, fractionlength, F16);
-bias3f = fi(bias3, 1, wordlength, fractionlength, F16);
-
-test_images = fi(load("data/test_images.mat").data, 1, wordlength, fractionlength);
-test_imagef = fi(load("data/test_images.mat").data, 1, wordlength, fractionlength, F16);
-test_labels = load("data/test_labels.mat").data;
-
-x = predict(img2s, weight1s, weight2s, weight3s, bias1s, bias2s, bias3s, wordlength, fractionlength);
-
+% img0f = fi(img0, 1, wordlength, fractionlength, F16);
+% img1f = fi(img1, 1, wordlength, fractionlength, F16);
+% img2f = fi(img2, 1, wordlength, fractionlength, F16);
+% img3f = fi(img3, 1, wordlength, fractionlength, F16);
+% img4f = fi(img4, 1, wordlength, fractionlength, F16);
+% img5f = fi(img5, 1, wordlength, fractionlength, F16);
+% img6f = fi(img6, 1, wordlength, fractionlength, F16);
+% img7f = fi(img7, 1, wordlength, fractionlength, F16);
+% img8f = fi(img8, 1, wordlength, fractionlength, F16);
+% img9f = fi(img9, 1, wordlength, fractionlength, F16);
+% 
+% photof = zeros(16,16,10);
+% photof(:,:,1) = img0f;
+% photof(:,:,2) = img1f;
+% photof(:,:,3) = img2f;
+% photof(:,:,4) = img3f;
+% photof(:,:,5) = img4f;
+% photof(:,:,6) = img5f;
+% photof(:,:,7) = img6f;
+% photof(:,:,8) = img7f;
+% photof(:,:,9) = img8f;
+% photof(:,:,10) = img9f;
+% 
+% photos_labels = [0,1,2,3,4,5,6,7,8,9];
+% 
+% weight1 = weight_bias.weight1;
+% weight2 = weight_bias.weight2;
+% weight3 = weight_bias.weight3;
+% bias1 = weight_bias.bias1;
+% bias2 = weight_bias.bias2;
+% bias3 = weight_bias.bias3;
+% 
+% 
+% weight1f = fi(weight1, 1, wordlength, fractionlength, F16);
+% weight2f = fi(weight2, 1, wordlength, fractionlength, F16);
+% weight3f = fi(weight3, 1, wordlength, fractionlength, F16);
+% bias1f = fi(bias1, 1, wordlength, fractionlength, F16);
+% bias2f = fi(bias2, 1, wordlength, fractionlength, F16);
+% bias3f = fi(bias3, 1, wordlength, fractionlength, F16);
+% 
+% test_images = fi(load("data/test_images.mat").data, 1, wordlength, fractionlength);
+% test_imagef = fi(load("data/test_images.mat").data, 1, wordlength, fractionlength, F16);
+% test_labels = load("data/test_labels.mat").data;
+% 
+% x = predict(img2s, weight1s, weight2s, weight3s, bias1s, bias2s, bias3s, wordlength, fractionlength);
+%% 
+%x = predict2(image0, weights, biases,wordlength, fractionlength);
+%%
+image0sf=reshape(image0sf,[30,30]);
+sz = size(image0sf);
+disp(sz);
+sz2= size(weights);
+disp(sz2);
+biases= reshape(biases,[1,1,32]);
+convResult= convn(image0sf,weights,'valid');
+convResultWithBias= convResult + biases;
+disp(convResultWithBias)
 test_images = permute(test_images,[2,3,1]);
 test_imagef = permute(test_imagef,[2,3,1]);
 predicted_labels = zeros( 10000 );
