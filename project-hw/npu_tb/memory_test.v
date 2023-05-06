@@ -216,15 +216,27 @@ for (i = 1568; i < 1568+288; i = i + 1) begin
 
 	if (out0 != out0_ff) begin 
               error_count_layer34 = error_count_layer34 + 1;
+              $display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out0);
+		$display ("file out:" ,out0_ff);
         end
 	if (out1 != out1_ff) begin 
               error_count_layer34 = error_count_layer34 + 1;
+		$display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out1);
+		$display ("file out:" ,out1_ff);
         end
 	if (out2 != out2_ff) begin 
               error_count_layer34 = error_count_layer34 + 1;
+		$display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out2);
+		$display ("file out:" ,out2_ff);
         end
 	if (out3 != out3_ff) begin 
               error_count_layer34 = error_count_layer34 + 1;
+		$display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out3);
+		$display ("file out:" ,out3_ff);
         end
 
 end

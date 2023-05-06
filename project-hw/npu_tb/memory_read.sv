@@ -448,7 +448,7 @@ LAYER 12
                        image_ram_addr <= image_ram_addr + 1;
                         block_count <= block_count + 1; // Updating offset
                         wr_en <= 1; // write back once
-                        //if (channel32_count == 32) ram_addr_b <= 1;
+                        if (next_state == LAYER34) ram_addr_b <= 1;
                         if (block_count < 195) begin 
                             //conv_ram_addr <= conv_ram_addr - 1; //return to filter[0]
                         end
