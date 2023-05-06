@@ -7,6 +7,7 @@
 `define CONV5_FILTER_INPUT "../../data/weight_bias_conv2d3.txt"
 `define POOLING1_RESULT "../../data/pooling1_result_z.txt"
 `define POOLING2_RESULT "../../data/pooling2_result_z.txt"
+`define CONV5_RESULT "../../data/conv2d3_flatten_result.txt"
 
 module testbench(  );
 
@@ -28,6 +29,7 @@ module testbench(  );
   integer conv1_result;
   integer pooling1_result;
   integer pooling2_result;
+  integer conv5_result;
   
   //error counters
   reg [10:0] error_count_layer12;
@@ -64,6 +66,7 @@ conv34_filter_input = $fopen (`CONV34_FILTER_INPUT, "r");
 conv5_filter_input = $fopen (`CONV5_FILTER_INPUT, "r");
 pooling1_result = $fopen(`POOLING1_RESULT,"r");
 pooling2_result = $fopen(`POOLING2_RESULT,"r");
+conv5_result = $fopen(`CONV5_RESULT,"r");
 
 //test file opening
 if (!img_input) begin 
@@ -96,6 +99,12 @@ if (!pooling2_result) begin
     $display("Cannot Open POOLING RESULT 2!");
     $finish;
 end
+
+if (!conv5_result) begin 
+    $display("Cannot Open POOLING RESULT 2!");
+    $finish;
+end
+
 
 //Start signal
 clk = 0;
@@ -202,6 +211,9 @@ for (i = 0; i < 1568; i = i + 1) begin
 
 end
 
+
+
+
 /*Layer 34 TESTING*/
 for (i = 1568; i < 1568+288; i = i + 1) begin
 	out0 = testbench.mem_top1.memory_read1.res_ram0.mem[i];
@@ -240,6 +252,53 @@ for (i = 1568; i < 1568+288; i = i + 1) begin
         end
 
 end
+
+
+/*Layer 5 TESTING*/
+for (i = 1568+288; i < 1568+288+128; i = i + 1) begin
+	out0 = testbench.mem_top1.memory_read1.res_ram0.mem[i];
+        out1 = testbench.mem_top1.memory_read1.res_ram1.mem[i];
+	out2 = testbench.mem_top1.memory_read1.res_ram2.mem[i];
+	out3 = testbench.mem_top1.memory_read1.res_ram3.mem[i];
+	
+	$fscanf(conv5_result,"%b",out0_ff);
+	$fscanf(conv5_result,"%b",out1_ff);
+	$fscanf(conv5_result,"%b",out2_ff);
+	$fscanf(conv5_result,"%b",out3_ff);
+
+	if (out0 != out0_ff) begin 
+              error_count_layer5 = error_count_layer5 + 1;
+              $display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out0);
+		$display ("file out:" ,out0_ff);
+        end
+	if (out1 != out1_ff) begin 
+              error_count_layer5 = error_count_layer5 + 1;
+		$display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out1);
+		$display ("file out:" ,out1_ff);
+        end
+	if (out2 != out2_ff) begin 
+              error_count_layer5 = error_count_layer5 + 1;
+		$display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out2);
+		$display ("file out:" ,out2_ff);
+        end
+	if (out3 != out3_ff) begin 
+              error_count_layer5 = error_count_layer5 + 1;
+		$display ("Error of mem0 in position %d" ,i);
+		$display ("npu out:" ,out3);
+		$display ("file out:" ,out3_ff);
+        end
+
+end
+
+
+
+
+
+
+
 
 
 /* ERROR DISPLAY*/
