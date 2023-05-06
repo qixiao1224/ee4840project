@@ -85,8 +85,17 @@ image0sf = fi(image0,1,wordlength,fractionlength,F16);
 % 
 % x = predict(img2s, weight1s, weight2s, weight3s, bias1s, bias2s, bias3s, wordlength, fractionlength);
 %% 
-x = predict2(image0, weights, biases,wordlength, fractionlength);
-%% 
+%x = predict2(image0, weights, biases,wordlength, fractionlength);
+%%
+image0sf=reshape(image0sf,[30,30]);
+sz = size(image0sf);
+disp(sz);
+sz2= size(weights);
+disp(sz2);
+biases= reshape(biases,[1,1,32]);
+convResult= convn(image0sf,weights,'valid');
+convResultWithBias= convResult + biases;
+disp(convResultWithBias)
 test_images = permute(test_images,[2,3,1]);
 test_imagef = permute(test_imagef,[2,3,1]);
 predicted_labels = zeros( 10000 );
