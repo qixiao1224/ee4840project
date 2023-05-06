@@ -31,14 +31,10 @@ add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_res1
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_res2
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_res3
 
-add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_image0
-add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_image1
-add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_image2
-add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_image3
-add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[0]
-add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[1]
-add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[2]
-add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/processing_unit_4x4[3]
+#add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_image0
+#add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_image1
+#add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_image2
+#add wave -group {datas} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_image3
 
 add wave -group {layer12} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/layer12_count
 add wave -group {layer12} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/channel32_count
@@ -86,9 +82,7 @@ add wave -group {processing unit} -noupdate -radix unsigned /testbench/mem_top1/
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram_addr_a
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram_addr_b
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/image_ram_addr_b
-
-
-add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/layer12_count
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_addr_b
 
 
 add wave -group {state} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/current_state
