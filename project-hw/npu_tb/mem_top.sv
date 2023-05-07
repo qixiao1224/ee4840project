@@ -10,11 +10,11 @@ module mem_top (input logic clk,
 
 
 //wire between modules
-logic [7:0] read_image0,read_image1,read_image2,read_image3,read_conv,read_dense,read_denseb_0,read_denseb_1,read_denseb_2,read_denseb_3;
-logic [14:0] conv_ram_addr_a,conv_ram_addr_b,dense_ram_addr_a,dense_ram_addr_b,denseb_ram_addr_a,denseb_ram_addr_b;
+logic [7:0] read_image0,read_image1,read_image2,read_image3,read_conv,read_dense0,read_dense1,read_dense2,read_dense3;
+logic [14:0] conv_ram_addr_a,conv_ram_addr_b,dense_ram_addr_a,dense_ram_addr_b;
 logic [9:0] image_ram_addr_a,image_ram_addr_b;
-logic we_image0,we_image1,we_image2,we_image3,we_conv,we_dense;
-logic [7:0] data_image0,data_image1,data_image2,data_image3,data_conv,data_dense,data_denseb;
+logic we_image0,we_image1,we_image2,we_image3,we_conv,we_dense0,we_dense1,we_dense2,we_dense3;
+logic [7:0] data_image0,data_image1,data_image2,data_image3,data_conv,data_dense0,data_dense1,data_dense2,data_dense3;
 
 logic [7:0] DA,DB,DC,DD,DE,DF,DG,DH;
 logic EN_FSM, EN_CONFIG;
@@ -50,18 +50,19 @@ memory memory1(
 
 //input from dense_ram
 //memory_read
-.dense_ram_addr_b(dense_ram_addr_b),
+    .dense_ram_addr_b(dense_ram_addr_b),
 //memory_write
     .dense_ram_addr_a(dense_ram_addr_a),
-    .data_dense(data_dense),
-    .we_dense(we_dense),
+    .data_dense0(data_dense0),
+    .data_dense1(data_dense1),
+    .data_dense2(data_dense2),
+    .data_dense3(data_dense3),
+    .we_dense0(we_dense0),
+    .we_dense1(we_dense1),
+    .we_dense2(we_dense2),
+    .we_dense3(we_dense3),
 
-//memory_read
-.denseb_ram_addr_b(denseb_ram_addr_b),
-//memory_write
-    .denseb_ram_addr_a(denseb_ram_addr_a),
-    .data_denseb(data_denseb),
-    .we_denseb(we_denseb),
+
 
 
 //outputs from RAM
@@ -71,11 +72,10 @@ memory memory1(
     .read_image2(read_image2), 
     .read_image3(read_image3),
     .read_conv(read_conv),
-    .read_dense(read_dense),
-    .read_denseb_0(read_denseb_0),
-    .read_denseb_1(read_denseb_1),
-    .read_denseb_2(read_denseb_2),
-    .read_denseb_3(read_denseb_3)
+    .read_dense0(read_dense0),
+    .read_dense1(read_dense1),
+    .read_dense2(read_dense2),
+    .read_dense3(read_dense3)
 );
 
 /************WRITE MODULE**********/
@@ -85,24 +85,27 @@ memory_write memory_write1(
     .writedata(writedata),
     .control_reg(control_reg),
     
-    .wren0(we_image0),
-    .wren1(we_image1),
-    .wren2(we_image2),
-    .wren3(we_image3),
-    .wren_conv(we_conv),
-    .wren_dense(we_dense),
-    .wren_denseb(we_denseb),
-    .data0(data_image0),
-    .data1(data_image1),
-    .data2(data_image2),
-    .data3(data_image3),
-    .data4(data_conv),
-    .data5(data_dense),
-    .data6(data_denseb),
-    .image_ram_addr(image_ram_addr_a),
-    .conv_ram_addr(conv_ram_addr_a),
-    .dense_ram_addr(dense_ram_addr_a),
-    .denseb_ram_addr(denseb_ram_addr_a)
+    .we_image0(we_image0),
+    .we_image1(we_image1),
+    .we_image2(we_image2),
+    .we_image3(we_image3),
+    .we_conv(we_conv),
+    .we_dense0(we_dense0),
+    .we_dense1(we_dense1),
+    .we_dense2(we_dense2),
+    .we_dense3(we_dense3),
+    .data_image0(data_image0),
+    .data_image1(data_image1),
+    .data_image2(data_image2),
+    .data_image3(data_image3),
+    .data_conv(data_conv),
+    .data_dense0(data_dense0),
+    .data_dense1(data_dense1),
+    .data_dense2(data_dense2),
+    .data_dense3(data_dense3),
+    .image_ram_addr_a(image_ram_addr_a),
+    .conv_ram_addr_a(conv_ram_addr_a),
+    .dense_ram_addr_a(dense_ram_addr_a)
 );
 
 
@@ -117,11 +120,10 @@ memory_read_sim memory_read1(
     .read_image2(read_image2), 
     .read_image3(read_image3),
     .read_conv(read_conv),
-    .read_dense(read_dense),
-    .read_denseb_0(read_denseb_0),
-    .read_denseb_1(read_denseb_1),
-    .read_denseb_2(read_denseb_2),
-    .read_denseb_3(read_denseb_3),
+    .read_dense0(read_dense0),
+    .read_dense1(read_dense1),
+    .read_dense2(read_dense2),
+    .read_dense3(read_dense3),
 
     //TODO: NOT WIRED
     .DA(DA), 
@@ -140,7 +142,6 @@ memory_read_sim memory_read1(
     .image_ram_addr(image_ram_addr_b),
     .conv_ram_addr(conv_ram_addr_b),
     .dense_ram_addr(dense_ram_addr_b),
-    .dense_ram_bias_addr(denseb_ram_addr_b),
     .EN_FSM(EN_FSM), 
     .EN_CONFIG(EN_CONFIG)
 

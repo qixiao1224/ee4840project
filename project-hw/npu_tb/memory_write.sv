@@ -1,15 +1,14 @@
 module memory_write(
-    input logic        clk,
+        input logic        clk,
         input logic        reset,
         input logic [31:0] writedata,
         input logic [31:0] control_reg,
     
-        output logic wren0,wren1,wren2,wren3,wren_conv,wren_dense,wren_denseb,
-        output logic [7:0] data0,data1,data2,data3,data4,data5,data6,
-        output logic [9:0] image_ram_addr,
-        output logic [14:0] conv_ram_addr,
-        output logic [14:0] dense_ram_addr,
-        output logic [14:0] denseb_ram_addr
+        output logic we_image0,we_image1,we_image2,we_image3,we_conv,we_dense0,we_dense1,we_dense2,we_dense3,
+        output logic [7:0] data_image0,data_image1,data_image2,data_image3,data_conv,data_dense0,data_dense1,data_dense2,data_dense3,
+        output logic [9:0] image_ram_addr_a,
+        output logic [14:0] conv_ram_addr_a,
+        output logic [14:0] dense_ram_addr_a
 );
 
 logic [7:0] image_count;
@@ -17,7 +16,7 @@ logic [14:0] conv_write_count,dense_write_count;
 //logic [15:0] SSFR_instr;
 logic writedone;
 
-typedef enum logic [2:0] { IDLE, WRITE_FOUR, WRITE_SEQ_CONV , WRITE_SEQ_DENSE} state_t;
+typedef enum logic [2:0] { IDLE, WRITE_FOUR, WRITE_SEQ_CONV , WRITE_FOUR_DENSE} state_t;
 state_t current_state, next_state, state_delay;
 
 // State updates
@@ -38,125 +37,80 @@ always_comb begin
     else if (image_count == 8'd224 && current_state == WRITE_FOUR)
         next_state = WRITE_SEQ_CONV;
     else if (conv_write_count == 15'd18815 && current_state == WRITE_SEQ_CONV)
-        next_state = WRITE_SEQ_DENSE;
-    else if (dense_write_count == 15'd16745 && current_state == WRITE_SEQ_DENSE)
+        next_state = WRITE_FOUR_DENSE;
+    else if (dense_write_count == 15'd4203 && current_state == WRITE_FOUR_DENSE)
         next_state = IDLE;
 end
 
 
 // WRITE
 always_ff @(posedge clk) begin
-    if (reset) begin
-        image_count <= 8'b0;
-        writedone <= 0;
-//        wren0 <= 0;
-//        wren1 <= 0;
-//        wren2 <= 0;
-//        wren3 <= 0;
-//        wren_conv <= 0;
-//        wren_dense <= 0;
-        image_ram_addr <= 0;
-        conv_ram_addr <= 0;
-        dense_ram_addr <= 0;
-    end else begin
-        //data0 <= writedata[31:24];
-        //data1 <= writedata[23:16];
-        //data2 <= writedata[15:8];
-        //data3 <= writedata[7:0];
-        //SSFR_instr <= 16'b0010000010101000; // TODO change with states
         case (current_state)
             IDLE: begin
+                    image_count <= 8'b0;
+                    writedone <= 0;
+                    image_ram_addr_a <= 0;
+                    conv_ram_addr_a <= 0;
+                    dense_ram_addr_a <= 0;
                     image_count <= 0;
                     conv_write_count <= 0;
                     dense_write_count <= 0;
-			if (next_state == WRITE_FOUR) begin
-//				wren0 <= 1;
-//        			wren1 <= 1;
-//        			wren2 <= 1;
-//        			wren3 <= 1;
-			end
             end
-        WRITE_FOUR: begin // Data is splitted into 4. store in different memories
 
-
-//            wren_conv <= 0;
-//            wren_dense <= 0;
-		        
-                    if (image_count < 8'd223) begin
+            WRITE_FOUR: begin // Data is splitted into 4. store in different memories
+                    if (image_count < 8'd224) begin
                         image_count <= image_count + 1;
-                        image_ram_addr <= image_ram_addr + 1; // TODO check memory addr continuity// We are getting back to this memory later
-                    end
-                    else if (image_count == 223) begin
-//                                   wren0 <= 1;
-//				    wren1 <= 1;
-//				    wren2 <= 1;
-//				    wren3 <= 1;
-//				    wren_conv <= 0;
-//				    wren_dense <= 0;
-				image_count <= image_count + 1;
-                        	image_ram_addr <= image_ram_addr + 1;
-				//data4 <= writedata[7:0];
+                        image_ram_addr_a <= image_ram_addr_a + 1; 
                     end
 		    else begin
 			// Write a conv value
 				image_count <= image_count + 1;
-                        	image_ram_addr <= image_ram_addr + 1;
+                        	image_ram_addr_a <= image_ram_addr_a + 1;
 				conv_write_count <= conv_write_count + 1;
-            			conv_ram_addr <= conv_ram_addr + 1;
+            			conv_ram_addr_a <= conv_ram_addr_a + 1;
 			end
-            
-        end
+            end
+
             WRITE_SEQ_CONV: begin
-            //data4 <= writedata[7:0];
-//            wren0 <= 0;
-//            wren1 <= 0;
-//            wren2 <= 0;
-//            wren3 <= 0;
-//            wren_conv <= 1;
-//            wren_dense <= 0;
                     if (conv_write_count < 15'd18815) begin
             			conv_write_count <= conv_write_count + 1;
-            			conv_ram_addr <= conv_ram_addr + 1;
-                    end
-        end
- /*           WRITE_SEQ_DENSE: begin
-            data6 <= writedata[7:0];
-            wren0 <= 0;
-            wren1 <= 0;
-            wren2 <= 0;
-            wren3 <= 0;
-            wren_conv <= 0;
-            wren_dense <= 1;
-                    if (dense_write_count < 15'd16745) begin
-            dense_write_count <= dense_write_count + 1;
-            dense_ram_addr <= dense_ram_addr + 1;
-                    end
-                    else writedone = 1;
-        end
-        // TODO Two additional states for wrting during calculation
-        default: begin
-            wren0 <= 0;
-            wren1 <= 0;
-            wren2 <= 0;
-            wren3 <= 0;
-            wren_conv <= 0;
-            wren_dense <= 0;
-        end*/
-        endcase  
-    end//end if
+            			conv_ram_addr_a <= conv_ram_addr_a + 1;
+                    end else begin
+                  	conv_write_count <= conv_write_count + 1;
+            		conv_ram_addr_a <= conv_ram_addr_a + 1;   
+                        dense_write_count <= dense_write_count + 1;
+                        dense_ram_addr_a <= dense_ram_addr_a + 1;                     
+                    end  
+            end
+
+            WRITE_FOUR_DENSE: begin
+                if (dense_write_count < 15'd4202) begin
+                    dense_write_count <= dense_write_count + 1;
+                    dense_ram_addr_a <= dense_ram_addr_a + 1;
+                end
+           end
+
+        endcase
 end//end for ff
 
-assign data0 = writedata[31:24];
-assign data1 = writedata[23:16];
-assign data2 = writedata[15:8];
-assign data3 = writedata[7:0];
-assign data4 = writedata[7:0];
+assign data_image0 = writedata[31:24];
+assign data_image1 = writedata[23:16];
+assign data_image2 = writedata[15:8];
+assign data_image3 = writedata[7:0];
+assign data_conv   = writedata[7:0];
+assign data_dense0 = writedata[31:24];
+assign data_dense1 = writedata[23:16];
+assign data_dense2 = writedata[15:8];
+assign data_dense3 = writedata[7:0];
 
-assign wren0 = current_state == WRITE_FOUR ? 1:0;
-assign wren1 = current_state == WRITE_FOUR ? 1:0;
-assign wren2 = current_state == WRITE_FOUR ? 1:0;
-assign wren3 = current_state == WRITE_FOUR ? 1:0;
-assign wren_conv = (next_state == WRITE_SEQ_CONV) || (image_count == 8'd225) ? 1:0;
-assign wren_dense = next_state == WRITE_SEQ_DENSE ? 1:0;
+assign we_image0 = current_state == WRITE_FOUR ? 1:0;
+assign we_image1 = current_state == WRITE_FOUR ? 1:0;
+assign we_image2 = current_state == WRITE_FOUR ? 1:0;
+assign we_image3 = current_state == WRITE_FOUR ? 1:0;
+assign we_conv = (next_state == WRITE_SEQ_CONV) || (image_count == 8'd225) ? 1:0;
+assign we_dense0 = (next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816) ? 1:0;
+assign we_dense1 = (next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816) ? 1:0;
+assign we_dense2 = (next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816) ? 1:0;
+assign we_dense3 = (next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816) ? 1:0;
 
 endmodule

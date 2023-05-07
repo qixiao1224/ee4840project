@@ -22,23 +22,12 @@ module memory(
 
     //input from dense_ram
     input logic [14:0] dense_ram_addr_a,dense_ram_addr_b,
-    input logic [7:0]  data_dense,
-    input logic        we_dense,
-
-    input logic [14:0] denseb_ram_addr_a,denseb_ram_addr_b,
-    input logic [7:0]  data_denseb,
-    input logic        we_denseb,
-
-    //input from res_ram 
-    //input logic [13:0] res_ram_addr_a, res_ram_addr_b,
-    //input logic [7:0]  data_res0, data_res1, data_res2, data_res3
-    //input logic        we_res0, we_res1, we_res2, we_res3,
-
-    //TODO: Place Reserved for memory_read and memory_write
+    input logic [7:0]  data_dense0,data_dense1,data_dense2,data_dense3,
+    input logic        we_dense0,we_dense1,we_dense2,we_dense3,
 
     //outputs from RAM
-    output logic [7:0] read_image0,read_image1,read_image2,read_image3,read_conv,read_dense,read_denseb_0,read_denseb_1,read_denseb_2,read_denseb_3
-    //output logic [7:0] read_res0,read_res1,read_res2,read_res3,
+    output logic [7:0] read_image0,read_image1,read_image2,read_image3,read_conv,read_dense0,read_dense1,read_dense2,read_dense3
+
 );
 
 
@@ -53,21 +42,11 @@ image_ram image_ram3 (.wraddress(image_ram_addr_a), .rdaddress(image_ram_addr_b)
 conv_ram conv_ram0 (.wraddress(conv_ram_addr_a), .rdaddress(conv_ram_addr_b), .clock(clk), .data(data_conv), .wren(we_conv), .q(read_conv));//address [15:0]
 
 //dense layer parameter ram // address [14:0]
-dense_ram dense_ram0 (.wraddress(dense_ram_addr_a), .rdaddress(dense_ram_addr_b), .clock(clk), .data(data_dense), .wren(we_dense), .q(read_dense)); // parameter
+dense_ram dense_ram0 (.wraddress(dense_ram_addr_a), .rdaddress(dense_ram_addr_b), .clock(clk), .data(data_dense0), .wren(we_dense0), .q(read_dense0)); // bias
+dense_ram dense_ram1 (.wraddress(dense_ram_addr_a), .rdaddress(dense_ram_addr_b), .clock(clk), .data(data_dense1), .wren(we_dense1), .q(read_dense1));
+dense_ram dense_ram2 (.wraddress(dense_ram_addr_a), .rdaddress(dense_ram_addr_b), .clock(clk), .data(data_dense2), .wren(we_dense2), .q(read_dense2));
+dense_ram dense_ram3 (.wraddress(dense_ram_addr_a), .rdaddress(dense_ram_addr_b), .clock(clk), .data(data_dense3), .wren(we_dense3), .q(read_dense3));
 
-dense_ram denseb_ram0 (.wraddress(denseb_ram_addr_a), .rdaddress(denseb_ram_addr_b), .clock(clk), .data(data_denseb), .wren(we_denseb), .q(read_denseb_0)); // bias
-dense_ram denseb_ram1 (.wraddress(denseb_ram_addr_a), .rdaddress(denseb_ram_addr_b), .clock(clk), .data(data_denseb), .wren(we_denseb), .q(read_denseb_1));
-dense_ram denseb_ram2 (.wraddress(denseb_ram_addr_a), .rdaddress(denseb_ram_addr_b), .clock(clk), .data(data_denseb), .wren(we_denseb), .q(read_denseb_2));
-dense_ram denseb_ram3 (.wraddress(denseb_ram_addr_a), .rdaddress(denseb_ram_addr_b), .clock(clk), .data(data_denseb), .wren(we_denseb), .q(read_denseb_3));
-// //residue ram to store output from each layer // address[13:0] // Moved to lower module
-// res_ram res_ram0 (.wraddress(res_ram_addr_a), .rdaddress(res_ram_addr_b), .clock(clk), .data(data_res0), .wren(we_res0), .q(read_res0));//address[13:0]
-// res_ram res_ram1 (.wraddress(res_ram_addr_a), .rdaddress(res_ram_addr_b), .clock(clk), .data(data_res1), .wren(we_res1), .q(read_res1));
-// res_ram res_ram2 (.wraddress(res_ram_addr_a), .rdaddress(res_ram_addr_b), .clock(clk), .data(data_res2), .wren(we_res2), .q(read_res2));
-// res_ram res_ram3 (.wraddress(res_ram_addr_a), .rdaddress(res_ram_addr_b), .clock(clk), .data(data_res3), .wren(we_res3), .q(read_res3));
-
-
-//memory_read memory_read0(/*TODO:*/);
-//memory_write memory_write0(/*TODO:*/);
 
 endmodule
 
