@@ -74,6 +74,7 @@ add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram_addr_a
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/conv_ram_addr_b
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/image_ram_addr_b
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_addr_b
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/dense_ram_addr
 
 
 add wave -group {state} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/current_state

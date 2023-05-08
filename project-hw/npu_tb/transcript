@@ -1,0 +1,643 @@
+# //  Questa Sim
+# //  Version 10.7b_1 linux Jul 26 2018
+# //
+# //  Copyright 1991-2018 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# do runsim.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# QuestaSim vmap 10.7b_1 Lib Mapping Utility 2018.07 Jul 26 2018
+# vmap work work 
+# Modifying modelsim.ini
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:43 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_top/npu_top.v 
+# -- Skipping module npu_top
+# 
+# Top level modules:
+# 	npu_top
+# End time: 16:24:43 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:43 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/npu_v8.v 
+# -- Skipping module npu_v8
+# 
+# Top level modules:
+# 	npu_v8
+# End time: 16:24:43 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:43 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/MAC.v 
+# -- Skipping module MAC
+# -- Skipping module sixtheen_bit_sat_adder
+# 
+# Top level modules:
+# 	MAC
+# End time: 16:24:43 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:43 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/ReLU.v 
+# -- Skipping module ReLU
+# 
+# Top level modules:
+# 	ReLU
+# End time: 16:24:44 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:44 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/piso_out.v 
+# -- Skipping module piso_out
+# 
+# Top level modules:
+# 	piso_out
+# End time: 16:24:44 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:44 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/input_buffer.v 
+# -- Skipping module input_buffer
+# 
+# Top level modules:
+# 	input_buffer
+# End time: 16:24:44 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:44 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/auto_comparator.v 
+# -- Skipping module auto_comparator
+# 
+# Top level modules:
+# 	auto_comparator
+# End time: 16:24:45 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:45 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/syn_fifo.v 
+# -- Skipping module syn_fifo
+# 
+# Top level modules:
+# 	syn_fifo
+# End time: 16:24:45 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:45 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/data_converter.v 
+# -- Skipping module data_converter
+# 
+# Top level modules:
+# 	data_converter
+# End time: 16:24:46 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:46 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM.v 
+# -- Skipping module FSM
+# -- Skipping module down_counter
+# 
+# Top level modules:
+# 	FSM
+# End time: 16:24:46 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:46 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM_ACC.v 
+# -- Skipping module FSM_ACC
+# 
+# Top level modules:
+# 	FSM_ACC
+# End time: 16:24:46 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:46 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM_OUT.v 
+# -- Skipping module FSM_OUT
+# 
+# Top level modules:
+# 	FSM_OUT
+# End time: 16:24:47 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:47 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/SSFR/SSFR.v 
+# -- Skipping module SSFR
+# 
+# Top level modules:
+# 	SSFR
+# End time: 16:24:47 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:47 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_test.v 
+# -- Skipping module testbench
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:24:52 on May 08,2023, Elapsed time: 0:00:05
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:52 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_read.sv 
+# -- Compiling module memory_read_sim
+# 
+# Top level modules:
+# 	memory_read_sim
+# End time: 16:24:53 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:53 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_read_sim.sv 
+# -- Compiling module memory_read_sim
+# 
+# Top level modules:
+# 	memory_read_sim
+# End time: 16:24:53 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:53 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_write.sv 
+# -- Skipping module memory_write
+# 
+# Top level modules:
+# 	memory_write
+# End time: 16:24:54 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:54 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./conv_ram.v 
+# -- Skipping module conv_ram
+# 
+# Top level modules:
+# 	conv_ram
+# End time: 16:24:55 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:55 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./res_ram.v 
+# -- Skipping module res_ram
+# 
+# Top level modules:
+# 	res_ram
+# End time: 16:24:56 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:56 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./image_ram.v 
+# -- Skipping module image_ram
+# 
+# Top level modules:
+# 	image_ram
+# End time: 16:24:56 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:56 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./dense_ram.v 
+# -- Skipping module dense_ram
+# 
+# Top level modules:
+# 	dense_ram
+# End time: 16:24:57 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:57 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./mem_top.sv 
+# -- Skipping module mem_top
+# 
+# Top level modules:
+# 	mem_top
+# End time: 16:24:58 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:24:58 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory.sv 
+# -- Skipping module memory
+# 
+# Top level modules:
+# 	memory
+# End time: 16:24:59 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# ** Warning: (vsim-8689) Ignoring plusarg '+acc'.  Did you mean '-voptargs=+acc'?
+# vsim "+acc" -t ps -lib work testbench 
+# Start time: 16:24:59 on May 08,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-143) Recognized 6 FSMs in module "memory_read_sim(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "memory_write(fast)".
+# ** Warning: ./mem_top.sv(113): (vopt-2685) [TFMPC] - Too few port connections for 'memory_read1'.  Expected 27, found 26.
+# ** Warning: ./mem_top.sv(113): (vopt-2718) [TFMPC] - Missing connection for port 'dense_ram_bias_addr'.
+# ** Warning: ./mem_top.sv(151): (vopt-2685) [TFMPC] - Too few port connections for 'npu_top'.  Expected 30, found 16.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'ReLU2_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'ReLU1_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'piso_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_RST_MAC1_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_CLR_BUF_IN_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_EN_BUF_IN_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_EN_MAC1_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_EN_PISO_OUT_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_CLR_PISO_OUT_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_SHIFT_OUT_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_EN_ReLU1_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'EMPTY'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FULL'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'RD_EN'.
+# ** Note: (vopt-143) Recognized 1 FSM in module "FSM_ACC(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "FSM_OUT(fast)".
+# Loading work.testbench(fast)
+# Loading sv_std.std
+# Loading work.mem_top(fast)
+# Loading work.memory(fast)
+# Loading work.image_ram(fast)
+# Loading work.conv_ram(fast)
+# Loading work.dense_ram(fast)
+# Loading work.memory_write(fast)
+# Loading work.memory_read_sim(fast)
+# Loading work.res_ram(fast)
+# Loading work.npu_top(fast)
+# Loading work.FSM(fast)
+# Loading work.down_counter(fast)
+# Loading work.FSM_ACC(fast)
+# Loading work.FSM_OUT(fast)
+# Loading work.npu_v8(fast)
+# Loading work.input_buffer(fast)
+# Loading work.MAC(fast)
+# Loading work.sixtheen_bit_sat_adder(fast)
+# Loading work.ReLU(fast)
+# Loading work.piso_out(fast)
+# Loading work.syn_fifo(fast)
+# Loading work.auto_comparator(fast)
+# Loading work.data_converter(fast)
+# Loading work.SSFR(fast)
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 166
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 169
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 172
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 175
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 183
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 191
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 199
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 207
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 210
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 213
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 216
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 224
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 227
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 230
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 233
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 260
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 261
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 262
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 263
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 290
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 291
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 292
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 293
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 330
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 331
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 332
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 333
+# Error of Layer 12 =    0
+# Error of Layer 34 =    0
+# Error of Layer 5 =    0
+# ** Note: $stop    : ./memory_test.v(409)
+#    Time: 2046495 ns  Iteration: 1  Instance: /testbench
+# Break in Module testbench at ./memory_test.v line 409
+do runsim.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# QuestaSim vmap 10.7b_1 Lib Mapping Utility 2018.07 Jul 26 2018
+# vmap work work 
+# Modifying modelsim.ini
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:43 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_top/npu_top.v 
+# -- Skipping module npu_top
+# 
+# Top level modules:
+# 	npu_top
+# End time: 16:29:43 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:43 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/npu_v8.v 
+# -- Skipping module npu_v8
+# 
+# Top level modules:
+# 	npu_v8
+# End time: 16:29:44 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:44 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/MAC.v 
+# -- Skipping module MAC
+# -- Skipping module sixtheen_bit_sat_adder
+# 
+# Top level modules:
+# 	MAC
+# End time: 16:29:44 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:44 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/ReLU.v 
+# -- Skipping module ReLU
+# 
+# Top level modules:
+# 	ReLU
+# End time: 16:29:44 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:44 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/piso_out.v 
+# -- Skipping module piso_out
+# 
+# Top level modules:
+# 	piso_out
+# End time: 16:29:44 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:44 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/input_buffer.v 
+# -- Skipping module input_buffer
+# 
+# Top level modules:
+# 	input_buffer
+# End time: 16:29:44 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:44 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/auto_comparator.v 
+# -- Skipping module auto_comparator
+# 
+# Top level modules:
+# 	auto_comparator
+# End time: 16:29:44 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:45 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/syn_fifo.v 
+# -- Skipping module syn_fifo
+# 
+# Top level modules:
+# 	syn_fifo
+# End time: 16:29:45 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:45 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/data_converter.v 
+# -- Skipping module data_converter
+# 
+# Top level modules:
+# 	data_converter
+# End time: 16:29:45 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:45 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM.v 
+# -- Skipping module FSM
+# -- Skipping module down_counter
+# 
+# Top level modules:
+# 	FSM
+# End time: 16:29:45 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:45 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM_ACC.v 
+# -- Skipping module FSM_ACC
+# 
+# Top level modules:
+# 	FSM_ACC
+# End time: 16:29:45 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:45 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM_OUT.v 
+# -- Skipping module FSM_OUT
+# 
+# Top level modules:
+# 	FSM_OUT
+# End time: 16:29:45 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:45 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/SSFR/SSFR.v 
+# -- Skipping module SSFR
+# 
+# Top level modules:
+# 	SSFR
+# End time: 16:29:45 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:45 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_test.v 
+# -- Skipping module testbench
+# 
+# Top level modules:
+# 	testbench
+# End time: 16:29:46 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:46 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_read.sv 
+# -- Compiling module memory_read_sim
+# 
+# Top level modules:
+# 	memory_read_sim
+# End time: 16:29:46 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:46 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_read_sim.sv 
+# -- Compiling module memory_read_sim
+# 
+# Top level modules:
+# 	memory_read_sim
+# End time: 16:29:46 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:46 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_write.sv 
+# -- Skipping module memory_write
+# 
+# Top level modules:
+# 	memory_write
+# End time: 16:29:46 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:46 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./conv_ram.v 
+# -- Skipping module conv_ram
+# 
+# Top level modules:
+# 	conv_ram
+# End time: 16:29:46 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:46 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./res_ram.v 
+# -- Skipping module res_ram
+# 
+# Top level modules:
+# 	res_ram
+# End time: 16:29:47 on May 08,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:47 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./image_ram.v 
+# -- Skipping module image_ram
+# 
+# Top level modules:
+# 	image_ram
+# End time: 16:29:47 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:47 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./dense_ram.v 
+# -- Skipping module dense_ram
+# 
+# Top level modules:
+# 	dense_ram
+# End time: 16:29:47 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:47 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./mem_top.sv 
+# -- Skipping module mem_top
+# 
+# Top level modules:
+# 	mem_top
+# End time: 16:29:47 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 16:29:47 on May 08,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory.sv 
+# -- Skipping module memory
+# 
+# Top level modules:
+# 	memory
+# End time: 16:29:47 on May 08,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 16:29:50 on May 08,2023, Elapsed time: 0:04:51
+# Errors: 0, Warnings: 45
+# ** Warning: (vsim-8689) Ignoring plusarg '+acc'.  Did you mean '-voptargs=+acc'?
+# vsim "+acc" -t ps -lib work testbench 
+# Start time: 16:29:50 on May 08,2023
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
+# Loading work.testbench(fast)
+# Loading sv_std.std
+# Loading work.mem_top(fast)
+# Loading work.memory(fast)
+# Loading work.image_ram(fast)
+# Loading work.conv_ram(fast)
+# Loading work.dense_ram(fast)
+# Loading work.memory_write(fast)
+# Loading work.memory_read_sim(fast)
+# Loading work.res_ram(fast)
+# Loading work.npu_top(fast)
+# Loading work.FSM(fast)
+# Loading work.down_counter(fast)
+# Loading work.FSM_ACC(fast)
+# Loading work.FSM_OUT(fast)
+# Loading work.npu_v8(fast)
+# Loading work.input_buffer(fast)
+# Loading work.MAC(fast)
+# Loading work.sixtheen_bit_sat_adder(fast)
+# Loading work.ReLU(fast)
+# Loading work.piso_out(fast)
+# Loading work.syn_fifo(fast)
+# Loading work.auto_comparator(fast)
+# Loading work.data_converter(fast)
+# Loading work.SSFR(fast)
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 166
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 169
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 172
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 175
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 183
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 191
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 199
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 207
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 210
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 213
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 216
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 224
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 227
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 230
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 233
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 260
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 261
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 262
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 263
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 290
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 291
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 292
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 293
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 330
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 331
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 332
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 333
+# Error of Layer 12 =    0
+# Error of Layer 34 =    0
+# Error of Layer 5 =    0
+# ** Note: $stop    : ./memory_test.v(409)
+#    Time: 2046495 ns  Iteration: 1  Instance: /testbench
+# Break in Module testbench at ./memory_test.v line 409
