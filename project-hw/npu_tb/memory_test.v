@@ -360,7 +360,44 @@ initial begin
 	end
 
 
-	/*DENSE1*/
+	/*DENSE1*//*
+	for (i = 1568+288; i < 1568+288+128*4; i = i + 4) begin
+		out0 = testbench.mem_top1.memory_read1.res_ram0.mem[i];
+		out1 = testbench.mem_top1.memory_read1.res_ram0.mem[i+1];
+		out2 = testbench.mem_top1.memory_read1.res_ram0.mem[i+2];
+		out3 = testbench.mem_top1.memory_read1.res_ram0.mem[i+3];
+		
+		$fscanf(conv5_result,"%b",out0_ff);
+		$fscanf(conv5_result,"%b",out1_ff);
+		$fscanf(conv5_result,"%b",out2_ff);
+		$fscanf(conv5_result,"%b",out3_ff);
+
+		if (out0 != out3_ff) begin 
+		      error_count_layer5 = error_count_layer5 + 1;
+		      $display ("Error of mem0 in position %d" ,i);
+			$display ("npu out:" ,out0);
+			$display ("file out:" ,out3_ff);
+		end
+		if (out1 != out2_ff) begin 
+		      error_count_layer5 = error_count_layer5 + 1;
+			$display ("Error of mem1 in position %d" ,i);
+			$display ("npu out:" ,out1);
+			$display ("file out:" ,out2_ff);
+		end
+		if (out2 != out1_ff) begin 
+		      error_count_layer5 = error_count_layer5 + 1;
+			$display ("Error of mem2 in position %d" ,i);
+			$display ("npu out:" ,out2);
+			$display ("file out:" ,out1_ff);
+		end
+		if (out3 != out0_ff) begin 
+		      error_count_layer5 = error_count_layer5 + 1;
+			$display ("Error of mem3 in position %d" ,i);
+			$display ("npu out:" ,out3);
+			$display ("file out:" ,out0_ff);
+		end
+
+	end*/
         /*DENSE2*/
         /* TODO */
 

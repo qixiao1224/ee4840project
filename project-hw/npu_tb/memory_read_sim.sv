@@ -107,8 +107,8 @@ always_comb begin
         next_state = DENSE;  // Counter + MAC
     else if (dense_bias_count == 32 && dense_case == 2 && current_state == DENSE)
         next_state = DENSE_10;  // Counter + MAC
-    else if (dense_bias_count == 12 && dense_10_case == 2 && current_state == DENSE_10)
-        next_state = IDLE;
+    //else if (dense_bias_count == 12 && dense_10_case == 2 && current_state == DENSE_10)
+        //next_state = IDLE;
 end
 
 
@@ -1043,6 +1043,7 @@ LAYER 5
 			// 2. Switch filter
 			// 3. This stage is done
 				if (block5_count == 4) block5_count <= 0;
+                                if (next_state != DENSE)
 				ram_addr_b <= ram_addr_b + 1; // Compensate for missing add 1
 				conv_ram_addr <= conv_ram_addr + 1;
                             filter32_count_1 <= 0;                      //next filter counter begin
@@ -1115,7 +1116,10 @@ DENSE LAYER
 
 					// If just switch, return to orignal pos
 					// If change stage. keep reading from result ram
-					ram_addr_b <= ram_addr_b - 512;
+                                        if (dense_bias_count != 28)
+						ram_addr_b <= ram_addr_b - 512;
+                                        else 
+                                        	ram_addr_b <= ram_addr_b + 1;
 
 				end
 			end
@@ -1196,7 +1200,10 @@ DENSE 10 LAYER
 
 					// If just switch, return to orignal pos
 					// If change stage. keep reading from result ram
-					ram_addr_b <= ram_addr_b - 10;
+                                        if (dense_bias_count != 8)
+						ram_addr_b <= ram_addr_b - 10;
+                                        else
+                                        	ram_addr_b <= ram_addr_b + 1;
 						//dense_bias_count <= dense_bias_count + 1;
 				end
 			end
