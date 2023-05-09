@@ -14,9 +14,11 @@
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
-
+#include <math.h>
+#include <stdint.h>
+#define img_path "data/imgs/img2.txt"
 int vga_ball_fd;
-
+#d
 
 // Set data register
 void set_data(const int *message){
@@ -38,12 +40,108 @@ void set_control(const int *message)
       return;
   }
 }
+void send_weight(char path[32])
+{
+        FILE* ptr;
+	char ch;
+	ptr = fopen(path,"r");
+	if ( ptr == NULL)
+	{
+		printf("no such file\n");
+		return 0;
+	}
+	char line[16];
+	int state = 0;
+	uint32_t data=0;
+	while(fgets(line,16,ptr)!= NULL)
+	{	
+		printf("%s",line);
+		uint32_t temp = 0;
+		for(int i =0;i<8;i++)
+		{
+			if(line[i]=='1') temp = temp + pow(2,(7-i));
+		}
+		printf("temp = %d\n",temp);
+		printf("state= %d\n",state);
+		if(state==0)	
+		{
+			data =data+ temp * 0x1000000;
+			state +=1;
+			continue;
+		}
+		if(state==1)	
+		{	
+			data = data + temp *0x10000;
+			state +=1;	
+			continue;
+		}
+		if(state ==2)	
+		{
+			data = data + temp *0x100;
+			state+=1;
+			continue;
+		}
+		if(state ==3)
+		{
+			state=0;
+			data = data+temp;
+			set_data(&data);
+			//printf("data= %u\n",data);
+			data = 0;
+		}
+		
+	}
+	fclose(ptr);
+	return 0;
+}
+void send_image()
+{
 
-
+	FILE* ptr;
+	char ch;
+	ptr = fopen("../MATLAB_Golden_Model/data/imgs/img2.txt","r");
+	if ( ptr == NULL)
+	{
+		printf("no such file\n");
+		return 0;
+	}
+	float array[30][30];
+	char line[512];
+	for (int i = 0; i<30;i ++)
+	{
+		if (fgets(line,512,ptr)== NULL) return 0;	
+		int n = sscanf(line, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f",&array[i][0],&array[i][1],&array[i][2],&array[i][3],&array[i][4],&array[i][5],&array[i][6],&array[i][7],&array[i][8],&array[i][9],&array[i][10],&array[i][11],&array[i][12],&array[i][13],&array[i][14],&array[i][15],&array[i][16],&array[i][17],&array[i][18],&array[i][19],&array[i][20],&array[i][21],&array[i][22],&array[i][23],&array[i][24],&array[i][25],&array[i][26],&array[i][27],&array[i][28],&array[i][29]);		
+			
+	}
+	fclose(ptr);
+	for (int i =0;i<15;i++)
+	{
+		for (int j =0; j<15; j++)
+		{
+		  uint32_t temp=0;
+		  /*
+		  uint32_t temp=0;
+		  printf("%f    ",array[2*i][2*j]);
+		  printf("%d\n",int(array[2*i][2*j]*16+0.5)<<24);
+		  printf("temp = %d\n", temp);
+		  printf("%f    ",array[2*i][2*j+1]);
+		  printf("%d\n",int(array[2*i][2*j+1]*16+0.5)<<16);
+		  printf("temp= %d\n", temp);
+		  printf("%f    ",array[2*i+1][2*j]);
+		  printf("%d\n",int(array[2*i+1][2*j]*16+0.5)<<8); 
+		  printf("tmp= %d\n", temp);
+		  printf("%f    ",array[2*i+1][2*j+1]);
+		  */
+		
+		  temp = uint32_t(array[2*i][2*j]*16+0.5) * 0x1000000 + uint32_t(array[2*i][2*j+1]*16+0.5)*0x010000 +  uint32_t(array[2*i+1][2*j]*16+0.5) *0x100 + uint32_t(array[2*i+1][2*j+1]*16+0.5);
+		  set_data(&temp);
+		  // printf("temp = %d\n", temp);
+		}
+	}
+}
 int main()
 {
   vga_ball_arg_t vla;
-  int i;
   static const char filename[] = "/dev/vga_ball";
 
   printf("VGA ball Userspace program started\n");
@@ -54,6 +152,11 @@ int main()
   }
 
   printf("initial state: ");
+  char path1 = "../data/weight_bias_conv2d1.txt";
+  char path2 = "../data/weight_bias_conv2d2.txt";
+  char path3 = "../data/weight_bias_conv2d3.txt";
+  char path4 = "weight_bias_dense1_z_r_group4.txt";
+  /*
   i=15;
   int j =30;
   int flag1=1;
@@ -94,5 +197,16 @@ int main()
   }
   
   printf("VGA BALL Userspace program terminating\n");
+  */
+  printf("send control");
+  int i =1;
+  set_control(&i);
+  send_image();
+  send_weight(path1);
+  send_weight(path2);
+  send_weight(path2);
+  send_weight(path2);
+  i=2;
+  set_control(&i);
   return 0;
 }

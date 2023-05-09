@@ -1,25 +1,9 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include <math.h>
+#include <stdint.h>
 #define img_path "data/imgs/img2.txt"
-void f_to_bin(float a, char *c)
-{	
-	if (a>=0)	c[0]='0';	
-	else 		c[0]='1';
-	int a16 = int (a*16 + 0.5);
-	a16 = a16+ 1; // i dont know why
-	for(int i =0;i<7;i++)
-	{
-		float temp = pow(2,(6-i));
-		if (a16>temp)	
-		{
-			c[i+1]='1';
-			a16= a16- temp;
-		}
-		else	c[i+1]= '0';
-	}
-	c[8]='\0';
-}
+
 int main()
 {
 	FILE* ptr;
@@ -39,23 +23,27 @@ int main()
 			
 	}
 	fclose(ptr);
-	char c[9];
 	for (int i =0;i<15;i++)
 	{
 		for (int j =0; j<15; j++)
 		{
-			f_to_bin (array[2*i][2*j],c);
-			printf("%s\n",c);
-			f_to_bin (array[2*i][2*j+1],c);
-			printf("%s\n",c);
-			f_to_bin (array[2*i+1][2*j],c);
-			printf("%s\n",c);
-			f_to_bin (array[2*i+1][2*j+1],c);
-			printf("%s\n",c);	
-			//printf("%f %d %d\n",array[2*i][2*j],2*i,2*j);
-			//printf("%f\n",array[2*i][2*j+1]);
-			//printf("%f\n",array[2*i+1][2*j]);
-			//printf("%f\n",array[2*i+1][2*j+1]);
+		  uint32_t temp=0;
+		  /*
+		  uint32_t temp=0;
+		  printf("%f    ",array[2*i][2*j]);
+		  printf("%d\n",int(array[2*i][2*j]*16+0.5)<<24);
+		  printf("temp = %d\n", temp);
+		  printf("%f    ",array[2*i][2*j+1]);
+		  printf("%d\n",int(array[2*i][2*j+1]*16+0.5)<<16);
+		  printf("temp= %d\n", temp);
+		  printf("%f    ",array[2*i+1][2*j]);
+		  printf("%d\n",int(array[2*i+1][2*j]*16+0.5)<<8); 
+		  printf("tmp= %d\n", temp);
+		  printf("%f    ",array[2*i+1][2*j+1]);
+		  */
+		
+		  temp = uint32_t(array[2*i][2*j]*16+0.5) * 0x1000000 + uint32_t(array[2*i][2*j+1]*16+0.5)*0x010000 +  uint32_t(array[2*i+1][2*j]*16+0.5) *0x100 + uint32_t(array[2*i+1][2*j+1]*16+0.5);
+		  printf("temp = %d\n", temp);
 		}
 	}
 	return 0;
