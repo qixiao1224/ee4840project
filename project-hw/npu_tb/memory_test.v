@@ -5,7 +5,7 @@
 `define CONV12_FILTER_INPUT "../../data/weight_bias_conv2d1.txt"
 `define CONV34_FILTER_INPUT "../../data/weight_bias_conv2d2.txt"
 `define CONV5_FILTER_INPUT "../../data/weight_bias_conv2d3.txt"
-`define DENSE1_WEIGHT_INPUT "../../data/weight_bias_dense1.txt"
+`define DENSE1_WEIGHT_INPUT "../../data/weight_bias_dense1_z_r_group4.txt"
 `define DENSE2_WEIGHT_INPUT "../../data/weight_bias_dense2.txt"
 
 `define POOLING1_RESULT "../../data/pooling1_result_z.txt"
@@ -43,6 +43,7 @@ module testbench(  );
   reg [10:0] error_count_layer12;
   reg [10:0] error_count_layer34;
   reg [10:0] error_count_layer5;
+  reg [10:0] error_count_dense1;
 
   //temp value to compare
   reg [7:0] out0, out1, out2, out3;
@@ -145,6 +146,7 @@ initial begin
 	error_count_layer12 = 0;
 	error_count_layer34 = 0;
 	error_count_layer5 = 0;
+        error_count_dense1 = 0;
 
 	@(posedge clk); 
 	reset = 1;
@@ -205,7 +207,7 @@ initial begin
 	//write weights layer dense1
 	for (i = 0; i < 4103; i = i + 1)begin
 	    $fscanf(dense1_weight_input, "%8b", tmp0);
-	    writedata = tmp0;
+	    writedata  = tmp0;
 	    
 	    $fscanf(dense1_weight_input, "%8b", tmp1);
 	    writedata = (writedata << 8)+ tmp1;
@@ -245,8 +247,10 @@ initial begin
 	//////////////////////Start Model Inferncing//////////////////////////////////////////////////////
 
 	control_reg = 32'h2;
-
+	@(posedge clk);
+	control_reg = 32'h0;
 	  repeat(1000000)  @(posedge clk);
+	
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -332,72 +336,72 @@ initial begin
 		$fscanf(conv5_result,"%b",out2_ff);
 		$fscanf(conv5_result,"%b",out3_ff);
 
-		if (out0 != out3_ff) begin 
+		if (out0 != out0_ff) begin 
 		      error_count_layer5 = error_count_layer5 + 1;
 		      $display ("Error of mem0 in position %d" ,i);
 			$display ("npu out:" ,out0);
-			$display ("file out:" ,out3_ff);
+			$display ("file out:" ,out0_ff);
 		end
-		if (out1 != out2_ff) begin 
+		if (out1 != out1_ff) begin 
 		      error_count_layer5 = error_count_layer5 + 1;
 			$display ("Error of mem1 in position %d" ,i);
 			$display ("npu out:" ,out1);
-			$display ("file out:" ,out2_ff);
+			$display ("file out:" ,out1_ff);
 		end
-		if (out2 != out1_ff) begin 
+		if (out2 != out2_ff) begin 
 		      error_count_layer5 = error_count_layer5 + 1;
 			$display ("Error of mem2 in position %d" ,i);
 			$display ("npu out:" ,out2);
-			$display ("file out:" ,out1_ff);
+			$display ("file out:" ,out2_ff);
 		end
-		if (out3 != out0_ff) begin 
+		if (out3 != out3_ff) begin 
 		      error_count_layer5 = error_count_layer5 + 1;
 			$display ("Error of mem3 in position %d" ,i);
 			$display ("npu out:" ,out3);
-			$display ("file out:" ,out0_ff);
+			$display ("file out:" ,out3_ff);
 		end
 
 	end
 
 
-	/*DENSE1*//*
-	for (i = 1568+288; i < 1568+288+128*4; i = i + 4) begin
+	/*DENSE1*/
+	for (i = 1568+288+128*4; i < 1568+288+128*4+32; i = i + 4) begin
 		out0 = testbench.mem_top1.memory_read1.res_ram0.mem[i];
 		out1 = testbench.mem_top1.memory_read1.res_ram0.mem[i+1];
 		out2 = testbench.mem_top1.memory_read1.res_ram0.mem[i+2];
 		out3 = testbench.mem_top1.memory_read1.res_ram0.mem[i+3];
 		
-		$fscanf(conv5_result,"%b",out0_ff);
-		$fscanf(conv5_result,"%b",out1_ff);
-		$fscanf(conv5_result,"%b",out2_ff);
-		$fscanf(conv5_result,"%b",out3_ff);
+		$fscanf(dense1_result,"%b",out0_ff);
+		$fscanf(dense1_result,"%b",out1_ff);
+		$fscanf(dense1_result,"%b",out2_ff);
+		$fscanf(dense1_result,"%b",out3_ff);
 
-		if (out0 != out3_ff) begin 
-		      error_count_layer5 = error_count_layer5 + 1;
+		if (out0 != out0_ff) begin 
+		      error_count_dense1 = error_count_dense1 + 1;
 		      $display ("Error of mem0 in position %d" ,i);
 			$display ("npu out:" ,out0);
-			$display ("file out:" ,out3_ff);
-		end
-		if (out1 != out2_ff) begin 
-		      error_count_layer5 = error_count_layer5 + 1;
-			$display ("Error of mem1 in position %d" ,i);
-			$display ("npu out:" ,out1);
-			$display ("file out:" ,out2_ff);
-		end
-		if (out2 != out1_ff) begin 
-		      error_count_layer5 = error_count_layer5 + 1;
-			$display ("Error of mem2 in position %d" ,i);
-			$display ("npu out:" ,out2);
-			$display ("file out:" ,out1_ff);
-		end
-		if (out3 != out0_ff) begin 
-		      error_count_layer5 = error_count_layer5 + 1;
-			$display ("Error of mem3 in position %d" ,i);
-			$display ("npu out:" ,out3);
 			$display ("file out:" ,out0_ff);
 		end
+		if (out1 != out1_ff) begin 
+		      error_count_dense1 = error_count_dense1 + 1;
+			$display ("Error of mem1 in position %d" ,i);
+			$display ("npu out:" ,out1);
+			$display ("file out:" ,out1_ff);
+		end
+		if (out2 != out2_ff) begin 
+		      error_count_dense1 = error_count_dense1 + 1;
+			$display ("Error of mem2 in position %d" ,i);
+			$display ("npu out:" ,out2);
+			$display ("file out:" ,out2_ff);
+		end
+		if (out3 != out3_ff) begin 
+		      error_count_dense1 = error_count_dense1 + 1;
+			$display ("Error of mem3 in position %d" ,i);
+			$display ("npu out:" ,out3);
+			$display ("file out:" ,out3_ff);
+		end
 
-	end*/
+	end
         /*DENSE2*/
         /* TODO */
 
@@ -405,6 +409,7 @@ initial begin
 	$display ("Error of Layer 12 = %d" ,error_count_layer12);
 	$display ("Error of Layer 34 = %d" ,error_count_layer34);
 	$display ("Error of Layer 5 = %d" ,error_count_layer5);
+	$display ("Error of Layer dense = %d" ,error_count_dense1);
 
 	  $stop;
 

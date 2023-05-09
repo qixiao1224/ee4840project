@@ -108,9 +108,9 @@ assign we_image1 = current_state == WRITE_FOUR ? 1:0;
 assign we_image2 = current_state == WRITE_FOUR ? 1:0;
 assign we_image3 = current_state == WRITE_FOUR ? 1:0;
 assign we_conv = (next_state == WRITE_SEQ_CONV) || (image_count == 8'd225) ? 1:0;
-assign we_dense0 = (next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816) ? 1:0;
-assign we_dense1 = (next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816) ? 1:0;
-assign we_dense2 = (next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816) ? 1:0;
-assign we_dense3 = (next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816) ? 1:0;
+assign we_dense0 = (((next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816)) && (dense_write_count < 15'd4203)) ? 1:0;
+assign we_dense1 = (((next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816)) && (dense_write_count < 15'd4203)) ? 1:0;
+assign we_dense2 = (((next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816)) && (dense_write_count < 15'd4203)) ? 1:0;
+assign we_dense3 = (((next_state == WRITE_FOUR_DENSE) || (conv_write_count == 15'd18816)) && (dense_write_count < 15'd4203)) ? 1:0;
 
 endmodule
