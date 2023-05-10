@@ -15,6 +15,10 @@ add wave -noupdate -radix unsigned /testbench/mem_top1/data_image0
 add wave -noupdate -radix unsigned /testbench/mem_top1/data_image1
 add wave -noupdate -radix unsigned /testbench/mem_top1/data_image2
 add wave -noupdate -radix unsigned /testbench/mem_top1/data_image3
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/data_dense0
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/data_dense1
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/data_dense2
+add wave -noupdate -radix unsigned /testbench/mem_top1/memory1/data_dense3
 add wave -noupdate -radix unsigned /testbench/mem_top1/data_conv
 
 add wave -noupdate -radix unsigned /testbench/mem_top1/memory_read1/read_res0
