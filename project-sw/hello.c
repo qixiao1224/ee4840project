@@ -14,12 +14,18 @@
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
-#include <math.h>
 #include <stdint.h>
 #include <time.h>
 #define img_path "data/imgs/img2.txt"
 int vga_ball_fd;
 
+int pow(int a, int b) {
+	temp = 1;
+	int i = 0;
+	for (i = 0; i < b; i++){
+		temp = temp * a;
+	}
+}
 
 // Set data register
 void set_data(const int *message){
@@ -41,7 +47,7 @@ void set_control(const int *message)
       return;
   }
 }
-void read_ready(const int *message)
+void read_ready( int *message)
 {
   vga_ball_arg_t vla;
   
@@ -51,7 +57,7 @@ void read_ready(const int *message)
   }
   *message =  vla.message;
 }
-void read_answer(const int *message)
+void read_answer( int *message)
 {
   vga_ball_arg_t vla;
   
@@ -61,7 +67,7 @@ void read_answer(const int *message)
   }
   *message = vla.message;
 }
-void send_weight(char path[32])
+void send_weight(char *path)
 {
         FILE* ptr;
 	char ch;
@@ -78,7 +84,8 @@ void send_weight(char path[32])
 	{	
 		printf("%s",line);
 		uint32_t temp = 0;
-		for(int i =0;i<8;i++)
+		int i = 0;
+		for(i =0;i<8;i++)
 		{
 			if(line[i]=='1') temp = temp + pow(2,(7-i));
 		}
@@ -128,16 +135,18 @@ void send_image()
 	}
 	float array[30][30];
 	char line[512];
-	for (int i = 0; i<30;i ++)
+	int i = 0;
+	for (i = 0; i<30;i ++)
 	{
 		if (fgets(line,512,ptr)== NULL) return 0;	
 		int n = sscanf(line, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f",&array[i][0],&array[i][1],&array[i][2],&array[i][3],&array[i][4],&array[i][5],&array[i][6],&array[i][7],&array[i][8],&array[i][9],&array[i][10],&array[i][11],&array[i][12],&array[i][13],&array[i][14],&array[i][15],&array[i][16],&array[i][17],&array[i][18],&array[i][19],&array[i][20],&array[i][21],&array[i][22],&array[i][23],&array[i][24],&array[i][25],&array[i][26],&array[i][27],&array[i][28],&array[i][29]);		
 			
 	}
 	fclose(ptr);
-	for (int i =0;i<15;i++)
+	for (i =0;i<15;i++)
 	{
-		for (int j =0; j<15; j++)
+		int j = 0;
+		for (j =0; j<15; j++)
 		{
 		  uint32_t temp=0;
 		  /*
@@ -154,7 +163,7 @@ void send_image()
 		  printf("%f    ",array[2*i+1][2*j+1]);
 		  */
 		
-		  temp = uint32_t(array[2*i][2*j]*16+0.5) * 0x1000000 + uint32_t(array[2*i][2*j+1]*16+0.5)*0x010000 +  uint32_t(array[2*i+1][2*j]*16+0.5) *0x100 + uint32_t(array[2*i+1][2*j+1]*16+0.5);
+		  temp = (uint32_t)(array[2*i][2*j]*16+0.5) * 0x1000000 + (uint32_t)(array[2*i][2*j+1]*16+0.5)*0x010000 + (uint32_t)(array[2*i+1][2*j]*16+0.5) *0x100 + (uint32_t)(array[2*i+1][2*j+1]*16+0.5);
 		  set_data(&temp);
 		  // printf("temp = %d\n", temp);
 		}

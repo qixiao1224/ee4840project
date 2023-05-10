@@ -13,5 +13,5 @@ typedef struct {
 #define ACCU_WRITE_DATA_32  _IOW(ACCU_MAGIC, 0, vga_ball_arg_t *)
 #define ACCU_WRITE_CONTROL_32 _IOW(ACCU_MAGIC, 1, vga_ball_arg_t *)
 #define ACCU_READ_READY_32 _IOR(ACCU_MAGIC, 2, vga_ball_arg_t *)
-#define ACCU_WRITE_ANSWER_32 _IOR(ACCU_MAGIC, 3, vga_ball_arg_t *)
+#define ACCU_READ_ANSWER_32 _IOR(ACCU_MAGIC, 3, vga_ball_arg_t *)
 #endif
