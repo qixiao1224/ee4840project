@@ -20,7 +20,7 @@
 int vga_ball_fd;
 
 int pow(int a, int b) {
-	temp = 1;
+	int temp = 1;
 	int i = 0;
 	for (i = 0; i < b; i++){
 		temp = temp * a;
