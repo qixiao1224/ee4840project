@@ -94,6 +94,9 @@ add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/DG
 add wave -group {npu} -noupdate -radix unsigned /testbench/mem_top1/DH
 
 add wave -group {writedata} -noupdate -radix hexadecimal /testbench/writedata
+add wave -group {writedata} -noupdate -radix unsigned /testbench/mem_top1/memory_write1/we_conv
+add wave -group {writedata} -noupdate -radix unsigned /testbench/mem_top1/memory_write1/dense_ram_addr_a
+add wave -group {writedata} -noupdate -radix unsigned /testbench/mem_top1/memory_write1/we_dense0
 
 add wave -group {npu_out} -noupdate -radix unsigned /testbench/mem_top1/D_OUT
 add wave -group {npu_out} -noupdate -radix unsigned /testbench/mem_top1/npu_top/MAC1_output

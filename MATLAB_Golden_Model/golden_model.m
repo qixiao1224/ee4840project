@@ -401,8 +401,9 @@ for i = 1:32                                                                %get
            dense1_weight_bias_normal(counter,:) = weight_binary;
            counter = counter +1;
        end
-   end
+   end %weight_bias_dense1
 end
+
 
 %use this for loop to generate and output the weight and bias in reverse z
 %format
@@ -476,7 +477,7 @@ for i = 1:32
              
              weight_binary =  dense1_weight_bias_normal((i-1)*512+(j-1)*16+(m-1)*8+(n-1)*2+1,:);
              dense1_weight_reverse_z(counter,:)=weight_binary;
-             counter = counter +1;
+             counter = counter +1;%weight_bias_dense1
            end
        end  
     end

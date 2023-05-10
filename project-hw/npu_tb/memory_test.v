@@ -197,7 +197,7 @@ initial begin
 	end
 
 	//write convolution parameters layer 5
-	for (i = 0; i < 9248; i = i + 1)begin
+	for (i = 0; i < 9247; i = i + 1)begin
 	    $fscanf(conv5_filter_input, "%8b", tmp4);
 	    writedata = tmp4;
 
@@ -205,7 +205,7 @@ initial begin
 	end
 
 	//write weights layer dense1
-	for (i = 0; i < 4103; i = i + 1)begin
+	for (i = 0; i < 4104; i = i + 1)begin
 	    $fscanf(dense1_weight_input, "%8b", tmp0);
 	    writedata  = tmp0;
 	    
@@ -222,7 +222,7 @@ initial begin
 	end
 
 	//write weights layer dense2
-	for (i = 0; i < 98; i = i + 1)begin
+	for (i = 0; i < 99; i = i + 1)begin
 	    $fscanf(dense2_weight_input, "%8b", tmp0);
 	    writedata = tmp0;
 	    
@@ -336,25 +336,25 @@ initial begin
 		$fscanf(conv5_result,"%b",out2_ff);
 		$fscanf(conv5_result,"%b",out3_ff);
 
-		if (out0 != out0_ff) begin 
+		if (out3 != out0_ff) begin 
 		      error_count_layer5 = error_count_layer5 + 1;
 		      $display ("Error of mem0 in position %d" ,i);
 			$display ("npu out:" ,out0);
 			$display ("file out:" ,out0_ff);
 		end
-		if (out1 != out1_ff) begin 
+		if (out2 != out1_ff) begin 
 		      error_count_layer5 = error_count_layer5 + 1;
 			$display ("Error of mem1 in position %d" ,i);
 			$display ("npu out:" ,out1);
 			$display ("file out:" ,out1_ff);
 		end
-		if (out2 != out2_ff) begin 
+		if (out1 != out2_ff) begin 
 		      error_count_layer5 = error_count_layer5 + 1;
 			$display ("Error of mem2 in position %d" ,i);
 			$display ("npu out:" ,out2);
 			$display ("file out:" ,out2_ff);
 		end
-		if (out3 != out3_ff) begin 
+		if (out0 != out3_ff) begin 
 		      error_count_layer5 = error_count_layer5 + 1;
 			$display ("Error of mem3 in position %d" ,i);
 			$display ("npu out:" ,out3);
@@ -376,29 +376,37 @@ initial begin
 		$fscanf(dense1_result,"%b",out2_ff);
 		$fscanf(dense1_result,"%b",out3_ff);
 
-		if (out0 != out0_ff) begin 
-		      error_count_dense1 = error_count_dense1 + 1;
-		      $display ("Error of mem0 in position %d" ,i);
-			$display ("npu out:" ,out0);
-			$display ("file out:" ,out0_ff);
-		end
-		if (out1 != out1_ff) begin 
-		      error_count_dense1 = error_count_dense1 + 1;
-			$display ("Error of mem1 in position %d" ,i);
-			$display ("npu out:" ,out1);
-			$display ("file out:" ,out1_ff);
-		end
-		if (out2 != out2_ff) begin 
-		      error_count_dense1 = error_count_dense1 + 1;
-			$display ("Error of mem2 in position %d" ,i);
-			$display ("npu out:" ,out2);
-			$display ("file out:" ,out2_ff);
-		end
-		if (out3 != out3_ff) begin 
-		      error_count_dense1 = error_count_dense1 + 1;
-			$display ("Error of mem3 in position %d" ,i);
 			$display ("npu out:" ,out3);
+			$display ("file out:" ,out0_ff);
+			$display ("npu out:" ,out2);
+			$display ("file out:" ,out1_ff);
+			$display ("npu out:" ,out1);
+			$display ("file out:" ,out2_ff);
+			$display ("npu out:" ,out0);
 			$display ("file out:" ,out3_ff);
+		if (out3 != out0_ff) begin 
+		      error_count_dense1 = error_count_dense1 + 1;
+		      //$display ("Error of mem0 in position %d" ,i);
+			//$display ("npu out:" ,out3);
+			//$display ("file out:" ,out0_ff);
+		end
+		if (out2 != out1_ff) begin 
+		      error_count_dense1 = error_count_dense1 + 1;
+			//$display ("Error of mem1 in position %d" ,i);
+			//$display ("npu out:" ,out2);
+			//$display ("file out:" ,out1_ff);
+		end
+		if (out1 != out2_ff) begin 
+		      error_count_dense1 = error_count_dense1 + 1;
+			//$display ("Error of mem2 in position %d" ,i);
+			//$display ("npu out:" ,out1);
+			//$display ("file out:" ,out2_ff);
+		end
+		if (out0 != out3_ff) begin 
+		      error_count_dense1 = error_count_dense1 + 1;
+			//$display ("Error of mem3 in position %d" ,i);
+			//$display ("npu out:" ,out0);
+			//$display ("file out:" ,out3_ff);
 		end
 
 	end
