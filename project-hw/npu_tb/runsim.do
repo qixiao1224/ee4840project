@@ -25,7 +25,6 @@ vlog +acc -incr ../npu/SSFR/SSFR.v
 
 vlog +acc -incr ./memory_test.v
 #vlog +acc -incr ./memory_read_layer12_test.sv
-vlog +acc -incr ./memory_read.sv
 vlog +acc -incr ./memory_read_sim.sv
 vlog +acc -incr ./memory_write.sv
 vlog +acc -incr ./conv_ram.v
