@@ -42,6 +42,7 @@ void set_control(const int *message)
 {
   vga_ball_arg_t vla;
   vla.message = *message;
+  printf("fd= %d",vga_ball_fd);
   if (ioctl(vga_ball_fd, ACCU_WRITE_CONTROL_32, &vla)) {
       perror("ioctl(ACCU_WRITE_CONTROL_32) failed");
       return;
