@@ -39,7 +39,7 @@ add wave -group {layer5} -noupdate -radix unsigned /testbench/mem_top1/memory_re
 add wave -group {dense} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/dense_count
 add wave -group {dense} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/dense_bias_count
 add wave -group {dense} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/dense_case
-
+add wave -group {dense} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/dense_10_case
 
 add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/ram_num
 add wave -group {writeback} -noupdate -radix unsigned /testbench/mem_top1/memory_read1/loop_num

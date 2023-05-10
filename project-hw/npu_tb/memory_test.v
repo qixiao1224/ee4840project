@@ -6,7 +6,7 @@
 `define CONV34_FILTER_INPUT "../../data/weight_bias_conv2d2.txt"
 `define CONV5_FILTER_INPUT "../../data/weight_bias_conv2d3.txt"
 `define DENSE1_WEIGHT_INPUT "../../data/weight_bias_dense1_z_r_group4.txt"
-`define DENSE2_WEIGHT_INPUT "../../data/weight_bias_dense2.txt"
+`define DENSE2_WEIGHT_INPUT "../../data/weight_bias_dense2_group4.txt"
 
 `define POOLING1_RESULT "../../data/pooling1_result_z.txt"
 `define POOLING2_RESULT "../../data/pooling2_result_z.txt"
@@ -44,7 +44,7 @@ module testbench(  );
   reg [10:0] error_count_layer34;
   reg [10:0] error_count_layer5;
   reg [10:0] error_count_dense1;
-
+  reg [10:0] error_count_dense2;
   //temp value to compare
   reg [7:0] out0, out1, out2, out3;
   reg [7:0] out0_ff, out1_ff, out2_ff, out3_ff;
@@ -147,7 +147,7 @@ initial begin
 	error_count_layer34 = 0;
 	error_count_layer5 = 0;
         error_count_dense1 = 0;
-
+        error_count_dense2 = 0;
 	@(posedge clk); 
 	reset = 1;
 
@@ -348,6 +348,7 @@ initial begin
 			$display ("npu out:" ,out1);
 			$display ("file out:" ,out1_ff);
 		end
+
 		if (out1 != out2_ff) begin 
 		      error_count_layer5 = error_count_layer5 + 1;
 			$display ("Error of mem2 in position %d" ,i);
@@ -376,48 +377,66 @@ initial begin
 		$fscanf(dense1_result,"%b",out2_ff);
 		$fscanf(dense1_result,"%b",out3_ff);
 
-			$display ("npu out:" ,out3);
-			$display ("file out:" ,out0_ff);
-			$display ("npu out:" ,out2);
-			$display ("file out:" ,out1_ff);
-			$display ("npu out:" ,out1);
-			$display ("file out:" ,out2_ff);
-			$display ("npu out:" ,out0);
-			$display ("file out:" ,out3_ff);
+			//$display ("npu out:%b" ,out3);
+			//$display ("file out:%b" ,out0_ff);
+			//$display ("npu out:%b" ,out2);
+			//$display ("file out:%b" ,out1_ff);
+			//$display ("npu out:%b" ,out1);
+			//$display ("file out:%b" ,out2_ff);
+			//$display ("npu out:%b" ,out0);
+			//$display ("file out:%b" ,out3_ff);
 		if (out3 != out0_ff) begin 
 		      error_count_dense1 = error_count_dense1 + 1;
-		      //$display ("Error of mem0 in position %d" ,i);
-			//$display ("npu out:" ,out3);
-			//$display ("file out:" ,out0_ff);
+		      $display ("Error of mem0 in position %d" ,i);
+			$display ("npu out:" ,out3);
+			$display ("file out:" ,out0_ff);
 		end
 		if (out2 != out1_ff) begin 
 		      error_count_dense1 = error_count_dense1 + 1;
-			//$display ("Error of mem1 in position %d" ,i);
-			//$display ("npu out:" ,out2);
-			//$display ("file out:" ,out1_ff);
+			$display ("Error of mem1 in position %d" ,i+1);
+			$display ("npu out:" ,out2);
+			$display ("file out:" ,out1_ff);
 		end
 		if (out1 != out2_ff) begin 
 		      error_count_dense1 = error_count_dense1 + 1;
-			//$display ("Error of mem2 in position %d" ,i);
-			//$display ("npu out:" ,out1);
-			//$display ("file out:" ,out2_ff);
+			$display ("Error of mem2 in position %d" ,i+2);
+			$display ("npu out:" ,out1);
+			$display ("file out:" ,out2_ff);
 		end
 		if (out0 != out3_ff) begin 
 		      error_count_dense1 = error_count_dense1 + 1;
-			//$display ("Error of mem3 in position %d" ,i);
-			//$display ("npu out:" ,out0);
-			//$display ("file out:" ,out3_ff);
+			$display ("Error of mem3 in position %d" ,i+3);
+			$display ("npu out:" ,out0);
+			$display ("file out:" ,out3_ff);
 		end
 
 	end
+
+
         /*DENSE2*/
-        /* TODO */
+	for (i = 1568+288+128*4+32+9; i < 1568+288+128*4+32+10; i = i + 1) begin
+		out0 = testbench.mem_top1.memory_read1.res_ram0.mem[i];
+
+		
+		$fscanf(dense2_result,"%b",out0_ff);
+
+
+		if (out0 != out0_ff) begin 
+		      error_count_dense2 = error_count_dense2 + 1;
+		      $display ("Error of RESULT");
+			$display ("npu out:" ,out0);
+			$display ("file out:" ,out0_ff);
+		end
+
+
+	end
 
 	/* ERROR DISPLAY*/
 	$display ("Error of Layer 12 = %d" ,error_count_layer12);
 	$display ("Error of Layer 34 = %d" ,error_count_layer34);
 	$display ("Error of Layer 5 = %d" ,error_count_layer5);
-	$display ("Error of Layer dense = %d" ,error_count_dense1);
+	$display ("Error of Layer dense1 = %d" ,error_count_dense1);
+	$display ("Error of Layer dense2 = %d" ,error_count_dense2);
 
 	  $stop;
 

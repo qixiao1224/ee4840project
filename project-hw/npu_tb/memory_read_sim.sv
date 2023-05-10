@@ -32,16 +32,16 @@ logic [7:0] data0, data1, data2, data3;
 parameter layer34_start_position = 0; // This is the first time actually reads conv result (from layer12), position should be 0
 parameter layer5_start_position = 1568; // Layer 34 gives out a result size of 14*14*32, divide by 4 into mems
 parameter layer_dense_start_position = 1856; // Layer 5 gives out a result size of 6*6*32, div 4, plus previous result
-
+parameter layer_dense10_start_position = 2368;
 // Counters
 logic [4:0] channel_count;
 logic [5:0] filter32_count,filter32_count_1;
 logic [6:0] channel32_count,channel64_count,channel64_count_1;
 logic [7:0] block_count, block34_count, block5_count;
 logic [3:0] layer12_count, layer34_count, layer5_count;
-logic dense_case, dense_10_case;
+logic [1:0] dense_case, dense_10_case;
 logic [5:0] dense_bias_count;
-logic [8:0] dense_count;
+logic [9:0] dense_count;
 logic [1:0] z_counter; // To maintain write back sequence
 logic z_counter_end;
 //Res ram Address Register
@@ -106,7 +106,7 @@ always_comb begin
         next_state = LAYER5;  // Counter + CNN + SSFR (ReLU)
     else if (channel64_count_1 == 6'd32 && layer5_count == 10 && block5_count == 4 && filter32_count_1 == 32 && current_state == LAYER5)
         next_state = DENSE;  // Counter + MAC
-    else if (dense_bias_count == 28  && dense_count == 511 && current_state == DENSE)
+    else if (dense_bias_count == 32 && current_state == DENSE)
         next_state = DENSE_10;  // Counter + MAC
     else if (dense_bias_count == 12  && current_state == DENSE_10)
         next_state = IDLE;
@@ -304,32 +304,18 @@ READ
 ***/
 
 always_ff @(posedge clk) begin
-    if (reset) begin
-
-   	wr_en <= 0;
-	wr_en_dense <= 0;
-        EN_CONFIG <= 0;
-        EN_FSM <= 0;
-
-        //addr
-        image_ram_addr <= 0;
-        conv_ram_addr <= 0;
-        ram_addr_b <= 0;
-        dense_ram_addr <= 0;
-	dense_ram_bias_addr <= 0;
-	DA <= 8'b00100000; // SSFR
-        DB <= 8'b00000000;
-
-        //delay_Sig
-        delayed <= 1;
-
-    end else begin
-        EN_FSM <= 0;
-
         //*****CASE OF DIFFERENT STATE*****//
         case (current_state)
             //STATE 0: IDLE
             IDLE: begin
+		DA <= 0;
+		DB <= 0;
+		DC <= 0;
+		DD <= 0;
+		DE <= 0;
+		DF <= 0;
+		DG <= 0;
+		DH <= 0;
         	z_counter <= 0;
 		//z_counter_end <= 0;
                 //layer 12
@@ -352,6 +338,18 @@ always_ff @(posedge clk) begin
 		dense_case <= 0;
 		// dense 10
 		dense_10_case <= 0;
+
+		EN_CONFIG <= 0;
+		EN_FSM <= 0;
+
+		        image_ram_addr <= 0;
+        conv_ram_addr <= 0;
+        ram_addr_b <= 0;
+        dense_ram_addr <= 0;
+	dense_ram_bias_addr <= 0;
+
+        EN_CONFIG <= 0;
+        EN_FSM <= 0;
 
                 if (next_state == LAYER12) begin
 			// Preparing in advance
@@ -1105,13 +1103,15 @@ LAYER 5
 			// 2. Switch filter
 			// 3. This stage is done
 				if (block5_count == 4) block5_count <= 0;
-                                if (next_state == DENSE) dense_ram_addr <= dense_ram_addr + 1;
+                                if (next_state == DENSE) begin 
+					dense_ram_addr <= dense_ram_addr + 1;
+				end //dense_ram_addr <= dense_ram_addr + 1;
 				else ram_addr_b <= ram_addr_b + 1; // Compensate for missing add 1
 				conv_ram_addr <= conv_ram_addr + 1;
                             filter32_count_1 <= 0;                      //next filter counter begin
 			
                             layer5_count <= 0;                       //Filter finished, read same bias for next filter
-                            
+
 //			    if (channel64_count_1 == 0 && filter32_count_1 == 32 && block5_count == 1) ram_addr_a <= ram_addr_a + 3; // Very first time do a reverse z
                             wr_en_dense <= 1; //write back after finishing one block
                             // SSFR output
@@ -1127,8 +1127,6 @@ LAYER 5
 /********
 DENSE LAYER
 ********/
-
-
             DENSE: begin 
 		// TODO need write back
 		// TODO check dense ram capacity
@@ -1153,8 +1151,6 @@ DENSE LAYER
 				dense_case <= dense_case + 1; // switch case
 			end
 			1: begin
-
-				if (dense_count < 511) begin
 				DB <= read_dense0; // Different 
 				DD <= read_dense1;
 				DF <= read_dense2;
@@ -1163,68 +1159,58 @@ DENSE LAYER
 				DC <= read_res0; // But we can still read from 4 different conv_mems
 				DE <= read_res0; // 4 exact copies, each 512 nums
 				DG <= read_res0;
+
+				if (dense_count < 511) begin
 					// Keep calculating 512 times
+					if (dense_count != 510) begin
+						//if (dense_count != 509) 
+						ram_addr_b <= ram_addr_b + 1;
+						dense_ram_addr <= dense_ram_addr + 1;
+					end
 					dense_case <= 1;
 					dense_count <= dense_count + 1;
-					//ram_addr_b <= ram_addr_b + 1;
-					dense_ram_addr <= dense_ram_addr + 1;
-					if (dense_count != 510) begin
-						
-						ram_addr_b <= ram_addr_b + 1;
-					end
-                                        
 				end
 				else begin
 					// dense_count == 511
 					// Switch to next four set of biases
-					//dense_ram_addr <= dense_ram_addr + 1;
+					dense_ram_addr <= dense_ram_addr + 1;
 					dense_case <= dense_case + 1;
 					dense_count <= 0;
 					dense_bias_count <= dense_bias_count + 4;
-					//dense_ram_addr <= dense_ram_addr + 1; // Next param
-				EN_CONFIG <= 1;
-                            	EN_FSM <= 1;
-				// SSFR output
-                            DA <= 8'b01000000;
-                            DB <= 8'b10110000;
+
 					// If just switch, return to orignal pos
 					// If change stage. keep reading from result ram
                                         if (dense_bias_count != 28)
-						ram_addr_b <= ram_addr_b - 511;
+						ram_addr_b <= layer_dense_start_position;
                                         else 
                                         	ram_addr_b <= ram_addr_b + 1;
 
-				wr_en_dense <= 1; // Write four
-				dense_ram_addr <= dense_ram_addr + 1;
-				if (dense_bias_count == 28) begin
-					// Right now, next_state == DENSE_10, be in charge of preparing the addr for next stage
-					// Preparing is done at 1, do nothing
-					dense_bias_count <= 0;
-
 				end
 			end
-                        end
-	/*		2: begin
+			2: begin
 				// Basically wait for data to load from new addr
 
-				//EN_CONFIG <= 1;
-                            	//EN_FSM <= 1;
+				// SSFR output
+                        	DA <= 8'b01000000;
+                            	DB <= 8'b10110000;
+				EN_CONFIG <= 1;
+                            	EN_FSM <= 1;
 				wr_en_dense <= 1; // Write four
+				dense_ram_addr <= dense_ram_addr + 1;
 
 				if (dense_bias_count == 32) begin
 					// Right now, next_state == DENSE_10, be in charge of preparing the addr for next stage
 					// Preparing is done at 1, do nothing
 					dense_bias_count <= 0;
-					dense_ram_addr <= dense_ram_addr + 1; // This is for next stage
 				end
 				else begin
-					//ram_addr_b <= ram_addr_b + 1; // Next cycle reads next position of conv result
-					dense_ram_addr <= dense_ram_addr + 1;
 					dense_case <= 0;
 				end
-			end*/
+			end
 		endcase
             end
+
+
 
 
 /********
@@ -1239,7 +1225,7 @@ DENSE 10 LAYER
 			0: begin
 				// MAC counter 512
 				DB <= 8'd0; //0
-				DD <= 8'd10; //10
+				DD <= 8'd32; //32
 				// make sure this is getting different bias
 				DA <= read_dense0; // Bias
 				DC <= read_dense1;
@@ -1247,6 +1233,7 @@ DENSE 10 LAYER
 				DG <= read_dense3;
 
 				EN_CONFIG <= 0;
+                                
                             	EN_FSM <= 0;
 
 				ram_addr_b <= ram_addr_b + 1; // Next cycle reads next position of conv result
@@ -1255,8 +1242,6 @@ DENSE 10 LAYER
 				dense_10_case <= dense_10_case + 1; // switch case
 			end
 			1: begin
-
-				if (dense_count < 9) begin
 				DB <= read_dense0; // Different 
 				DD <= read_dense1;
 				DF <= read_dense2;
@@ -1265,21 +1250,26 @@ DENSE 10 LAYER
 				DC <= read_res0; // But we can still read from 4 different conv_mems
 				DE <= read_res0; // 4 exact copies, each 512 nums
 				DG <= read_res0;
+
+
+				if (dense_count < 31) begin
 					// Keep calculating 512 times
 					dense_10_case <= 1;
 					dense_count <= dense_count + 1;
-					//ram_addr_b <= ram_addr_b + 1;
-					dense_ram_addr <= dense_ram_addr + 1;
-					if (dense_count != 9) begin
-						
+
+					if (dense_count != 30) begin
+						//if (dense_count != 29) 
+						dense_ram_addr <= dense_ram_addr + 1;
 						ram_addr_b <= ram_addr_b + 1;
-					end
-                                        
+						 
+                                                 //dense_ram_addr <= dense_ram_addr + 1;
+						
+					end 
 				end
 				else begin
-					// dense_count == 511
+					// dense_count == 32
 					// Switch to next four set of biases
-					//dense_ram_addr <= dense_ram_addr + 1;
+					dense_ram_addr <= dense_ram_addr + 1;
 					dense_10_case <= dense_10_case + 1;
 					dense_count <= 0;
 					dense_bias_count <= dense_bias_count + 4;
@@ -1288,49 +1278,35 @@ DENSE 10 LAYER
 					// If just switch, return to orignal pos
 					// If change stage. keep reading from result ram
                                         if (dense_bias_count != 8)
-						ram_addr_b <= ram_addr_b - 10;
+						ram_addr_b <= layer_dense10_start_position;
                                         else 
                                         	ram_addr_b <= ram_addr_b + 1;
-				// SSFR output
-                            	DA <= 8'b01100000;
-                        	DB <= 8'b10110000;
-				EN_CONFIG <= 1;
-                            	EN_FSM <= 1;
-				wr_en_dense <= 1; // Write four
 
-				if (dense_bias_count == 12) begin
-					// Right now, next_state == DENSE_10, be in charge of preparing the addr for next stage
-					// Preparing is done at 1, do nothing
-					dense_bias_count <= 0;
-				end
-				else begin
-					//ram_addr_b <= ram_addr_b + 1; // Next cycle reads next position of conv result
-					dense_ram_addr <= dense_ram_addr + 1;
-					dense_10_case <= 0;
-				end
+
 				end
 			end
-			/*2: begin
+			2: begin
 				// Basically wait for data to load from new addr
 
 				// SSFR output
-                            	DA <= 8'b01100000;
-                        	DB <= 8'b10110000;
+                        	DA <= 8'b01111111;
+                        	DB <= 8'b00101000;
 				EN_CONFIG <= 1;
-                            	EN_FSM <= 1;
+                                if (next_state != IDLE)
+                            		EN_FSM <= 1;
 				wr_en_dense <= 1; // Write four
-
+				dense_ram_addr <= dense_ram_addr + 1;
+				
 				if (dense_bias_count == 12) begin
 					// Right now, next_state == DENSE_10, be in charge of preparing the addr for next stage
 					// Preparing is done at 1, do nothing
 					dense_bias_count <= 0;
-				end
-				else begin
-					//ram_addr_b <= ram_addr_b + 1; // Next cycle reads next position of conv result
-					dense_ram_addr <= dense_ram_addr + 1;
 					dense_10_case <= 0;
 				end
-			end*/
+				else begin
+					dense_10_case <= 0;
+				end
+			end
 		endcase
             end
 
@@ -1417,7 +1393,6 @@ DENSE 10 LAYER
                 // ? LOL
             end
         endcase  //end of state machine
-    end//end if
 end//end for ff
 
 
