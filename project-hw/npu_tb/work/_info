@@ -9,18 +9,17 @@ z2
 cModel Technology
 Z0 d/user/stud/fall22/hz2833/Documents/CSEE4840/ee4840project/project-hw/npu_tb
 T_opt
-!s110 1683748047
-V0FRci1[ReEm[Y[R86VLIi1
+!s110 1683754809
+Vo2gb72IjKoJg3g=5X4FCY1
 04 9 4 work testbench fast 0
-=1-54bf6466a0cd-645bf4ce-4c2c6-40cf
+=1-54bf6466a0cd-645c0f38-cdd02-5e00
 o-quiet -auto_acc_if_foreign -work work
 Z1 tCvgOpt 0
 n@_opt
 OE;O;10.7b_1;67
-R0
 vauto_comparator
 !s10a 1683315251
-Z2 !s110 1683748039
+Z2 !s110 1683754742
 !i10b 1
 !s100 iPmgTmhKFP7c<E_2XTAL?3
 I9Yh@SmSA`DPCZSIOJF`l31
@@ -34,7 +33,7 @@ Z4 OE;L;10.7b_1;67
 r1
 !s85 0
 31
-Z5 !s108 1683748039.000000
+Z5 !s108 1683754742.000000
 !s107 ../npu/npu_v8/auto_comparator.v|
 !s90 -reportprogress|300|+acc|-incr|../npu/npu_v8/auto_comparator.v|
 !i113 0
@@ -42,7 +41,7 @@ Z6 o+acc -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R1
 vconv_ram
 Z7 !s10a 1683234527
-Z8 !s110 1683748043
+Z8 !s110 1683754753
 !i10b 1
 !s100 AcH;WW87o<oc64ZIO_C]<0
 IelkF8jNhQ9EzB_:B?TKWD3
@@ -56,7 +55,7 @@ R4
 r1
 !s85 0
 31
-Z10 !s108 1683748043.000000
+Z10 !s108 1683754753.000000
 !s107 ./conv_ram.v|
 !s90 -reportprogress|300|+acc|-incr|./conv_ram.v|
 !i113 0
@@ -64,7 +63,7 @@ R6
 R1
 vdata_converter
 R7
-Z11 !s110 1683748040
+Z11 !s110 1683754743
 !i10b 1
 !s100 ZM[K1b7[L=DU:i3n8ln>53
 I0g^Fl4zj:Gmja;VH``faM1
@@ -78,7 +77,7 @@ R4
 r1
 !s85 0
 31
-R5
+Z12 !s108 1683754743.000000
 !s107 ../npu/npu_v8/data_converter.v|
 !s90 -reportprogress|300|+acc|-incr|../npu/npu_v8/data_converter.v|
 !i113 0
@@ -86,7 +85,7 @@ R6
 R1
 vdense_ram
 R7
-Z12 !s110 1683748044
+Z13 !s110 1683754755
 !i10b 1
 !s100 mB2B^@_6Q_fLQ@?XJB;J=0
 IIeTigJ0`jAC[=lRY[XaYD1
@@ -100,66 +99,66 @@ R4
 r1
 !s85 0
 31
-Z13 !s108 1683748044.000000
+Z14 !s108 1683754754.000000
 !s107 ./dense_ram.v|
 !s90 -reportprogress|300|+acc|-incr|./dense_ram.v|
 !i113 0
 R6
 R1
 vdown_counter
-Z14 !s10a 1683234526
-R11
+Z15 !s10a 1683234526
+Z16 !s110 1683754744
 !i10b 1
 !s100 Cg^EDSaO`@a?^H8^`74`T1
 I=>fE16]_m42`2moO>0lC11
 R3
 R0
-Z15 w1683234526
-Z16 8../npu/FSM/FSM.v
-Z17 F../npu/FSM/FSM.v
+Z17 w1683234526
+Z18 8../npu/FSM/FSM.v
+Z19 F../npu/FSM/FSM.v
 L0 61
 R4
 r1
 !s85 0
 31
-Z18 !s108 1683748040.000000
-Z19 !s107 ../npu/FSM/FSM.v|
-Z20 !s90 -reportprogress|300|+acc|-incr|../npu/FSM/FSM.v|
+R12
+Z20 !s107 ../npu/FSM/FSM.v|
+Z21 !s90 -reportprogress|300|+acc|-incr|../npu/FSM/FSM.v|
 !i113 0
 R6
 R1
 vFSM
-R14
-R11
+R15
+R16
 !i10b 1
 !s100 NBoYS?F8CW2;GZ_d4BQQW0
 Ik8zWhDP8mc=;h<7GcHUm_2
 R3
 R0
-R15
-R16
 R17
+R18
+R19
 L0 1
 R4
 r1
 !s85 0
 31
-R18
-R19
+R12
 R20
+R21
 !i113 0
 R6
 R1
 n@f@s@m
 vFSM_ACC
-R14
-R11
+R15
+R16
 !i10b 1
 !s100 aRF?Wb^a`X:fohB>DC<NG3
 IZ2JQi_nF;I2?M^=lA_]k12
 R3
 R0
-R15
+R17
 8../npu/FSM/FSM_ACC.v
 F../npu/FSM/FSM_ACC.v
 L0 1
@@ -167,7 +166,7 @@ R4
 r1
 !s85 0
 31
-R18
+!s108 1683754744.000000
 !s107 ../npu/FSM/FSM_ACC.v|
 !s90 -reportprogress|300|+acc|-incr|../npu/FSM/FSM_ACC.v|
 !i113 0
@@ -175,14 +174,14 @@ R6
 R1
 n@f@s@m_@a@c@c
 vFSM_OUT
-R14
-Z21 !s110 1683748041
+R15
+!s110 1683754745
 !i10b 1
 !s100 L_<4WQiYdIeRR`akHIF]10
 Ia5c0Sk2gEhM3U[Z<za?160
 R3
 R0
-R15
+R17
 8../npu/FSM/FSM_OUT.v
 F../npu/FSM/FSM_OUT.v
 L0 1
@@ -190,7 +189,7 @@ R4
 r1
 !s85 0
 31
-R18
+!s108 1683754745.000000
 !s107 ../npu/FSM/FSM_OUT.v|
 !s90 -reportprogress|300|+acc|-incr|../npu/FSM/FSM_OUT.v|
 !i113 0
@@ -199,7 +198,7 @@ R1
 n@f@s@m_@o@u@t
 vimage_ram
 R7
-R12
+Z22 !s110 1683754754
 !i10b 1
 !s100 A3o]H=NNzWR9]mPZi>4V;1
 IAaf4;bzYjc9JR[KO=Q`bE1
@@ -213,7 +212,7 @@ R4
 r1
 !s85 0
 31
-R13
+R14
 !s107 ./image_ram.v|
 !s90 -reportprogress|300|+acc|-incr|./image_ram.v|
 !i113 0
@@ -221,7 +220,7 @@ R6
 R1
 vinput_buffer
 R7
-Z22 !s110 1683748038
+R2
 !i10b 1
 !s100 m<BZ:Oz_]OYe6Z]Lf>ZXO0
 IT3G2Oh`8FCV4Y>mZQSFi<0
@@ -235,7 +234,7 @@ R4
 r1
 !s85 0
 31
-Z23 !s108 1683748038.000000
+Z23 !s108 1683754741.000000
 !s107 ../npu/npu_v8/input_buffer.v|
 !s90 -reportprogress|300|+acc|-incr|../npu/npu_v8/input_buffer.v|
 !i113 0
@@ -243,7 +242,7 @@ R6
 R1
 vMAC
 R7
-Z24 !s110 1683748037
+Z24 !s110 1683754740
 !i10b 1
 !s100 T@FzMMI[n`BBnlRJhLO7S2
 IQD_HNLW`J;FLgKfC][=1@0
@@ -257,7 +256,7 @@ R4
 r1
 !s85 0
 31
-Z27 !s108 1683748037.000000
+Z27 !s108 1683754740.000000
 Z28 !s107 ../npu/npu_v8/MAC.v|
 Z29 !s90 -reportprogress|300|+acc|-incr|../npu/npu_v8/MAC.v|
 !i113 0
@@ -267,7 +266,7 @@ n@m@a@c
 vmem_top
 !s10a 1683422301
 Z30 DXx6 sv_std 3 std 0 22 >9az<^>2ff9DAl3OFGaAf1
-Z31 !s110 1683748045
+R13
 !i10b 1
 !s100 OfkDFimV5<D^>DOH8_WZF3
 IJAi5V]B;P^ZSb]5V5W:im3
@@ -283,7 +282,7 @@ R4
 r1
 !s85 0
 31
-R13
+Z31 !s108 1683754755.000000
 !s107 ./mem_top.sv|
 !s90 -reportprogress|300|+acc|-incr|./mem_top.sv|
 !i113 0
@@ -292,7 +291,7 @@ R1
 vmemory
 !s10a 1683423425
 R30
-R31
+!s110 1683754756
 !i10b 1
 !s100 4^`5Z;KQa^Mn=::FHWWJU0
 IhY<b0e30I@8dX104ojDdm1
@@ -308,7 +307,7 @@ R4
 r1
 !s85 0
 31
-!s108 1683748045.000000
+R31
 !s107 ./memory.sv|
 !s90 -reportprogress|300|+acc|-incr|./memory.sv|
 !i113 0
@@ -316,15 +315,15 @@ R6
 R1
 vmemory_read_sim
 R30
-!s110 1683749622
+!s110 1683754803
 !i10b 1
-!s100 ^i=BQZ_j=fBKmCKEPT]=g2
-IDWNQ3GM<QSTJMN6Dd7bno0
+!s100 ]>9HTY]:k>=35oZEfeVH23
+I_>SQ_eC[7PD@?i4`]9V<12
 R3
 !s105 memory_read_sim_sv_unit
 S1
 R0
-w1683746646
+w1683754792
 8./memory_read_sim.sv
 F./memory_read_sim.sv
 L0 5
@@ -332,7 +331,7 @@ R4
 r1
 !s85 0
 31
-!s108 1683749621.000000
+!s108 1683754803.000000
 !s107 ./memory_read_sim.sv|
 !s90 -reportprogress|300|+acc|-incr|./memory_read_sim.sv|
 !i113 0
@@ -357,7 +356,7 @@ R4
 r1
 !s85 0
 31
-!s108 1683748042.000000
+!s108 1683754752.000000
 !s107 ./memory_write.sv|
 !s90 -reportprogress|300|+acc|-incr|./memory_write.sv|
 !i113 0
@@ -365,7 +364,7 @@ R6
 R1
 vnpu_top
 R7
-!s110 1683748036
+Z32 !s110 1683754739
 !i10b 1
 !s100 _HMDU]@hXal7i^0IQXOid0
 IO<zf@mPdZIA<eK>_DV;TT0
@@ -379,7 +378,7 @@ R4
 r1
 !s85 0
 31
-Z32 !s108 1683748036.000000
+!s108 1683754738.000000
 !s107 ../npu/npu_top/npu_top.v|
 !s90 -reportprogress|300|+acc|-incr|../npu/npu_top/npu_top.v|
 !i113 0
@@ -387,7 +386,7 @@ R6
 R1
 vnpu_v8
 R7
-R24
+R32
 !i10b 1
 !s100 zY[JMHAm9kz8[XCgPAF:f0
 IeaWfhc5NYc?KHTUOD>]123
@@ -401,7 +400,7 @@ R4
 r1
 !s85 0
 31
-R32
+!s108 1683754739.000000
 !s107 ../npu/npu_v8/npu_v8.v|
 !s90 -reportprogress|300|+acc|-incr|../npu/npu_v8/npu_v8.v|
 !i113 0
@@ -409,7 +408,7 @@ R6
 R1
 vpiso_out
 R7
-R22
+Z34 !s110 1683754741
 !i10b 1
 !s100 RP_FAPg:`hGQGV0PPXWUU2
 I[IGF@?N7@6Ib1InLhOY:=2
@@ -431,7 +430,7 @@ R6
 R1
 vReLU
 R7
-R22
+R34
 !i10b 1
 !s100 2NH76jzD7;`0KGBYb[J4e2
 Ib9B6=8UQ>dhV5Sf9Qdmd80
@@ -454,7 +453,7 @@ R1
 n@re@l@u
 vres_ram
 R7
-R8
+R22
 !i10b 1
 !s100 ojO<m661?=bbMkGX3iTg73
 I;W[`7:Q9Zm?KLgzXRmjGO2
@@ -498,7 +497,7 @@ R6
 R1
 vSSFR
 R7
-R21
+!s110 1683754750
 !i10b 1
 !s100 MXl=2NBjn7ea1kaZ6;WW@2
 II=6WiQhB09g6<=NHQcc?W0
@@ -512,7 +511,7 @@ R4
 r1
 !s85 0
 31
-Z34 !s108 1683748041.000000
+!s108 1683754749.000000
 !s107 ../npu/SSFR/SSFR.v|
 !s90 -reportprogress|300|+acc|-incr|../npu/SSFR/SSFR.v|
 !i113 0
@@ -521,7 +520,7 @@ R1
 n@s@s@f@r
 vsyn_fifo
 R7
-R2
+R11
 !i10b 1
 !s100 L5X1hCgRWL=S7Kj0=na7=3
 IhF9i5B<7aVbWlmJU6h:eN2
@@ -543,7 +542,7 @@ R6
 R1
 vtestbench
 !s10a 1683748020
-R21
+!s110 1683754751
 !i10b 1
 !s100 FJha76>`43X]]KhDz8C_J0
 IaJ[IFd265;mEIK>Ym7om`1
@@ -557,7 +556,7 @@ R4
 r1
 !s85 0
 31
-R34
+!s108 1683754750.000000
 !s107 ./memory_test.v|
 !s90 -reportprogress|300|+acc|-incr|./memory_test.v|
 !i113 0

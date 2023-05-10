@@ -115,6 +115,7 @@ end
 
 // Responsible for WRITING BACK to memory (layer12 and layer34)
 
+/*
 always_ff @(posedge clk) begin
     if (reset) begin
     ram_num <= 0;
@@ -172,8 +173,7 @@ always_ff @(posedge clk) begin
     end
 end
 
-// Responsible for WRITING BACK to memory layer5)
-/*
+
 always_ff @(posedge clk) begin
     if (reset) begin
     loop_num_dense <= 0;
@@ -190,7 +190,7 @@ always_ff @(posedge clk) begin
 
                 6: begin
                        wren0 <= 0;
-                       ram_addr_a <= ram_addr_a - 1;
+                       ram_addr_a <= ram_addr_a + 1;
                    end
 
 
@@ -201,7 +201,7 @@ always_ff @(posedge clk) begin
 
 		8: begin
                        wren0 <= 0;
-                       ram_addr_a <= ram_addr_a - 1;
+                       ram_addr_a <= ram_addr_a + 1;
 
 		   end
 
@@ -212,7 +212,7 @@ always_ff @(posedge clk) begin
 
 		10: begin
 		       wren0 <= 0;
-                       ram_addr_a <= ram_addr_a - 1;
+                       ram_addr_a <= ram_addr_a + 1;
 
 		   end
 
@@ -223,7 +223,7 @@ always_ff @(posedge clk) begin
 
 		12: begin
                        wren0 <= 0;
-                       ram_addr_a <= ram_addr_a + 7; // Prepare for next reverse Z
+                       ram_addr_a <= ram_addr_a + 1;
                        wr_en_dense <= 0;
                        
 		   end
@@ -234,15 +234,68 @@ always_ff @(posedge clk) begin
         end
     end
 end
-
 */
 
-
 always_ff @(posedge clk) begin
     if (reset) begin
-    loop_num_dense <= 0;
+    ram_num <= 0;
+    loop_num <= 0;
     ram_addr_a <= 0;
+
+    wren0 <=0;
+    wren1 <=0;
+    wren2 <=0;
+    wren3 <=0;
+
+    loop_num_dense <= 0;
     wr_en_dense <= 0;
+    end
+    else begin
+        if (wr_en) begin
+            case (loop_num)
+                4: begin
+		    case (ram_num) // Write to corresponding ram
+		        0: begin
+		            wren0 <= 1;
+		            data0 <= D_out;
+
+		        end
+		        1: begin
+		            wren1 <= 1;
+		            data1 <= D_out;
+
+		        end
+		        2: begin
+		            wren2 <= 1;
+		            data2 <= D_out;
+
+		        end
+		        3: begin
+		            wren3 <= 1;
+		            data3 <= D_out;
+		        end
+		    endcase
+                   end
+                 5: begin
+                        wren0 <= 0;
+            		wren1 <= 0;
+            		wren2 <= 0;
+            		wren3 <= 0;
+                        ram_num <= ram_num + 1;
+                        wr_en <= 0;
+                        if (ram_num == 3) ram_addr_a <= ram_addr_a + 1;
+                        
+                    end
+	     endcase  
+            if (loop_num == 5)
+                 loop_num <= 0;
+            else
+                 loop_num <= loop_num + 1;      
+         
+        end
+    end
+    if (reset) begin
+    
     end
     else begin
         if (wr_en_dense) begin
@@ -297,14 +350,15 @@ always_ff @(posedge clk) begin
             else loop_num_dense <= loop_num_dense + 1;        
         end
     end
-end
 
 /***
 READ
 ***/
 
-always_ff @(posedge clk) begin
         //*****CASE OF DIFFERENT STATE*****//
+	if (reset) begin
+	end
+	else begin
         case (current_state)
             //STATE 0: IDLE
             IDLE: begin
@@ -1393,6 +1447,7 @@ DENSE 10 LAYER
                 // ? LOL
             end
         endcase  //end of state machine
+	end
 end//end for ff
 
 

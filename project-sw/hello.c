@@ -16,9 +16,10 @@
 #include <unistd.h>
 #include <math.h>
 #include <stdint.h>
+#include <time.h>
 #define img_path "data/imgs/img2.txt"
 int vga_ball_fd;
-#d
+
 
 // Set data register
 void set_data(const int *message){
@@ -39,6 +40,26 @@ void set_control(const int *message)
       perror("ioctl(ACCU_WRITE_CONTROL_32) failed");
       return;
   }
+}
+void read_ready(const int *message)
+{
+  vga_ball_arg_t vla;
+  
+  if (ioctl(vga_ball_fd, ACCU_READ_READY_32, &vla)) {
+      perror("ioctl(ACCU_WRITE_CONTROL_32) failed");
+      return;
+  }
+  *message =  vla.message;
+}
+void read_answer(const int *message)
+{
+  vga_ball_arg_t vla;
+  
+  if (ioctl(vga_ball_fd, ACCU_READ_ANSWER_32, &vla)) {
+      perror("ioctl(ACCU_WRITE_CONTROL_32) failed");
+      return;
+  }
+  *message = vla.message;
 }
 void send_weight(char path[32])
 {
@@ -99,7 +120,7 @@ void send_image()
 
 	FILE* ptr;
 	char ch;
-	ptr = fopen("../MATLAB_Golden_Model/data/imgs/img2.txt","r");
+	ptr = fopen("../MATLAB_Golden_Model/data/imgs/img0.txt","r");
 	if ( ptr == NULL)
 	{
 		printf("no such file\n");
@@ -155,7 +176,7 @@ int main()
   char path1 = "../data/weight_bias_conv2d1.txt";
   char path2 = "../data/weight_bias_conv2d2.txt";
   char path3 = "../data/weight_bias_conv2d3.txt";
-  char path4 = "weight_bias_dense1_z_r_group4.txt";
+  char path4 = "../data/weight_bias_dense1_z_r_group4.txt";
   /*
   i=15;
   int j =30;
@@ -204,9 +225,19 @@ int main()
   send_image();
   send_weight(path1);
   send_weight(path2);
-  send_weight(path2);
-  send_weight(path2);
+  send_weight(path3);
+  send_weight(path4);
   i=2;
+  clock_t start=clock();
   set_control(&i);
+  int ready = 0;
+  while(ready == 0) {read_ready(&ready);}  
+  int answer =0;
+  read_answer(&answer);
+  clock_t end = clock();
+  double time_used;
+  time_used = (double)(end - start)/CLOCKS_PER_SEC;
+  printf("The answer is %d.\n",answer);
+  printf("Excution time is %f s.",time_used); 
   return 0;
 }

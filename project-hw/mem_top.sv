@@ -3,6 +3,10 @@ module mem_top (input logic clk,
                 input logic reset,
                 input logic [31:0] writedata,
                 input logic [31:0] control_reg,
+		input logic [31:0] data_reg,
+
+		output logic [31:0] ready,
+		output logic [31:0] answer,
                 output logic [7:0] D_OUT
                 );
 
@@ -82,7 +86,7 @@ memory memory1(
 memory_write memory_write1(
     .clk(clk),
     .reset(reset),
-    .writedata(writedata),
+    .writedata(data_reg), // NOTE: This has been changed!!!
     .control_reg(control_reg),
     
     .we_image0(we_image0),
@@ -110,7 +114,7 @@ memory_write memory_write1(
 
 
 /************READ MODULE**********/
-memory_read_sim memory_read1(
+memory_read memory_read1(
     .clk(clk),
     .reset(reset),
 

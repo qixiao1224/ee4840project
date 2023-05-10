@@ -38,7 +38,8 @@
 /* Device registers */
 #define CONTROL_REG(x) (x)
 #define DATA_REG(x) ((x)+4)
-
+#define READY_REG(x) ((x)+8)
+#define ANSWER_REG(x) ((x)+12)
 /*
  * Information about our device
  */
@@ -49,7 +50,7 @@ struct vga_ball_dev {
 } dev;
 
 /*
- * Write segments of a single digit
+ * Write segments of a single digitmessage
  * Assumes digit is in range and the device information has been set up
  */
 static void write_data_32(vga_ball_arg_t *arg)
@@ -65,7 +66,18 @@ static void write_control_32(vga_ball_arg_t *arg)
   iowrite32(arg->message, CONTROL_REG(dev.virtbase));
   dev.message = arg->message;
 }
-
+static void read_ready_32(vga_ball_arg_t *arg)
+{ 
+  // Concatenate into a 32 bit
+  arg->message = ioread32(READY_REG(dev.virtbase));
+  dev.message = arg->message;
+}
+static void read_answer_32(vga_ball_arg_t *arg)
+{ 
+  // Concatenate into a 32 bit
+  arg->message = ioread32(ANSWER_REG(dev.virtbase));
+  dev.message = arg->message;
+}
 /*
  * Handle ioctl() calls from userspace:
  * Read or write the segments on single digits.
@@ -77,17 +89,31 @@ static long vga_ball_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
 
 	switch (cmd) {
 	case ACCU_WRITE_DATA_32:
-	  if (copy_from_user(&vla, (vga_ball_arg_t *) arg,
-				   sizeof(vga_ball_arg_t)))
-			return -EACCES;
-	  write_data_32(&vla);
+	  {
+		if (copy_from_user(&vla, (vga_ball_arg_t *) arg, sizeof(vga_ball_arg_t))) return -EACCES;
+	  	write_data_32(&vla);
 		break;
+          }
 	case ACCU_WRITE_CONTROL_32:
-	  if (copy_from_user(&vla, (vga_ball_arg_t *) arg,
-				   sizeof(vga_ball_arg_t)))
-			return -EACCES;
-	  write_control_32(&vla);
+	  {
+		if (copy_from_user(&vla, (vga_ball_arg_t *) arg, sizeof(vga_ball_arg_t))) return -EACCES;
+	  	write_control_32(&vla);
 		break;
+	  }
+	case ACCU_READ_READY_32:
+	  {
+		read_ready_32(&vla);
+	  	if (copy_to_user((vga_ball_arg_t *) arg, &vla, sizeof(vga_ball_arg_t)))
+		return -EACCES;
+		break;
+	}
+	case ACCU_READ_ANSWER_32:
+	  {
+		read_answer_32(&vla);
+	  	if (copy_to_user((vga_ball_arg_t *) arg, &vla, sizeof(vga_ball_arg_t)))
+		return -EACCES;
+		break;
+	}
 	default:
 		return -EINVAL;
 	}

@@ -5,3 +5,47 @@ state.ST_IDLE 0 0 0 0
 state.ST_COMP_TRANS 1 0 0 1 
 state.ST_UNCOMP_TRANS 1 0 1 0 
 state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
+
+State Machine - |soc_system_top|soc_system:soc_system0|vga_ball:vga_ball_0|mem_top:mem_top0|npu_top:npu_top|FSM:FSM1|FSM_OUT:FSM_OUT1|current_state
+Name current_state.OUT_S9 current_state.OUT_S8 current_state.OUT_S7 current_state.OUT_S6 current_state.OUT_S5 current_state.OUT_S4 current_state.OUT_S3 current_state.OUT_S2 current_state.OUT_S1 current_state.OUT_IDLE 
+current_state.OUT_IDLE 0 0 0 0 0 0 0 0 0 0 
+current_state.OUT_S1 0 0 0 0 0 0 0 0 1 1 
+current_state.OUT_S2 0 0 0 0 0 0 0 1 0 1 
+current_state.OUT_S3 0 0 0 0 0 0 1 0 0 1 
+current_state.OUT_S4 0 0 0 0 0 1 0 0 0 1 
+current_state.OUT_S5 0 0 0 0 1 0 0 0 0 1 
+current_state.OUT_S6 0 0 0 1 0 0 0 0 0 1 
+current_state.OUT_S7 0 0 1 0 0 0 0 0 0 1 
+current_state.OUT_S8 0 1 0 0 0 0 0 0 0 1 
+current_state.OUT_S9 1 0 0 0 0 0 0 0 0 1 
+
+State Machine - |soc_system_top|soc_system:soc_system0|vga_ball:vga_ball_0|mem_top:mem_top0|npu_top:npu_top|FSM:FSM1|FSM_ACC:FSM_ACC1|current_state
+Name current_state.LAST current_state.WAIT current_state.ACC current_state.BIAS current_state.IDLE 
+current_state.IDLE 0 0 0 0 0 
+current_state.BIAS 0 0 0 1 1 
+current_state.ACC 0 0 1 0 1 
+current_state.WAIT 0 1 0 0 1 
+current_state.LAST 1 0 0 0 1 
+
+State Machine - |soc_system_top|soc_system:soc_system0|vga_ball:vga_ball_0|mem_top:mem_top0|memory_read:memory_read1|current_state
+Name current_state.DENSE_10 current_state.DENSE current_state.LAYER5 current_state.LAYER34 current_state.LAYER12 current_state.IDLE 
+current_state.IDLE 0 0 0 0 0 0 
+current_state.LAYER12 0 0 0 0 1 1 
+current_state.LAYER34 0 0 0 1 0 1 
+current_state.LAYER5 0 0 1 0 0 1 
+current_state.DENSE 0 1 0 0 0 1 
+current_state.DENSE_10 1 0 0 0 0 1 
+
+State Machine - |soc_system_top|soc_system:soc_system0|vga_ball:vga_ball_0|mem_top:mem_top0|memory_write:memory_write1|state_delay
+Name state_delay.WRITE_FOUR_DENSE state_delay.WRITE_SEQ_CONV state_delay.WRITE_FOUR state_delay.IDLE 
+state_delay.IDLE 0 0 0 0 
+state_delay.WRITE_FOUR 0 0 1 1 
+state_delay.WRITE_SEQ_CONV 0 1 0 1 
+state_delay.WRITE_FOUR_DENSE 1 0 0 1 
+
+State Machine - |soc_system_top|soc_system:soc_system0|vga_ball:vga_ball_0|mem_top:mem_top0|memory_write:memory_write1|current_state
+Name current_state.WRITE_FOUR_DENSE current_state.WRITE_SEQ_CONV current_state.WRITE_FOUR current_state.IDLE 
+current_state.IDLE 0 0 0 0 
+current_state.WRITE_FOUR 0 0 1 1 
+current_state.WRITE_SEQ_CONV 0 1 0 1 
+current_state.WRITE_FOUR_DENSE 1 0 0 1 

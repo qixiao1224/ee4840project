@@ -12,7 +12,7 @@ module vga_ball(input logic        clk,
 
    logic [7:0] D0, D1, D2, D3, D4, C0, C1, C2, C3;
    logic [7:0] 	   background_r, background_g, background_b;
-   logic [31:0] data_reg, control_reg;
+   logic [31:0] data_reg, control_reg, ready, answer;
 
    logic [10:0]	   hcount;
    logic [9:0]     vcount;
@@ -34,11 +34,10 @@ module vga_ball(input logic        clk,
 // vga counter
    vga_counters counters(.clk50(clk), .*);
 
-// Initialize Memory control moduel
-//   mem_cntrl();
-
-// Initialize accelerator module
-//   acc();
+// Initialize mem_top
+// TODO some ports leave empty?
+mem_top mem_top0(.clk(clk), .reset(reset), .writedata(writedata), .control_reg(control_reg), .data_reg(data_reg),
+		.ready(ready), .answer(answer), .D_OUT());
 
    always_ff @(posedge clk)
      if (reset) begin
