@@ -326,7 +326,7 @@ printf("counter: %d \n", counter);
    while (c < 1000) {
   read_answer(&answer);
   arr[c] = answer;
-   print(answer);
+   printf("%d\n",answer);
 	c += 1;
   }
   printf("send finished \n");
