@@ -57,6 +57,7 @@ static void write_data_32(vga_ball_arg_t *arg)
 { 
   // Concatenate into a 32 bit
   iowrite32(arg->message, DATA_REG(dev.virtbase));
+  usleep(0.02);
   dev.message = arg->message;
 }
 
@@ -64,18 +65,21 @@ static void write_control_32(vga_ball_arg_t *arg)
 { 
   // Concatenate into a 32 bit
   iowrite32(arg->message, CONTROL_REG(dev.virtbase));
+  usleep(0.02);
   dev.message = arg->message;
 }
 static void read_ready_32(vga_ball_arg_t *arg)
 { 
   // Concatenate into a 32 bit
   arg->message = ioread32(READY_REG(dev.virtbase));
+  usleep(0.02);
   dev.message = arg->message;
 }
 static void read_answer_32(vga_ball_arg_t *arg)
 { 
   // Concatenate into a 32 bit
   arg->message = ioread32(ANSWER_REG(dev.virtbase));
+  usleep(0.02);
   dev.message = arg->message;
 }
 /*
