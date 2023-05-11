@@ -28,6 +28,8 @@ module vga_ball(input logic        clk,
    logic [31:0] dish, disv;
    logic [10:0]   poshh;
    logic [9:0]    posvv;
+
+   logic reset_mem;
    // One step is 16 bit
    assign poshh=pos_h<<4;
    assign posvv=pos_v<<4;
@@ -41,7 +43,7 @@ module vga_ball(input logic        clk,
 
 // Initialize mem_top
 // TODO some ports leave empty?
-mem_top mem_top0(.clk(clk), .reset(reset), .writedata(writedata), .control_reg(control_reg), .data_reg(data_reg),
+mem_top mem_top0(.clk(clk), .reset(reset_mem), .writedata(writedata), .control_reg(control_reg), .data_reg(data_reg),
 		.ready(ready), .answer(answer), .D_OUT());
 
    always_ff @(posedge clk)
@@ -51,6 +53,7 @@ mem_top mem_top0(.clk(clk), .reset(reset), .writedata(writedata), .control_reg(c
 	background_b <= 8'h80;
 	control_reg <= 0;
 	data_reg <= 0;
+	reset_mem <= 0;
 //	ready <= 32'd100;
 //	answer <= 32'd50;
 	// vga_ball test
@@ -60,12 +63,14 @@ mem_top mem_top0(.clk(clk), .reset(reset), .writedata(writedata), .control_reg(c
 		case (address)
 			3'h0: begin
 				if (write) begin
+						reset_mem <= 1;
 						control_reg <= writedata;
 						pos_v <= writedata[7:0];
 					end
 				end
 			3'h1: begin
 				if (write) begin
+					reset_mem <= 0;
 					data_reg <= writedata;
 					pos_h <= writedata[7:0];
 					end
