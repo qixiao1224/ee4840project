@@ -222,7 +222,9 @@ int main()
     fprintf(stderr, "could not open %s\n", filename);
     return -1;
   }
+  printf("Before count \n");
   int *count;
+  printf("Before initialize \n");
   *count =0;
   printf("Between count and d \n");
   uint32_t d[30000];
