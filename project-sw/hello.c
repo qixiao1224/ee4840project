@@ -31,7 +31,7 @@ int pow(int a, int b) {
 void set_data(const int *message){
   vga_ball_arg_t vla;
   vla.message = *message;
-  printf("send data: 0x%04x\n", *message);
+  printf("send data: 0x%08x\n", *message);
   if (ioctl(vga_ball_fd, ACCU_WRITE_DATA_32, &vla)) {
       perror("ioctl(ACCU_WRITE_DATA) failed");
       return;
