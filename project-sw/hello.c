@@ -223,9 +223,9 @@ int main()
     return -1;
   }
   printf("Before count \n");
-  int *count;
+  int *count =0;
   printf("Before initialize \n");
-  *count =0;
+  
   printf("Between count and d \n");
   uint32_t d[30000];
   printf("initial state: \n");
