@@ -71,7 +71,7 @@ void read_answer( int *message)
   *message = vla.message;
   printf(vla.message);
 }
-void send_weight(char path[32])
+void send_weight(char path[64])
 {
         FILE* ptr;
 	char ch;
@@ -186,10 +186,10 @@ int main()
   }
 
   printf("initial state: ");
-  char path1[32] = "../data/weight_bias_conv2d1.txt";
-  char path2[32] = "../data/weight_bias_conv2d2.txt";
-  char path3[32] = "../data/weight_bias_conv2d3.txt";
-  char path4[32] = "../data/weight_bias_dense1_z_r_group4.txt";
+  char path1[64] = "../data/weight_bias_conv2d1.txt";
+  char path2[64] = "../data/weight_bias_conv2d2.txt";
+  char path3[64] = "../data/weight_bias_conv2d3.txt";
+  char path4[64] = "../data/weight_bias_dense1_z_r_group4.txt";
   /*
   i=15;
   int j =30;
