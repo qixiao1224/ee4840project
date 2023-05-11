@@ -99,7 +99,8 @@ void send_conv_weight(char path[64],int *count, uint32_t *d)
 			data = 0x00000000  | temp;
 			//set_data(&data);
 //		  printf("before d29999\n");
-			d[count++]=data;
+			d[*count]=data;
+			*count += 1;
 //		  printf("after d29999\n");
 //			*count+=1;
 			//printf("data= %u\n",data);	
@@ -208,7 +209,8 @@ void send_image(int *count,uint32_t *d)
 		  temp = (uint32_t)(array[2*i][2*j]*16+0.5) * 0x1000000 + (uint32_t)(array[2*i][2*j+1]*16+0.5)*0x010000 + (uint32_t)(array[2*i+1][2*j]*16+0.5) *0x100 + (uint32_t)(array[2*i+1][2*j+1]*16+0.5);
 		  //set_data(&temp);
 //		  printf("before count+=1\n");
-		  d[count++]=temp;
+		  d[*count]=temp;
+		  *count += 1;
 //		  printf("count+=1\n");
 		}
 	}
