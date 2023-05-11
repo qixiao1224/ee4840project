@@ -221,6 +221,7 @@ void send_image(int *count,uint32_t *d)
 }
 int main()
 {
+  long s_cycle;
   vga_ball_arg_t vla;
   static const char filename[] = "/dev/vga_ball";
 
@@ -298,8 +299,14 @@ int main()
   int k =0; 
   for(k=0;k<count;k++)
   {
+     clock_t start_set=clock();
      set_data(&d[k]);
+     clock_t end_set=clock();
+     printf("set_time = %d\n",int(end_set-start_set));
+     s_cycle= s_cycle + long(end_set - start_set);
   }
+  double a_cycle=double(s_cycle/count);
+  printf("average cycle = %f\n.");
   clock_t send_end = clock();
   i=2;
   clock_t start=clock();
