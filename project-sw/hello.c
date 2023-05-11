@@ -299,7 +299,7 @@ int main()
   {
      set_data(&d[k]);
      usleep(0.01);
-     printf("set_time = %d\n",(int)(end_set-start_set));
+//     printf("set_time = %d\n",(int)(end_set-start_set));
      s_cycle= s_cycle + (long)(end_set - start_set);
   }
   double a_cycle=(double)(s_cycle/count);
