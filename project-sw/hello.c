@@ -276,7 +276,12 @@ int main()
   clock_t start=clock();
   set_control(&i);
   int ready = 0;
-  while(ready == 0) {read_ready(&ready);}  
+  int counter = 0;
+  while(ready == 0) {
+	read_ready(&ready);
+	counter++;
+}  
+printf("counter: %d \n", counter);
   int answer =0;
   read_answer(&answer);
   printf("send finished \n");
