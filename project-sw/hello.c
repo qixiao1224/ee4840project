@@ -72,7 +72,7 @@ void read_answer( int *message)
   *message = vla.message;
   printf(vla.message);
 }
-void send_conv_weight(char path[64],int *count)
+void send_conv_weight(char path[64],int *count, uint32_t *d)
 {
         FILE* ptr;
 	char ch;
@@ -105,7 +105,7 @@ void send_conv_weight(char path[64],int *count)
 	fclose(ptr);
 
 }
-void send_dense_weight(char path[64], int *count)
+void send_dense_weight(char path[64], int *count, uint32_t *d)
 {
         FILE* ptr;
 	char ch;
@@ -162,7 +162,7 @@ void send_dense_weight(char path[64], int *count)
 	fclose(ptr);
 	return 0;
 }
-void send_image(int *count)
+void send_image(int *count,uint32_t *d)
 {
 
 	FILE* ptr;
@@ -276,11 +276,11 @@ int main()
   int i =1;
   set_control(&i);
 
-  send_image(count);
-  send_conv_weight(path1,count);
-  send_conv_weight(path2,count);
-  send_conv_weight(path3,count);
-  send_dense_weight(path4,count);
+  send_image(count,d);
+  send_conv_weight(path1,count,d);
+  send_conv_weight(path2,count,d);
+  send_conv_weight(path3,count,d);
+  send_dense_weight(path4,count,d);
   printf("count k = %d.\n",*count);
   clock_t send_start = clock();
   int k =0; 
