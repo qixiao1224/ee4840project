@@ -42,7 +42,7 @@ void set_control(const int *message)
 {
   vga_ball_arg_t vla;
   vla.message = *message;
-  printf("fd= %d",vga_ball_fd);
+  //printf("fd= %d",vga_ball_fd);
   if (ioctl(vga_ball_fd, ACCU_WRITE_CONTROL_32, &vla)) {
       perror("ioctl(ACCU_WRITE_CONTROL_32) failed");
       return;
@@ -71,7 +71,7 @@ void read_answer( int *message)
   *message = vla.message;
   printf(vla.message);
 }
-void send_weight(char *path)
+void send_weight(char path[32])
 {
         FILE* ptr;
 	char ch;
@@ -186,10 +186,10 @@ int main()
   }
 
   printf("initial state: ");
-  char path1 = "../data/weight_bias_conv2d1.txt";
-  char path2 = "../data/weight_bias_conv2d2.txt";
-  char path3 = "../data/weight_bias_conv2d3.txt";
-  char path4 = "../data/weight_bias_dense1_z_r_group4.txt";
+  char path1[32] = "../data/weight_bias_conv2d1.txt";
+  char path2[32] = "../data/weight_bias_conv2d2.txt";
+  char path3[32] = "../data/weight_bias_conv2d3.txt";
+  char path4[32] = "../data/weight_bias_dense1_z_r_group4.txt";
   /*
   i=15;
   int j =30;
