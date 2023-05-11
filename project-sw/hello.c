@@ -323,7 +323,7 @@ int main()
  
 printf("ready: %d \n", ready);
 printf("counter: %d \n", counter);
-  int answer =0;
+  int answer =10;
 
 //  int c = 0;
 //  int arr[1000];
