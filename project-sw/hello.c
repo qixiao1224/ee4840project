@@ -302,10 +302,10 @@ int main()
      clock_t start_set=clock();
      set_data(&d[k]);
      clock_t end_set=clock();
-     printf("set_time = %d\n",int(end_set-start_set));
-     s_cycle= s_cycle + long(end_set - start_set);
+     printf("set_time = %d\n",(int)(end_set-start_set));
+     s_cycle= s_cycle + (long)(end_set - start_set);
   }
-  double a_cycle=double(s_cycle/count);
+  double a_cycle=(double)(s_cycle/count);
   printf("average cycle = %f\n.");
   clock_t send_end = clock();
   i=2;
