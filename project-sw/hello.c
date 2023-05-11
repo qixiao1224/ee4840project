@@ -87,17 +87,18 @@ void send_conv_weight(char path[64])
 	uint32_t data=0;
 	while(fgets(line,16,ptr)!= NULL)
 	{	
-		printf("%s",line);
+		//printf("%s",line);
 		uint32_t temp = 0;
 		int i = 0;
 		for(i =0;i<8;i++)
 		{
 			if(line[i]=='1') temp = temp + pow(2,(7-i));
 		}
-		printf("temp = %d\n",temp);
+		//printf("temp = %d\n",temp);
 		
 			data = 0x00000000  | temp;
-			printf("data= %u\n",data);	
+			sent_data(&data);
+			//printf("data= %u\n",data);	
 	}
 	fclose(ptr);
 
