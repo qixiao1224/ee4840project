@@ -275,11 +275,11 @@ int main()
   int i =1;
   set_control(&i);
 
-  send_image();
-  send_conv_weight(path1);
-  send_conv_weight(path2);
-  send_conv_weight(path3);
-  send_dense_weight(path4);
+  send_image(count);
+  send_conv_weight(path1,count);
+  send_conv_weight(path2,count);
+  send_conv_weight(path3,count);
+  send_dense_weight(path4,count);
   printf("count k = %d.\n",count);
   clock_t send_start = clock();
   int k =0; 
