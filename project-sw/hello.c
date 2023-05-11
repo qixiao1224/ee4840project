@@ -72,7 +72,37 @@ void read_answer( int *message)
   *message = vla.message;
   printf(vla.message);
 }
-void send_weight(char path[64])
+void send_conv_weight(char path[64])
+{
+        FILE* ptr;
+	char ch;
+	ptr = fopen(path,"r");
+	if ( ptr == NULL)
+	{
+		printf("no such file\n");
+		return ;
+	}
+	char line[16];
+	int state = 0;
+	uint32_t data=0;
+	while(fgets(line,16,ptr)!= NULL)
+	{	
+		printf("%s",line);
+		uint32_t temp = 0;
+		int i = 0;
+		for(i =0;i<8;i++)
+		{
+			if(line[i]=='1') temp = temp + pow(2,(7-i));
+		}
+		printf("temp = %d\n",temp);
+		
+			data = 0x00000000  | temp;
+			printf("data= %u\n",data);	
+	}
+	fclose(ptr);
+
+}
+void send_dense_weight(char path[64])
 {
         FILE* ptr;
 	char ch;
@@ -237,10 +267,10 @@ int main()
   int i =1;
   set_control(&i);
   send_image();
-  send_weight(path1);
-  send_weight(path2);
-  send_weight(path3);
-  send_weight(path4);
+  send_conv_weight(path1);
+  send_conv_weight(path2);
+  send_conv_weight(path3);
+  send_dense_weight(path4);
   i=2;
   clock_t start=clock();
   set_control(&i);

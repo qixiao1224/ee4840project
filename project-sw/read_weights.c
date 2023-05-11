@@ -25,7 +25,8 @@ void send_weight(char path[32])
 			if(line[i]=='1') temp = temp + pow(2,(7-i));
 		}
 		printf("temp = %d\n",temp);
-		printf("state= %d\n",state);
+		//printf("state= %d\n",state);
+		/*
 		if(state==0)	
 		{
 			data =data+ temp * 0x1000000;
@@ -46,12 +47,13 @@ void send_weight(char path[32])
 		}
 		if(state ==3)
 		{
-			state=0;
-			data = data+temp;
+		*/
+		//state=0;
+			data = 0x00000000  | temp;
 			//set_data(&data);
 			printf("data= %u\n",data);
-			data = 0;
-		}
+		//	data = 0;
+		//}
 		
 	}
 	fclose(ptr);
