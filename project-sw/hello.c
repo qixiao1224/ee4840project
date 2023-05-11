@@ -239,6 +239,7 @@ int main()
   char path2[64] = "../data/weight_bias_conv2d2.txt";
   char path3[64] = "../data/weight_bias_conv2d3.txt";
   char path4[64] = "../data/weight_bias_dense1_z_r_group4.txt";
+  char path5[64] = "../data/weight_bias_dense2_group4"
   /*
   i=15;
   int j =30;
@@ -290,6 +291,7 @@ int main()
   send_conv_weight(path2,&count,d);
   send_conv_weight(path3,&count,d);
   send_dense_weight(path4,&count,d);
+  send_dense_weight(path5,&count,d);
   printf("count k = %d.\n",count);
   clock_t send_start = clock();
   set_control(&i);
