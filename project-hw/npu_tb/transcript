@@ -13,223 +13,244 @@
 # //  18 U.S.C. Section 1905.
 # //
 # do runsim.do
-# ** Warning: (vlib-34) Library already exists at "work".
 # QuestaSim vmap 10.7b_1 Lib Mapping Utility 2018.07 Jul 26 2018
 # vmap work work 
+# Copying /tools/mentor/questa_10.7b_1/questasim/linux/../modelsim.ini to modelsim.ini
 # Modifying modelsim.ini
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:50 on May 10,2023
+# Start time: 10:12:52 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_top/npu_top.v 
-# -- Skipping module npu_top
+# -- Compiling module npu_top
 # 
 # Top level modules:
 # 	npu_top
-# End time: 23:49:51 on May 10,2023, Elapsed time: 0:00:01
+# End time: 10:12:53 on May 11,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:51 on May 10,2023
+# Start time: 10:12:53 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/npu_v8.v 
-# -- Skipping module npu_v8
+# -- Compiling module npu_v8
 # 
 # Top level modules:
 # 	npu_v8
-# End time: 23:49:51 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:53 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:51 on May 10,2023
+# Start time: 10:12:53 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/MAC.v 
-# -- Skipping module MAC
-# -- Skipping module sixtheen_bit_sat_adder
+# -- Compiling module MAC
+# -- Compiling module sixtheen_bit_sat_adder
 # 
 # Top level modules:
 # 	MAC
-# End time: 23:49:51 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:53 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:51 on May 10,2023
+# Start time: 10:12:53 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/ReLU.v 
-# -- Skipping module ReLU
+# -- Compiling module ReLU
 # 
 # Top level modules:
 # 	ReLU
-# End time: 23:49:51 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:53 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:51 on May 10,2023
+# Start time: 10:12:53 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/piso_out.v 
-# -- Skipping module piso_out
+# -- Compiling module piso_out
 # 
 # Top level modules:
 # 	piso_out
-# End time: 23:49:52 on May 10,2023, Elapsed time: 0:00:01
+# End time: 10:12:53 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:52 on May 10,2023
+# Start time: 10:12:53 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/input_buffer.v 
-# -- Skipping module input_buffer
+# -- Compiling module input_buffer
 # 
 # Top level modules:
 # 	input_buffer
-# End time: 23:49:52 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:53 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:52 on May 10,2023
+# Start time: 10:12:53 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/auto_comparator.v 
-# -- Skipping module auto_comparator
+# -- Compiling module auto_comparator
 # 
 # Top level modules:
 # 	auto_comparator
-# End time: 23:49:52 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:54 on May 11,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:52 on May 10,2023
+# Start time: 10:12:54 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/syn_fifo.v 
-# -- Skipping module syn_fifo
+# -- Compiling module syn_fifo
 # 
 # Top level modules:
 # 	syn_fifo
-# End time: 23:49:52 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:54 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:52 on May 10,2023
+# Start time: 10:12:54 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/data_converter.v 
-# -- Skipping module data_converter
+# -- Compiling module data_converter
 # 
 # Top level modules:
 # 	data_converter
-# End time: 23:49:52 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:54 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:52 on May 10,2023
+# Start time: 10:12:54 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM.v 
-# -- Skipping module FSM
-# -- Skipping module down_counter
+# -- Compiling module FSM
+# -- Compiling module down_counter
 # 
 # Top level modules:
 # 	FSM
-# End time: 23:49:53 on May 10,2023, Elapsed time: 0:00:01
+# End time: 10:12:54 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:53 on May 10,2023
+# Start time: 10:12:54 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM_ACC.v 
-# -- Skipping module FSM_ACC
+# -- Compiling module FSM_ACC
 # 
 # Top level modules:
 # 	FSM_ACC
-# End time: 23:49:53 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:54 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:53 on May 10,2023
+# Start time: 10:12:54 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM_OUT.v 
-# -- Skipping module FSM_OUT
+# -- Compiling module FSM_OUT
 # 
 # Top level modules:
 # 	FSM_OUT
-# End time: 23:49:53 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:54 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:53 on May 10,2023
+# Start time: 10:12:54 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/SSFR/SSFR.v 
-# -- Skipping module SSFR
+# -- Compiling module SSFR
 # 
 # Top level modules:
 # 	SSFR
-# End time: 23:49:53 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:55 on May 11,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:53 on May 10,2023
+# Start time: 10:12:55 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ./memory_test.v 
-# -- Skipping module testbench
+# -- Compiling module testbench
 # 
 # Top level modules:
 # 	testbench
-# End time: 23:49:53 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:55 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:53 on May 10,2023
+# Start time: 10:12:55 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ./memory_read.sv 
 # -- Compiling module memory_read_sim
 # 
 # Top level modules:
 # 	memory_read_sim
-# End time: 23:49:54 on May 10,2023, Elapsed time: 0:00:01
+# End time: 10:12:55 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:54 on May 10,2023
+# Start time: 10:12:55 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ./memory_read_sim.sv 
 # -- Compiling module memory_read_sim
 # 
 # Top level modules:
 # 	memory_read_sim
-# End time: 23:49:55 on May 10,2023, Elapsed time: 0:00:01
+# End time: 10:12:55 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:55 on May 10,2023
+# Start time: 10:12:55 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ./memory_write.sv 
-# -- Skipping module memory_write
+# -- Compiling module memory_write
 # 
 # Top level modules:
 # 	memory_write
-# End time: 23:49:55 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:55 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:55 on May 10,2023
+# Start time: 10:12:55 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ./conv_ram.v 
-# -- Skipping module conv_ram
+# -- Compiling module conv_ram
 # 
 # Top level modules:
 # 	conv_ram
-# End time: 23:49:56 on May 10,2023, Elapsed time: 0:00:01
+# End time: 10:12:55 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:56 on May 10,2023
+# Start time: 10:12:55 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ./res_ram.v 
-# -- Skipping module res_ram
+# -- Compiling module res_ram
 # 
 # Top level modules:
 # 	res_ram
-# End time: 23:49:56 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:56 on May 11,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:56 on May 10,2023
+# Start time: 10:12:56 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ./image_ram.v 
-# -- Skipping module image_ram
+# -- Compiling module image_ram
 # 
 # Top level modules:
 # 	image_ram
-# End time: 23:49:56 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:56 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:56 on May 10,2023
+# Start time: 10:12:56 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ./dense_ram.v 
-# -- Skipping module dense_ram
+# -- Compiling module dense_ram
 # 
 # Top level modules:
 # 	dense_ram
-# End time: 23:49:56 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:56 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:56 on May 10,2023
+# Start time: 10:12:56 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ./mem_top.sv 
-# -- Skipping module mem_top
+# -- Compiling module mem_top
 # 
 # Top level modules:
 # 	mem_top
-# End time: 23:49:56 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:56 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:49:57 on May 10,2023
+# Start time: 10:12:56 on May 11,2023
 # vlog -reportprogress 300 "+acc" -incr ./memory.sv 
-# -- Skipping module memory
+# -- Compiling module memory
 # 
 # Top level modules:
 # 	memory
-# End time: 23:49:57 on May 10,2023, Elapsed time: 0:00:00
+# End time: 10:12:56 on May 11,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # ** Warning: (vsim-8689) Ignoring plusarg '+acc'.  Did you mean '-voptargs=+acc'?
 # vsim "+acc" -t ps -lib work testbench 
-# Start time: 23:49:57 on May 10,2023
-# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Start time: 10:12:56 on May 11,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-143) Recognized 6 FSMs in module "memory_read_sim(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "memory_write(fast)".
+# ** Warning: ./mem_top.sv(113): (vopt-2685) [TFMPC] - Too few port connections for 'memory_read1'.  Expected 27, found 26.
+# ** Warning: ./mem_top.sv(113): (vopt-2718) [TFMPC] - Missing connection for port 'dense_ram_bias_addr'.
+# ** Warning: ./mem_top.sv(151): (vopt-2685) [TFMPC] - Too few port connections for 'npu_top'.  Expected 30, found 16.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'ReLU2_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'ReLU1_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'piso_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_RST_MAC1_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_CLR_BUF_IN_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_EN_BUF_IN_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_EN_MAC1_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_EN_PISO_OUT_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_CLR_PISO_OUT_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_SHIFT_OUT_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FSM_EN_ReLU1_output'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'EMPTY'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'FULL'.
+# ** Warning: ./mem_top.sv(151): (vopt-2718) [TFMPC] - Missing connection for port 'RD_EN'.
+# ** Note: (vopt-143) Recognized 1 FSM in module "FSM_ACC(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "FSM_OUT(fast)".
 # Loading work.testbench(fast)
 # Loading sv_std.std
 # Loading work.mem_top(fast)
@@ -327,3 +348,3802 @@
 # ** Note: $stop    : ./memory_test.v(441)
 #    Time: 2046499 ns  Iteration: 1  Instance: /testbench
 # Break in Module testbench at ./memory_test.v line 441
+do runsim.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# QuestaSim vmap 10.7b_1 Lib Mapping Utility 2018.07 Jul 26 2018
+# vmap work work 
+# Modifying modelsim.ini
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:36 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_top/npu_top.v 
+# -- Skipping module npu_top
+# 
+# Top level modules:
+# 	npu_top
+# End time: 11:13:37 on May 11,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:37 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/npu_v8.v 
+# -- Skipping module npu_v8
+# 
+# Top level modules:
+# 	npu_v8
+# End time: 11:13:37 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:37 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/MAC.v 
+# -- Skipping module MAC
+# -- Skipping module sixtheen_bit_sat_adder
+# 
+# Top level modules:
+# 	MAC
+# End time: 11:13:37 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:37 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/ReLU.v 
+# -- Skipping module ReLU
+# 
+# Top level modules:
+# 	ReLU
+# End time: 11:13:37 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:37 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/piso_out.v 
+# -- Skipping module piso_out
+# 
+# Top level modules:
+# 	piso_out
+# End time: 11:13:37 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:37 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/input_buffer.v 
+# -- Skipping module input_buffer
+# 
+# Top level modules:
+# 	input_buffer
+# End time: 11:13:37 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:37 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/auto_comparator.v 
+# -- Skipping module auto_comparator
+# 
+# Top level modules:
+# 	auto_comparator
+# End time: 11:13:37 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:37 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/syn_fifo.v 
+# -- Skipping module syn_fifo
+# 
+# Top level modules:
+# 	syn_fifo
+# End time: 11:13:38 on May 11,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:38 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/data_converter.v 
+# -- Skipping module data_converter
+# 
+# Top level modules:
+# 	data_converter
+# End time: 11:13:38 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:38 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM.v 
+# -- Skipping module FSM
+# -- Skipping module down_counter
+# 
+# Top level modules:
+# 	FSM
+# End time: 11:13:38 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:38 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM_ACC.v 
+# -- Skipping module FSM_ACC
+# 
+# Top level modules:
+# 	FSM_ACC
+# End time: 11:13:38 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:38 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM_OUT.v 
+# -- Skipping module FSM_OUT
+# 
+# Top level modules:
+# 	FSM_OUT
+# End time: 11:13:38 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:38 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ../npu/SSFR/SSFR.v 
+# -- Skipping module SSFR
+# 
+# Top level modules:
+# 	SSFR
+# End time: 11:13:38 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:38 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_test.v 
+# -- Compiling module testbench
+# 
+# Top level modules:
+# 	testbench
+# End time: 11:13:38 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:38 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_read.sv 
+# -- Compiling module memory_read_sim
+# 
+# Top level modules:
+# 	memory_read_sim
+# End time: 11:13:39 on May 11,2023, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:39 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_read_sim.sv 
+# -- Compiling module memory_read_sim
+# 
+# Top level modules:
+# 	memory_read_sim
+# End time: 11:13:39 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:39 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory_write.sv 
+# -- Skipping module memory_write
+# 
+# Top level modules:
+# 	memory_write
+# End time: 11:13:39 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:39 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ./conv_ram.v 
+# -- Skipping module conv_ram
+# 
+# Top level modules:
+# 	conv_ram
+# End time: 11:13:39 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:39 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ./res_ram.v 
+# -- Skipping module res_ram
+# 
+# Top level modules:
+# 	res_ram
+# End time: 11:13:39 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:39 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ./image_ram.v 
+# -- Skipping module image_ram
+# 
+# Top level modules:
+# 	image_ram
+# End time: 11:13:39 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:39 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ./dense_ram.v 
+# -- Skipping module dense_ram
+# 
+# Top level modules:
+# 	dense_ram
+# End time: 11:13:39 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:40 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ./mem_top.sv 
+# -- Skipping module mem_top
+# 
+# Top level modules:
+# 	mem_top
+# End time: 11:13:40 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
+# Start time: 11:13:40 on May 11,2023
+# vlog -reportprogress 300 "+acc" -incr ./memory.sv 
+# -- Skipping module memory
+# 
+# Top level modules:
+# 	memory
+# End time: 11:13:40 on May 11,2023, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 11:13:47 on May 11,2023, Elapsed time: 1:00:51
+# Errors: 0, Warnings: 50
+# ** Warning: (vsim-8689) Ignoring plusarg '+acc'.  Did you mean '-voptargs=+acc'?
+# vsim "+acc" -t ps -lib work testbench 
+# Start time: 11:13:47 on May 11,2023
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading work.testbench(fast)
+# Loading sv_std.std
+# Loading work.mem_top(fast)
+# Loading work.memory(fast)
+# Loading work.image_ram(fast)
+# Loading work.conv_ram(fast)
+# Loading work.dense_ram(fast)
+# Loading work.memory_write(fast)
+# Loading work.memory_read_sim(fast)
+# Loading work.res_ram(fast)
+# Loading work.npu_top(fast)
+# Loading work.FSM(fast)
+# Loading work.down_counter(fast)
+# Loading work.FSM_ACC(fast)
+# Loading work.FSM_OUT(fast)
+# Loading work.npu_v8(fast)
+# Loading work.input_buffer(fast)
+# Loading work.MAC(fast)
+# Loading work.sixtheen_bit_sat_adder(fast)
+# Loading work.ReLU(fast)
+# Loading work.piso_out(fast)
+# Loading work.syn_fifo(fast)
+# Loading work.auto_comparator(fast)
+# Loading work.data_converter(fast)
+# Loading work.SSFR(fast)
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 168
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 171
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 174
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 177
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 185
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 193
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 201
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 209
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 212
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 215
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 218
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 226
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 229
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 232
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 235
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 264
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 265
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 266
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 267
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 294
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 295
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 296
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 297
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 334
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 335
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 336
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 337
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 375
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 376
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 377
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 378
+# ** Warning: (vsim-PLI-3691) Expected a system task, not a system function '$fscanf'.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench File: ./memory_test.v Line: 421
+# Error of mem0 in position        1568
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1568
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1568
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1568
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1569
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1569
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1569
+# npu out:  3
+# file out:  1
+# Error of mem0 in position        1570
+# npu out: 23
+# file out:  1
+# Error of mem0 in position        1570
+# npu out: 19
+# file out:  1
+# Error of mem0 in position        1570
+# npu out:  0
+# file out: 14
+# Error of mem0 in position        1570
+# npu out: 13
+# file out:  0
+# Error of mem0 in position        1571
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1571
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1571
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1571
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1572
+# npu out: 10
+# file out:  0
+# Error of mem0 in position        1572
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1573
+# npu out:  0
+# file out: 19
+# Error of mem0 in position        1573
+# npu out: 10
+# file out: 12
+# Error of mem0 in position        1573
+# npu out: 12
+# file out:  0
+# Error of mem0 in position        1574
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1574
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1575
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1575
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1576
+# npu out:  9
+# file out:  0
+# Error of mem0 in position        1576
+# npu out:  0
+# file out: 17
+# Error of mem0 in position        1576
+# npu out: 18
+# file out:  4
+# Error of mem0 in position        1577
+# npu out: 18
+# file out:  0
+# Error of mem0 in position        1577
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1577
+# npu out: 32
+# file out:  0
+# Error of mem0 in position        1578
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1578
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1578
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1579
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1579
+# npu out:  4
+# file out:  0
+# Error of mem0 in position        1580
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1580
+# npu out: 19
+# file out:  0
+# Error of mem0 in position        1580
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1581
+# npu out: 12
+# file out:  0
+# Error of mem0 in position        1581
+# npu out: 21
+# file out: 16
+# Error of mem0 in position        1581
+# npu out:  8
+# file out:  7
+# Error of mem0 in position        1581
+# npu out:  3
+# file out:  9
+# Error of mem0 in position        1582
+# npu out: 16
+# file out:  3
+# Error of mem0 in position        1582
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1582
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1582
+# npu out:  2
+# file out:  4
+# Error of mem0 in position        1583
+# npu out:  8
+# file out:  7
+# Error of mem0 in position        1583
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1583
+# npu out: 11
+# file out:  7
+# Error of mem0 in position        1583
+# npu out:  9
+# file out:  5
+# Error of mem0 in position        1584
+# npu out:  5
+# file out:  2
+# Error of mem0 in position        1584
+# npu out: 14
+# file out:  3
+# Error of mem0 in position        1584
+# npu out: 12
+# file out:  1
+# Error of mem0 in position        1585
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1585
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1585
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1586
+# npu out: 19
+# file out:  0
+# Error of mem0 in position        1587
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1587
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1587
+# npu out:  3
+# file out:  2
+# Error of mem0 in position        1588
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1589
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1589
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1590
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1590
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1590
+# npu out:  2
+# file out:  3
+# Error of mem0 in position        1591
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1591
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1592
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1592
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1592
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1592
+# npu out: 17
+# file out:  0
+# Error of mem0 in position        1593
+# npu out:  3
+# file out:  9
+# Error of mem0 in position        1593
+# npu out:  1
+# file out: 21
+# Error of mem0 in position        1593
+# npu out:  9
+# file out:  0
+# Error of mem0 in position        1593
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1594
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1594
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1594
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1595
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1595
+# npu out:  3
+# file out:  2
+# Error of mem0 in position        1595
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1595
+# npu out: 20
+# file out:  2
+# Error of mem0 in position        1596
+# npu out: 19
+# file out:  2
+# Error of mem0 in position        1596
+# npu out: 21
+# file out:  2
+# Error of mem0 in position        1596
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1597
+# npu out: 25
+# file out:  6
+# Error of mem0 in position        1597
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1597
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1597
+# npu out: 23
+# file out:  4
+# Error of mem0 in position        1598
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1598
+# npu out: 40
+# file out:  2
+# Error of mem0 in position        1598
+# npu out: 10
+# file out:  0
+# Error of mem0 in position        1599
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1599
+# npu out: 22
+# file out:  0
+# Error of mem0 in position        1599
+# npu out:  6
+# file out:  5
+# Error of mem0 in position        1599
+# npu out: 17
+# file out:  7
+# Error of mem0 in position        1600
+# npu out:  2
+# file out: 10
+# Error of mem0 in position        1600
+# npu out: 29
+# file out: 19
+# Error of mem0 in position        1600
+# npu out: 13
+# file out:  4
+# Error of mem0 in position        1600
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1601
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1601
+# npu out:  6
+# file out: 13
+# Error of mem0 in position        1601
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1601
+# npu out: 12
+# file out: 15
+# Error of mem0 in position        1602
+# npu out:  6
+# file out: 16
+# Error of mem0 in position        1602
+# npu out:  7
+# file out: 20
+# Error of mem0 in position        1602
+# npu out: 17
+# file out: 18
+# Error of mem0 in position        1602
+# npu out: 18
+# file out: 21
+# Error of mem0 in position        1603
+# npu out: 26
+# file out:  3
+# Error of mem0 in position        1603
+# npu out:  0
+# file out: 27
+# Error of mem0 in position        1603
+# npu out: 24
+# file out:  5
+# Error of mem0 in position        1603
+# npu out:  4
+# file out: 18
+# Error of mem0 in position        1604
+# npu out: 22
+# file out:  0
+# Error of mem0 in position        1604
+# npu out: 28
+# file out:  0
+# Error of mem0 in position        1605
+# npu out: 16
+# file out:  0
+# Error of mem0 in position        1605
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1606
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1606
+# npu out: 15
+# file out:  0
+# Error of mem0 in position        1606
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1607
+# npu out: 22
+# file out:  0
+# Error of mem0 in position        1607
+# npu out: 10
+# file out:  0
+# Error of mem0 in position        1607
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1607
+# npu out: 24
+# file out:  0
+# Error of mem0 in position        1608
+# npu out: 35
+# file out:  0
+# Error of mem0 in position        1608
+# npu out: 16
+# file out:  8
+# Error of mem0 in position        1608
+# npu out:  6
+# file out:  3
+# Error of mem0 in position        1608
+# npu out:  2
+# file out:  4
+# Error of mem0 in position        1609
+# npu out:  9
+# file out:  5
+# Error of mem0 in position        1609
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1609
+# npu out: 12
+# file out:  3
+# Error of mem0 in position        1609
+# npu out:  7
+# file out:  2
+# Error of mem0 in position        1610
+# npu out: 13
+# file out:  0
+# Error of mem0 in position        1610
+# npu out: 19
+# file out:  0
+# Error of mem0 in position        1610
+# npu out:  5
+# file out: 10
+# Error of mem0 in position        1610
+# npu out: 20
+# file out:  8
+# Error of mem0 in position        1611
+# npu out:  4
+# file out:  0
+# Error of mem0 in position        1611
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1612
+# npu out: 14
+# file out:  2
+# Error of mem0 in position        1612
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1612
+# npu out:  6
+# file out: 13
+# Error of mem0 in position        1612
+# npu out: 12
+# file out:  3
+# Error of mem0 in position        1613
+# npu out: 24
+# file out:  0
+# Error of mem0 in position        1613
+# npu out: 13
+# file out:  0
+# Error of mem0 in position        1614
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1615
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1615
+# npu out: 13
+# file out:  2
+# Error of mem0 in position        1615
+# npu out:  0
+# file out: 21
+# Error of mem0 in position        1615
+# npu out:  0
+# file out: 34
+# Error of mem0 in position        1616
+# npu out:  0
+# file out: 22
+# Error of mem0 in position        1616
+# npu out:  0
+# file out: 24
+# Error of mem0 in position        1617
+# npu out:  0
+# file out: 14
+# Error of mem0 in position        1617
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1617
+# npu out:  0
+# file out: 21
+# Error of mem0 in position        1618
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1618
+# npu out:  0
+# file out: 19
+# Error of mem0 in position        1619
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1619
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1620
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1620
+# npu out:  0
+# file out: 18
+# Error of mem0 in position        1621
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1621
+# npu out:  0
+# file out: 20
+# Error of mem0 in position        1622
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1622
+# npu out: 13
+# file out:  0
+# Error of mem0 in position        1623
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1623
+# npu out: 10
+# file out:  0
+# Error of mem0 in position        1624
+# npu out:  9
+# file out:  0
+# Error of mem0 in position        1624
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1624
+# npu out: 16
+# file out:  0
+# Error of mem0 in position        1625
+# npu out: 13
+# file out:  0
+# Error of mem0 in position        1625
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1626
+# npu out: 14
+# file out:  0
+# Error of mem0 in position        1626
+# npu out: 23
+# file out:  4
+# Error of mem0 in position        1626
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1626
+# npu out:  6
+# file out:  5
+# Error of mem0 in position        1627
+# npu out: 27
+# file out:  7
+# Error of mem0 in position        1627
+# npu out: 10
+# file out: 14
+# Error of mem0 in position        1627
+# npu out: 11
+# file out:  9
+# Error of mem0 in position        1628
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1628
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1629
+# npu out:  0
+# file out: 14
+# Error of mem0 in position        1629
+# npu out:  6
+# file out: 11
+# Error of mem0 in position        1629
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1629
+# npu out: 12
+# file out:  0
+# Error of mem0 in position        1630
+# npu out: 14
+# file out:  2
+# Error of mem0 in position        1630
+# npu out:  6
+# file out: 23
+# Error of mem0 in position        1630
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1630
+# npu out: 15
+# file out:  0
+# Error of mem0 in position        1631
+# npu out: 23
+# file out:  0
+# Error of mem0 in position        1631
+# npu out: 36
+# file out:  0
+# Error of mem0 in position        1631
+# npu out: 16
+# file out:  0
+# Error of mem0 in position        1631
+# npu out: 13
+# file out:  0
+# Error of mem0 in position        1632
+# npu out: 29
+# file out:  0
+# Error of mem0 in position        1632
+# npu out: 21
+# file out:  2
+# Error of mem0 in position        1632
+# npu out: 30
+# file out:  1
+# Error of mem0 in position        1632
+# npu out: 10
+# file out: 12
+# Error of mem0 in position        1633
+# npu out: 15
+# file out:  1
+# Error of mem0 in position        1633
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1633
+# npu out: 16
+# file out:  5
+# Error of mem0 in position        1633
+# npu out: 13
+# file out: 18
+# Error of mem0 in position        1634
+# npu out: 21
+# file out:  0
+# Error of mem0 in position        1634
+# npu out:  4
+# file out:  2
+# Error of mem0 in position        1634
+# npu out: 20
+# file out:  3
+# Error of mem0 in position        1634
+# npu out: 12
+# file out:  4
+# Error of mem0 in position        1635
+# npu out:  3
+# file out:  4
+# Error of mem0 in position        1635
+# npu out:  7
+# file out: 12
+# Error of mem0 in position        1635
+# npu out:  4
+# file out:  7
+# Error of mem0 in position        1635
+# npu out:  1
+# file out:  8
+# Error of mem0 in position        1636
+# npu out: 14
+# file out:  9
+# Error of mem0 in position        1636
+# npu out: 11
+# file out:  9
+# Error of mem0 in position        1636
+# npu out: 11
+# file out:  4
+# Error of mem0 in position        1637
+# npu out: 10
+# file out: 18
+# Error of mem0 in position        1637
+# npu out: 10
+# file out: 12
+# Error of mem0 in position        1637
+# npu out: 13
+# file out:  0
+# Error of mem0 in position        1637
+# npu out: 21
+# file out:  5
+# Error of mem0 in position        1638
+# npu out:  3
+# file out: 10
+# Error of mem0 in position        1638
+# npu out:  2
+# file out: 16
+# Error of mem0 in position        1638
+# npu out: 18
+# file out:  4
+# Error of mem0 in position        1638
+# npu out: 14
+# file out:  0
+# Error of mem0 in position        1639
+# npu out: 14
+# file out: 28
+# Error of mem0 in position        1639
+# npu out:  3
+# file out: 17
+# Error of mem0 in position        1639
+# npu out: 15
+# file out:  0
+# Error of mem0 in position        1639
+# npu out: 16
+# file out:  2
+# Error of mem0 in position        1640
+# npu out: 14
+# file out:  0
+# Error of mem0 in position        1640
+# npu out: 22
+# file out:  0
+# Error of mem0 in position        1640
+# npu out: 15
+# file out:  0
+# Error of mem0 in position        1640
+# npu out: 34
+# file out:  0
+# Error of mem0 in position        1641
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1641
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1641
+# npu out: 12
+# file out:  0
+# Error of mem0 in position        1642
+# npu out: 31
+# file out:  0
+# Error of mem0 in position        1642
+# npu out: 23
+# file out:  0
+# Error of mem0 in position        1643
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1643
+# npu out: 25
+# file out:  0
+# Error of mem0 in position        1644
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1644
+# npu out:  2
+# file out:  0
+# Error of mem0 in position        1645
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1645
+# npu out: 30
+# file out:  1
+# Error of mem0 in position        1645
+# npu out: 30
+# file out:  3
+# Error of mem0 in position        1645
+# npu out: 28
+# file out:  0
+# Error of mem0 in position        1646
+# npu out: 24
+# file out:  0
+# Error of mem0 in position        1646
+# npu out: 32
+# file out:  0
+# Error of mem0 in position        1647
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1647
+# npu out:  1
+# file out:  2
+# Error of mem0 in position        1647
+# npu out:  4
+# file out:  0
+# Error of mem0 in position        1647
+# npu out:  2
+# file out:  0
+# Error of mem0 in position        1648
+# npu out: 29
+# file out:  0
+# Error of mem0 in position        1648
+# npu out: 26
+# file out:  5
+# Error of mem0 in position        1648
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1648
+# npu out: 32
+# file out:  0
+# Error of mem0 in position        1649
+# npu out: 19
+# file out: 15
+# Error of mem0 in position        1649
+# npu out:  0
+# file out: 15
+# Error of mem0 in position        1649
+# npu out: 17
+# file out: 15
+# Error of mem0 in position        1649
+# npu out:  0
+# file out: 15
+# Error of mem0 in position        1650
+# npu out:  0
+# file out: 15
+# Error of mem0 in position        1650
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        1650
+# npu out:  0
+# file out: 15
+# Error of mem0 in position        1650
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1651
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        1651
+# npu out: 23
+# file out: 15
+# Error of mem0 in position        1651
+# npu out:  0
+# file out: 14
+# Error of mem0 in position        1651
+# npu out:  6
+# file out: 19
+# Error of mem0 in position        1652
+# npu out: 12
+# file out: 15
+# Error of mem0 in position        1652
+# npu out:  0
+# file out: 15
+# Error of mem0 in position        1652
+# npu out:  6
+# file out: 10
+# Error of mem0 in position        1652
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1653
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        1653
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1654
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1655
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1655
+# npu out:  7
+# file out:  9
+# Error of mem0 in position        1655
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1656
+# npu out:  0
+# file out: 17
+# Error of mem0 in position        1656
+# npu out:  0
+# file out: 24
+# Error of mem0 in position        1657
+# npu out:  5
+# file out:  8
+# Error of mem0 in position        1657
+# npu out:  0
+# file out: 20
+# Error of mem0 in position        1659
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1660
+# npu out: 10
+# file out:  0
+# Error of mem0 in position        1661
+# npu out:  9
+# file out:  0
+# Error of mem0 in position        1661
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1662
+# npu out: 37
+# file out:  0
+# Error of mem0 in position        1662
+# npu out: 35
+# file out:  9
+# Error of mem0 in position        1662
+# npu out: 11
+# file out: 17
+# Error of mem0 in position        1662
+# npu out: 10
+# file out: 23
+# Error of mem0 in position        1663
+# npu out: 10
+# file out: 24
+# Error of mem0 in position        1663
+# npu out:  0
+# file out: 14
+# Error of mem0 in position        1663
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1663
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1664
+# npu out:  0
+# file out: 12
+# Error of mem0 in position        1664
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1664
+# npu out:  0
+# file out: 17
+# Error of mem0 in position        1665
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1665
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1665
+# npu out: 13
+# file out: 25
+# Error of mem0 in position        1665
+# npu out: 11
+# file out: 25
+# Error of mem0 in position        1666
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1666
+# npu out: 13
+# file out:  2
+# Error of mem0 in position        1666
+# npu out:  0
+# file out: 18
+# Error of mem0 in position        1667
+# npu out: 10
+# file out:  0
+# Error of mem0 in position        1667
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1667
+# npu out:  4
+# file out:  0
+# Error of mem0 in position        1668
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1668
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1669
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1669
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1669
+# npu out:  5
+# file out: 23
+# Error of mem0 in position        1670
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1671
+# npu out:  0
+# file out: 12
+# Error of mem0 in position        1671
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1672
+# npu out: 10
+# file out: 23
+# Error of mem0 in position        1672
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1672
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1673
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1675
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1676
+# npu out: 14
+# file out:  0
+# Error of mem0 in position        1676
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1676
+# npu out: 16
+# file out:  0
+# Error of mem0 in position        1676
+# npu out:  2
+# file out:  0
+# Error of mem0 in position        1677
+# npu out: 20
+# file out:  0
+# Error of mem0 in position        1677
+# npu out: 12
+# file out:  0
+# Error of mem0 in position        1677
+# npu out: 14
+# file out:  3
+# Error of mem0 in position        1677
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1678
+# npu out: 10
+# file out:  0
+# Error of mem0 in position        1678
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1678
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1678
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1679
+# npu out: 19
+# file out:  0
+# Error of mem0 in position        1679
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1679
+# npu out: 22
+# file out:  0
+# Error of mem0 in position        1679
+# npu out: 13
+# file out:  0
+# Error of mem0 in position        1680
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1680
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1680
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1680
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1681
+# npu out:  2
+# file out:  0
+# Error of mem0 in position        1681
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1681
+# npu out: 13
+# file out:  0
+# Error of mem0 in position        1681
+# npu out: 12
+# file out:  3
+# Error of mem0 in position        1682
+# npu out: 23
+# file out:  0
+# Error of mem0 in position        1682
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1682
+# npu out: 22
+# file out:  2
+# Error of mem0 in position        1682
+# npu out:  1
+# file out:  5
+# Error of mem0 in position        1683
+# npu out:  4
+# file out:  5
+# Error of mem0 in position        1683
+# npu out:  3
+# file out:  8
+# Error of mem0 in position        1684
+# npu out: 14
+# file out: 12
+# Error of mem0 in position        1684
+# npu out: 40
+# file out:  8
+# Error of mem0 in position        1684
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1685
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1685
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1685
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1685
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1686
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1686
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1686
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1686
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        1687
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        1687
+# npu out: 41
+# file out: 16
+# Error of mem0 in position        1687
+# npu out:  0
+# file out: 37
+# Error of mem0 in position        1687
+# npu out: 12
+# file out: 22
+# Error of mem0 in position        1688
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1688
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1688
+# npu out:  0
+# file out: 26
+# Error of mem0 in position        1688
+# npu out:  0
+# file out: 18
+# Error of mem0 in position        1689
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1689
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1690
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1690
+# npu out:  2
+# file out:  0
+# Error of mem0 in position        1691
+# npu out:  0
+# file out: 12
+# Error of mem0 in position        1691
+# npu out:  0
+# file out: 29
+# Error of mem0 in position        1692
+# npu out:  0
+# file out: 31
+# Error of mem0 in position        1692
+# npu out:  0
+# file out: 25
+# Error of mem0 in position        1693
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1693
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1693
+# npu out:  0
+# file out: 29
+# Error of mem0 in position        1694
+# npu out:  4
+# file out:  2
+# Error of mem0 in position        1694
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1694
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1694
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1695
+# npu out:  3
+# file out:  2
+# Error of mem0 in position        1695
+# npu out:  4
+# file out:  2
+# Error of mem0 in position        1695
+# npu out:  9
+# file out:  5
+# Error of mem0 in position        1695
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1696
+# npu out:  6
+# file out:  3
+# Error of mem0 in position        1696
+# npu out: 37
+# file out:  2
+# Error of mem0 in position        1696
+# npu out:  2
+# file out: 16
+# Error of mem0 in position        1696
+# npu out: 33
+# file out:  2
+# Error of mem0 in position        1697
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1697
+# npu out:  2
+# file out:  6
+# Error of mem0 in position        1697
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1697
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1698
+# npu out:  4
+# file out:  5
+# Error of mem0 in position        1698
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1698
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1699
+# npu out: 16
+# file out:  6
+# Error of mem0 in position        1699
+# npu out: 23
+# file out:  0
+# Error of mem0 in position        1699
+# npu out:  9
+# file out:  0
+# Error of mem0 in position        1700
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1700
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1700
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1700
+# npu out: 25
+# file out:  0
+# Error of mem0 in position        1701
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1702
+# npu out:  4
+# file out:  0
+# Error of mem0 in position        1702
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1703
+# npu out: 39
+# file out:  0
+# Error of mem0 in position        1703
+# npu out: 19
+# file out:  0
+# Error of mem0 in position        1704
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1704
+# npu out:  0
+# file out: 17
+# Error of mem0 in position        1705
+# npu out: 15
+# file out:  0
+# Error of mem0 in position        1705
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1705
+# npu out: 32
+# file out:  2
+# Error of mem0 in position        1706
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1706
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1706
+# npu out: 13
+# file out:  5
+# Error of mem0 in position        1706
+# npu out:  4
+# file out:  8
+# Error of mem0 in position        1707
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1707
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1707
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1707
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1708
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1709
+# npu out: 12
+# file out:  7
+# Error of mem0 in position        1709
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1709
+# npu out: 12
+# file out:  6
+# Error of mem0 in position        1709
+# npu out:  0
+# file out: 14
+# Error of mem0 in position        1710
+# npu out:  1
+# file out: 12
+# Error of mem0 in position        1710
+# npu out:  2
+# file out:  6
+# Error of mem0 in position        1710
+# npu out: 14
+# file out:  4
+# Error of mem0 in position        1710
+# npu out: 14
+# file out:  9
+# Error of mem0 in position        1711
+# npu out:  0
+# file out: 23
+# Error of mem0 in position        1711
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1711
+# npu out: 25
+# file out:  8
+# Error of mem0 in position        1711
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        1713
+# npu out:  2
+# file out:  0
+# Error of mem0 in position        1715
+# npu out: 20
+# file out:  0
+# Error of mem0 in position        1715
+# npu out:  3
+# file out:  1
+# Error of mem0 in position        1716
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1716
+# npu out: 10
+# file out:  0
+# Error of mem0 in position        1717
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1717
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1717
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1718
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1718
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1718
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1718
+# npu out: 12
+# file out:  6
+# Error of mem0 in position        1719
+# npu out: 11
+# file out: 14
+# Error of mem0 in position        1719
+# npu out: 10
+# file out: 11
+# Error of mem0 in position        1719
+# npu out: 23
+# file out:  3
+# Error of mem0 in position        1719
+# npu out: 23
+# file out:  3
+# Error of mem0 in position        1720
+# npu out:  0
+# file out: 19
+# Error of mem0 in position        1720
+# npu out:  5
+# file out: 23
+# Error of mem0 in position        1720
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1720
+# npu out: 16
+# file out: 11
+# Error of mem0 in position        1721
+# npu out: 21
+# file out:  0
+# Error of mem0 in position        1721
+# npu out: 26
+# file out:  0
+# Error of mem0 in position        1722
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1722
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1722
+# npu out: 26
+# file out:  0
+# Error of mem0 in position        1722
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1723
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1723
+# npu out: 12
+# file out:  0
+# Error of mem0 in position        1723
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1724
+# npu out: 18
+# file out:  0
+# Error of mem0 in position        1724
+# npu out: 12
+# file out:  0
+# Error of mem0 in position        1724
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1725
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1725
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1726
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1726
+# npu out:  2
+# file out:  1
+# Error of mem0 in position        1727
+# npu out: 12
+# file out:  0
+# Error of mem0 in position        1727
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1727
+# npu out: 20
+# file out:  4
+# Error of mem0 in position        1727
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1728
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1728
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1728
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1728
+# npu out:  2
+# file out:  4
+# Error of mem0 in position        1729
+# npu out:  6
+# file out: 11
+# Error of mem0 in position        1729
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1729
+# npu out:  6
+# file out: 12
+# Error of mem0 in position        1729
+# npu out: 13
+# file out:  5
+# Error of mem0 in position        1730
+# npu out: 22
+# file out:  0
+# Error of mem0 in position        1731
+# npu out: 39
+# file out:  0
+# Error of mem0 in position        1731
+# npu out: 34
+# file out:  0
+# Error of mem0 in position        1731
+# npu out:  4
+# file out:  0
+# Error of mem0 in position        1732
+# npu out: 16
+# file out:  0
+# Error of mem0 in position        1734
+# npu out: 13
+# file out:  0
+# Error of mem0 in position        1734
+# npu out: 12
+# file out:  2
+# Error of mem0 in position        1734
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1734
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1735
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1736
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1736
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1736
+# npu out: 10
+# file out: 11
+# Error of mem0 in position        1737
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1737
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1737
+# npu out:  2
+# file out:  8
+# Error of mem0 in position        1737
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1738
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1738
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1739
+# npu out:  8
+# file out:  2
+# Error of mem0 in position        1739
+# npu out: 21
+# file out:  2
+# Error of mem0 in position        1739
+# npu out: 10
+# file out:  2
+# Error of mem0 in position        1739
+# npu out: 20
+# file out:  2
+# Error of mem0 in position        1740
+# npu out:  1
+# file out:  2
+# Error of mem0 in position        1740
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1740
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1740
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1741
+# npu out: 33
+# file out:  2
+# Error of mem0 in position        1741
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1741
+# npu out: 28
+# file out:  0
+# Error of mem0 in position        1741
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1742
+# npu out: 16
+# file out:  2
+# Error of mem0 in position        1742
+# npu out:  1
+# file out:  2
+# Error of mem0 in position        1742
+# npu out: 25
+# file out:  0
+# Error of mem0 in position        1742
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1743
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1743
+# npu out:  2
+# file out:  5
+# Error of mem0 in position        1743
+# npu out: 21
+# file out:  3
+# Error of mem0 in position        1744
+# npu out: 21
+# file out:  5
+# Error of mem0 in position        1744
+# npu out:  3
+# file out: 10
+# Error of mem0 in position        1744
+# npu out: 17
+# file out:  3
+# Error of mem0 in position        1744
+# npu out: 10
+# file out: 20
+# Error of mem0 in position        1745
+# npu out: 25
+# file out:  3
+# Error of mem0 in position        1745
+# npu out:  7
+# file out:  4
+# Error of mem0 in position        1745
+# npu out: 24
+# file out:  0
+# Error of mem0 in position        1746
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1746
+# npu out: 19
+# file out:  0
+# Error of mem0 in position        1746
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1746
+# npu out: 12
+# file out:  0
+# Error of mem0 in position        1747
+# npu out:  2
+# file out: 11
+# Error of mem0 in position        1747
+# npu out: 17
+# file out: 28
+# Error of mem0 in position        1747
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1747
+# npu out: 27
+# file out:  0
+# Error of mem0 in position        1748
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1749
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1750
+# npu out: 12
+# file out:  0
+# Error of mem0 in position        1750
+# npu out: 14
+# file out:  0
+# Error of mem0 in position        1750
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1750
+# npu out: 30
+# file out:  0
+# Error of mem0 in position        1751
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1753
+# npu out:  5
+# file out:  3
+# Error of mem0 in position        1753
+# npu out: 12
+# file out:  3
+# Error of mem0 in position        1754
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1754
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1755
+# npu out: 14
+# file out:  0
+# Error of mem0 in position        1755
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1756
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1756
+# npu out:  7
+# file out: 11
+# Error of mem0 in position        1756
+# npu out: 26
+# file out:  0
+# Error of mem0 in position        1758
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1759
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1761
+# npu out:  2
+# file out:  0
+# Error of mem0 in position        1762
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1763
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1763
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1763
+# npu out:  9
+# file out:  0
+# Error of mem0 in position        1764
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1764
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1764
+# npu out: 24
+# file out:  0
+# Error of mem0 in position        1764
+# npu out: 21
+# file out:  0
+# Error of mem0 in position        1765
+# npu out:  0
+# file out: 21
+# Error of mem0 in position        1765
+# npu out:  0
+# file out: 14
+# Error of mem0 in position        1765
+# npu out:  9
+# file out:  0
+# Error of mem0 in position        1765
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1766
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1766
+# npu out: 24
+# file out:  0
+# Error of mem0 in position        1766
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1766
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1767
+# npu out:  0
+# file out: 12
+# Error of mem0 in position        1768
+# npu out:  0
+# file out: 15
+# Error of mem0 in position        1768
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1769
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1769
+# npu out: 16
+# file out:  0
+# Error of mem0 in position        1769
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1769
+# npu out:  0
+# file out: 12
+# Error of mem0 in position        1770
+# npu out: 22
+# file out:  6
+# Error of mem0 in position        1770
+# npu out: 10
+# file out:  7
+# Error of mem0 in position        1770
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1770
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1771
+# npu out:  3
+# file out: 10
+# Error of mem0 in position        1771
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1771
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1772
+# npu out:  0
+# file out: 15
+# Error of mem0 in position        1772
+# npu out:  2
+# file out: 12
+# Error of mem0 in position        1773
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1773
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1774
+# npu out:  4
+# file out: 11
+# Error of mem0 in position        1774
+# npu out:  0
+# file out: 15
+# Error of mem0 in position        1775
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1775
+# npu out:  3
+# file out: 10
+# Error of mem0 in position        1775
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1775
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1776
+# npu out: 32
+# file out: 10
+# Error of mem0 in position        1776
+# npu out: 35
+# file out: 10
+# Error of mem0 in position        1776
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1777
+# npu out: 14
+# file out: 12
+# Error of mem0 in position        1777
+# npu out: 20
+# file out: 10
+# Error of mem0 in position        1777
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1778
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1778
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1778
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1778
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1779
+# npu out: 11
+# file out:  7
+# Error of mem0 in position        1779
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1780
+# npu out:  0
+# file out: 15
+# Error of mem0 in position        1781
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1781
+# npu out:  0
+# file out: 14
+# Error of mem0 in position        1781
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1781
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1782
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1782
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1782
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1783
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1783
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1784
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1784
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1784
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1784
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1785
+# npu out: 25
+# file out:  5
+# Error of mem0 in position        1785
+# npu out: 20
+# file out:  5
+# Error of mem0 in position        1785
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1786
+# npu out: 23
+# file out:  5
+# Error of mem0 in position        1786
+# npu out: 16
+# file out:  5
+# Error of mem0 in position        1786
+# npu out:  0
+# file out: 14
+# Error of mem0 in position        1786
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1787
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1787
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1787
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1787
+# npu out:  0
+# file out: 12
+# Error of mem0 in position        1788
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1788
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1788
+# npu out:  8
+# file out:  2
+# Error of mem0 in position        1788
+# npu out:  6
+# file out:  1
+# Error of mem0 in position        1789
+# npu out:  0
+# file out: 21
+# Error of mem0 in position        1789
+# npu out:  2
+# file out:  6
+# Error of mem0 in position        1789
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1789
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1790
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1790
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1790
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1791
+# npu out:  6
+# file out: 10
+# Error of mem0 in position        1791
+# npu out:  6
+# file out: 10
+# Error of mem0 in position        1791
+# npu out:  6
+# file out:  8
+# Error of mem0 in position        1791
+# npu out:  5
+# file out:  9
+# Error of mem0 in position        1792
+# npu out:  5
+# file out: 16
+# Error of mem0 in position        1792
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1792
+# npu out:  6
+# file out:  7
+# Error of mem0 in position        1793
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1793
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1793
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1794
+# npu out:  4
+# file out:  0
+# Error of mem0 in position        1794
+# npu out:  9
+# file out:  1
+# Error of mem0 in position        1794
+# npu out: 38
+# file out:  1
+# Error of mem0 in position        1794
+# npu out: 25
+# file out:  0
+# Error of mem0 in position        1795
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1795
+# npu out:  6
+# file out:  0
+# Error of mem0 in position        1795
+# npu out: 17
+# file out: 11
+# Error of mem0 in position        1795
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1796
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1796
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1796
+# npu out:  7
+# file out:  1
+# Error of mem0 in position        1796
+# npu out: 10
+# file out:  0
+# Error of mem0 in position        1798
+# npu out: 25
+# file out:  0
+# Error of mem0 in position        1799
+# npu out:  9
+# file out:  8
+# Error of mem0 in position        1799
+# npu out: 24
+# file out: 26
+# Error of mem0 in position        1799
+# npu out: 31
+# file out: 25
+# Error of mem0 in position        1800
+# npu out:  0
+# file out: 29
+# Error of mem0 in position        1800
+# npu out: 16
+# file out: 23
+# Error of mem0 in position        1800
+# npu out: 19
+# file out: 17
+# Error of mem0 in position        1801
+# npu out: 20
+# file out: 25
+# Error of mem0 in position        1801
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1801
+# npu out: 28
+# file out: 32
+# Error of mem0 in position        1801
+# npu out:  0
+# file out: 23
+# Error of mem0 in position        1802
+# npu out: 12
+# file out:  1
+# Error of mem0 in position        1802
+# npu out: 11
+# file out:  1
+# Error of mem0 in position        1802
+# npu out:  8
+# file out:  1
+# Error of mem0 in position        1802
+# npu out: 34
+# file out:  1
+# Error of mem0 in position        1803
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1803
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1803
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1803
+# npu out: 13
+# file out:  0
+# Error of mem0 in position        1804
+# npu out: 17
+# file out:  1
+# Error of mem0 in position        1804
+# npu out: 24
+# file out:  1
+# Error of mem0 in position        1804
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        1804
+# npu out:  9
+# file out: 12
+# Error of mem0 in position        1805
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1805
+# npu out: 14
+# file out:  1
+# Error of mem0 in position        1805
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1805
+# npu out:  0
+# file out: 17
+# Error of mem0 in position        1806
+# npu out: 31
+# file out:  0
+# Error of mem0 in position        1806
+# npu out: 26
+# file out:  0
+# Error of mem0 in position        1806
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1806
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1807
+# npu out: 17
+# file out: 24
+# Error of mem0 in position        1807
+# npu out: 10
+# file out: 15
+# Error of mem0 in position        1807
+# npu out: 14
+# file out:  1
+# Error of mem0 in position        1807
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1808
+# npu out:  1
+# file out: 14
+# Error of mem0 in position        1808
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1808
+# npu out:  3
+# file out:  5
+# Error of mem0 in position        1808
+# npu out:  8
+# file out:  7
+# Error of mem0 in position        1809
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        1809
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        1809
+# npu out:  6
+# file out:  7
+# Error of mem0 in position        1809
+# npu out:  8
+# file out:  9
+# Error of mem0 in position        1810
+# npu out: 18
+# file out:  7
+# Error of mem0 in position        1810
+# npu out:  1
+# file out:  5
+# Error of mem0 in position        1810
+# npu out: 10
+# file out:  9
+# Error of mem0 in position        1810
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1811
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1811
+# npu out: 38
+# file out:  1
+# Error of mem0 in position        1811
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1811
+# npu out:  3
+# file out:  1
+# Error of mem0 in position        1812
+# npu out:  4
+# file out:  1
+# Error of mem0 in position        1812
+# npu out: 13
+# file out:  1
+# Error of mem0 in position        1812
+# npu out: 11
+# file out:  1
+# Error of mem0 in position        1812
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1813
+# npu out:  5
+# file out:  2
+# Error of mem0 in position        1813
+# npu out: 11
+# file out:  1
+# Error of mem0 in position        1813
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1814
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1814
+# npu out: 12
+# file out:  1
+# Error of mem0 in position        1814
+# npu out: 15
+# file out:  0
+# Error of mem0 in position        1815
+# npu out: 10
+# file out:  0
+# Error of mem0 in position        1815
+# npu out:  6
+# file out: 14
+# Error of mem0 in position        1815
+# npu out:  6
+# file out: 10
+# Error of mem0 in position        1815
+# npu out:  0
+# file out: 12
+# Error of mem0 in position        1816
+# npu out:  7
+# file out:  4
+# Error of mem0 in position        1816
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1816
+# npu out:  9
+# file out:  2
+# Error of mem0 in position        1817
+# npu out:  0
+# file out: 33
+# Error of mem0 in position        1817
+# npu out:  0
+# file out: 24
+# Error of mem0 in position        1817
+# npu out:  2
+# file out: 22
+# Error of mem0 in position        1817
+# npu out: 44
+# file out: 28
+# Error of mem0 in position        1818
+# npu out:  5
+# file out: 32
+# Error of mem0 in position        1818
+# npu out:  0
+# file out: 41
+# Error of mem0 in position        1818
+# npu out: 38
+# file out: 30
+# Error of mem0 in position        1818
+# npu out: 32
+# file out: 19
+# Error of mem0 in position        1819
+# npu out:  0
+# file out: 23
+# Error of mem0 in position        1819
+# npu out:  0
+# file out: 36
+# Error of mem0 in position        1819
+# npu out: 26
+# file out: 33
+# Error of mem0 in position        1819
+# npu out:  0
+# file out: 31
+# Error of mem0 in position        1820
+# npu out:  8
+# file out:  7
+# Error of mem0 in position        1820
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1820
+# npu out:  2
+# file out:  7
+# Error of mem0 in position        1820
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1821
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1821
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1821
+# npu out: 21
+# file out: 10
+# Error of mem0 in position        1821
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        1822
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1822
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1822
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1822
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1823
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1823
+# npu out: 10
+# file out:  9
+# Error of mem0 in position        1823
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1823
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        1824
+# npu out: 27
+# file out: 13
+# Error of mem0 in position        1825
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1825
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        1826
+# npu out:  0
+# file out: 17
+# Error of mem0 in position        1826
+# npu out:  0
+# file out: 21
+# Error of mem0 in position        1827
+# npu out:  3
+# file out: 20
+# Error of mem0 in position        1827
+# npu out:  1
+# file out: 36
+# Error of mem0 in position        1828
+# npu out:  4
+# file out:  0
+# Error of mem0 in position        1828
+# npu out: 11
+# file out: 29
+# Error of mem0 in position        1828
+# npu out:  0
+# file out: 26
+# Error of mem0 in position        1829
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1829
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1829
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1830
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1830
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1830
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1830
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1831
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1831
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1831
+# npu out:  6
+# file out:  7
+# Error of mem0 in position        1831
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1832
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1832
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1832
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1832
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1833
+# npu out:  1
+# file out:  7
+# Error of mem0 in position        1833
+# npu out: 10
+# file out:  3
+# Error of mem0 in position        1833
+# npu out: 14
+# file out: 15
+# Error of mem0 in position        1833
+# npu out: 17
+# file out: 15
+# Error of mem0 in position        1834
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1834
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1834
+# npu out:  0
+# file out: 11
+# Error of mem0 in position        1834
+# npu out:  0
+# file out: 10
+# Error of mem0 in position        1835
+# npu out:  0
+# file out: 22
+# Error of mem0 in position        1835
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1835
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1835
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1836
+# npu out: 11
+# file out:  9
+# Error of mem0 in position        1836
+# npu out: 11
+# file out:  2
+# Error of mem0 in position        1836
+# npu out: 26
+# file out: 20
+# Error of mem0 in position        1836
+# npu out: 22
+# file out: 21
+# Error of mem0 in position        1837
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1837
+# npu out:  0
+# file out: 12
+# Error of mem0 in position        1837
+# npu out: 18
+# file out:  9
+# Error of mem0 in position        1837
+# npu out:  0
+# file out: 29
+# Error of mem0 in position        1838
+# npu out: 14
+# file out:  0
+# Error of mem0 in position        1839
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1839
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1839
+# npu out: 26
+# file out:  0
+# Error of mem0 in position        1840
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1840
+# npu out:  9
+# file out:  0
+# Error of mem0 in position        1840
+# npu out:  2
+# file out:  0
+# Error of mem0 in position        1841
+# npu out: 15
+# file out:  0
+# Error of mem0 in position        1842
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1842
+# npu out:  6
+# file out:  4
+# Error of mem0 in position        1842
+# npu out:  4
+# file out:  0
+# Error of mem0 in position        1843
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1843
+# npu out:  9
+# file out:  5
+# Error of mem0 in position        1845
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1845
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1845
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1846
+# npu out:  2
+# file out:  8
+# Error of mem0 in position        1846
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        1846
+# npu out: 12
+# file out:  0
+# Error of mem0 in position        1847
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1847
+# npu out: 11
+# file out:  0
+# Error of mem0 in position        1847
+# npu out:  8
+# file out:  0
+# Error of mem0 in position        1847
+# npu out: 17
+# file out:  0
+# Error of mem0 in position        1848
+# npu out: 22
+# file out:  0
+# Error of mem0 in position        1848
+# npu out: 24
+# file out:  2
+# Error of mem0 in position        1848
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1848
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1849
+# npu out: 31
+# file out:  0
+# Error of mem0 in position        1849
+# npu out: 29
+# file out:  5
+# Error of mem0 in position        1849
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1849
+# npu out: 26
+# file out:  3
+# Error of mem0 in position        1850
+# npu out: 13
+# file out:  6
+# Error of mem0 in position        1850
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1850
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1851
+# npu out:  7
+# file out:  5
+# Error of mem0 in position        1851
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1851
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        1851
+# npu out:  1
+# file out:  0
+# Error of mem0 in position        1852
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        1852
+# npu out: 20
+# file out:  7
+# Error of mem0 in position        1852
+# npu out:  5
+# file out:  0
+# Error of mem0 in position        1852
+# npu out: 19
+# file out:  0
+# Error of mem0 in position        1853
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1853
+# npu out:  9
+# file out: 12
+# Error of mem0 in position        1853
+# npu out: 16
+# file out:  0
+# Error of mem0 in position        1854
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        1854
+# npu out:  0
+# file out: 14
+# Error of mem0 in position        1854
+# npu out:  7
+# file out:  0
+# Error of mem0 in position        1854
+# npu out:  4
+# file out:  0
+# Error of mem0 in position        1855
+# npu out: 10
+# file out: 14
+# Error of mem0 in position        1855
+# npu out: 18
+# file out: 11
+# Error of mem0 in position        1855
+# npu out: 10
+# file out:  0
+# Error of mem0 in position        1855
+# npu out: 13
+# file out:  0
+# Error of mem1 in position        1856
+# npu out:  0
+# file out:  0
+# Error of mem2 in position        1860
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        1860
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        1864
+# npu out: 18
+# file out:  7
+# Error of mem2 in position        1864
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        1864
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        1868
+# npu out: 14
+# file out: 11
+# Error of mem1 in position        1868
+# npu out: 16
+# file out:  9
+# Error of mem2 in position        1868
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        1868
+# npu out:  0
+# file out: 44
+# Error of mem0 in position        1872
+# npu out:  2
+# file out:  0
+# Error of mem1 in position        1872
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        1872
+# npu out: 24
+# file out:  0
+# Error of mem0 in position        1876
+# npu out:  0
+# file out:  0
+# Error of mem2 in position        1876
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        1880
+# npu out: 14
+# file out:  0
+# Error of mem2 in position        1880
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        1880
+# npu out: 18
+# file out:  0
+# Error of mem2 in position        1884
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        1892
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        1896
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        1900
+# npu out: 18
+# file out:  0
+# Error of mem1 in position        1900
+# npu out:  0
+# file out: 16
+# Error of mem2 in position        1900
+# npu out: 17
+# file out: 13
+# Error of mem3 in position        1900
+# npu out:  6
+# file out: 12
+# Error of mem0 in position        1904
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        1904
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        1912
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        1928
+# npu out:  0
+# file out: 19
+# Error of mem2 in position        1928
+# npu out:  8
+# file out: 14
+# Error of mem3 in position        1928
+# npu out:  0
+# file out: 63
+# Error of mem0 in position        1932
+# npu out:  0
+# file out:  0
+# Error of mem2 in position        1932
+# npu out:  0
+# file out: 19
+# Error of mem3 in position        1932
+# npu out: 25
+# file out: 14
+# Error of mem2 in position        1936
+# npu out:  0
+# file out:  3
+# Error of mem3 in position        1936
+# npu out:  0
+# file out:  6
+# Error of mem0 in position        1940
+# npu out:  0
+# file out:  1
+# Error of mem1 in position        1940
+# npu out:  0
+# file out: 46
+# Error of mem2 in position        1940
+# npu out: 47
+# file out:  9
+# Error of mem0 in position        1944
+# npu out:  0
+# file out: 27
+# Error of mem1 in position        1944
+# npu out:  0
+# file out: 26
+# Error of mem2 in position        1948
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        1952
+# npu out: 24
+# file out:  4
+# Error of mem1 in position        1952
+# npu out:  0
+# file out:  0
+# Error of mem2 in position        1952
+# npu out: 12
+# file out:  4
+# Error of mem3 in position        1952
+# npu out: 14
+# file out:  0
+# Error of mem0 in position        1956
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        1956
+# npu out:  4
+# file out: 22
+# Error of mem2 in position        1956
+# npu out: 15
+# file out:  7
+# Error of mem3 in position        1956
+# npu out: 10
+# file out:  2
+# Error of mem0 in position        1960
+# npu out:  1
+# file out:  4
+# Error of mem1 in position        1960
+# npu out:  0
+# file out: 11
+# Error of mem2 in position        1960
+# npu out: 16
+# file out: 27
+# Error of mem3 in position        1960
+# npu out:  0
+# file out: 41
+# Error of mem2 in position        1964
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        1964
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        1968
+# npu out:  0
+# file out: 16
+# Error of mem1 in position        1968
+# npu out:  0
+# file out: 42
+# Error of mem2 in position        1968
+# npu out: 20
+# file out: 50
+# Error of mem3 in position        1968
+# npu out:  0
+# file out: 22
+# Error of mem0 in position        1972
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        1972
+# npu out:  0
+# file out: 36
+# Error of mem0 in position        1976
+# npu out: 14
+# file out: 31
+# Error of mem1 in position        1976
+# npu out:  1
+# file out: 12
+# Error of mem2 in position        1976
+# npu out:  0
+# file out: 15
+# Error of mem3 in position        1976
+# npu out:  0
+# file out: 13
+# Error of mem0 in position        1980
+# npu out:  0
+# file out: 24
+# Error of mem1 in position        1980
+# npu out:  0
+# file out:  2
+# Error of mem2 in position        1980
+# npu out:  0
+# file out: 28
+# Error of mem3 in position        1980
+# npu out:  0
+# file out: 20
+# Error of mem0 in position        1984
+# npu out: 54
+# file out:  6
+# Error of mem1 in position        1984
+# npu out: 16
+# file out:  7
+# Error of mem2 in position        1984
+# npu out: 25
+# file out: 19
+# Error of mem3 in position        1984
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        1988
+# npu out:  0
+# file out: 15
+# Error of mem1 in position        1988
+# npu out:  0
+# file out: 13
+# Error of mem2 in position        1988
+# npu out:  0
+# file out: 17
+# Error of mem0 in position        1992
+# npu out: 17
+# file out: 41
+# Error of mem1 in position        1992
+# npu out: 18
+# file out:  3
+# Error of mem2 in position        1992
+# npu out: 14
+# file out:  0
+# Error of mem3 in position        1992
+# npu out: 17
+# file out:  0
+# Error of mem0 in position        2000
+# npu out: 24
+# file out:  0
+# Error of mem1 in position        2000
+# npu out:  8
+# file out:  4
+# Error of mem2 in position        2000
+# npu out:  3
+# file out:  0
+# Error of mem3 in position        2000
+# npu out:  6
+# file out:  1
+# Error of mem0 in position        2004
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        2008
+# npu out:  0
+# file out: 13
+# Error of mem1 in position        2008
+# npu out:  4
+# file out:  6
+# Error of mem2 in position        2008
+# npu out: 31
+# file out:  0
+# Error of mem0 in position        2012
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2012
+# npu out:  3
+# file out: 14
+# Error of mem2 in position        2012
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        2012
+# npu out:  3
+# file out:  2
+# Error of mem0 in position        2016
+# npu out:  0
+# file out: 11
+# Error of mem1 in position        2016
+# npu out: 28
+# file out: 17
+# Error of mem2 in position        2016
+# npu out:  0
+# file out:  8
+# Error of mem3 in position        2016
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        2020
+# npu out:  0
+# file out: 26
+# Error of mem2 in position        2020
+# npu out:  0
+# file out: 22
+# Error of mem3 in position        2020
+# npu out:  0
+# file out: 17
+# Error of mem0 in position        2024
+# npu out:  0
+# file out: 20
+# Error of mem1 in position        2024
+# npu out:  0
+# file out: 17
+# Error of mem2 in position        2024
+# npu out:  1
+# file out:  7
+# Error of mem3 in position        2028
+# npu out:  0
+# file out: 14
+# Error of mem0 in position        2032
+# npu out:  0
+# file out: 24
+# Error of mem1 in position        2032
+# npu out:  0
+# file out: 33
+# Error of mem2 in position        2032
+# npu out:  0
+# file out: 19
+# Error of mem3 in position        2032
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        2036
+# npu out:  0
+# file out: 35
+# Error of mem2 in position        2036
+# npu out:  0
+# file out: 14
+# Error of mem3 in position        2036
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        2040
+# npu out:  0
+# file out:  4
+# Error of mem1 in position        2040
+# npu out:  0
+# file out:  2
+# Error of mem2 in position        2040
+# npu out:  0
+# file out:  4
+# Error of mem3 in position        2040
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        2044
+# npu out:  6
+# file out: 12
+# Error of mem2 in position        2044
+# npu out:  0
+# file out:  5
+# Error of mem3 in position        2044
+# npu out:  0
+# file out: 31
+# Error of mem1 in position        2048
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2052
+# npu out:  7
+# file out:  0
+# Error of mem1 in position        2052
+# npu out:  5
+# file out:  7
+# Error of mem2 in position        2052
+# npu out: 16
+# file out:  0
+# Error of mem3 in position        2052
+# npu out: 37
+# file out:  0
+# Error of mem0 in position        2056
+# npu out: 35
+# file out: 10
+# Error of mem1 in position        2056
+# npu out:  8
+# file out:  5
+# Error of mem2 in position        2056
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        2056
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2060
+# npu out:  1
+# file out: 10
+# Error of mem1 in position        2060
+# npu out: 38
+# file out:  7
+# Error of mem2 in position        2060
+# npu out:  0
+# file out: 21
+# Error of mem3 in position        2060
+# npu out:  0
+# file out: 50
+# Error of mem0 in position        2064
+# npu out: 10
+# file out: 18
+# Error of mem1 in position        2064
+# npu out:  0
+# file out:  7
+# Error of mem2 in position        2064
+# npu out:  0
+# file out: 21
+# Error of mem3 in position        2064
+# npu out:  6
+# file out:  0
+# Error of mem1 in position        2068
+# npu out:  0
+# file out: 15
+# Error of mem3 in position        2068
+# npu out:  0
+# file out:  9
+# Error of mem0 in position        2076
+# npu out:  0
+# file out: 23
+# Error of mem0 in position        2080
+# npu out: 16
+# file out:  0
+# Error of mem1 in position        2080
+# npu out: 33
+# file out:  0
+# Error of mem2 in position        2080
+# npu out: 22
+# file out:  0
+# Error of mem3 in position        2080
+# npu out:  3
+# file out:  0
+# Error of mem0 in position        2084
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2088
+# npu out: 22
+# file out:  0
+# Error of mem1 in position        2088
+# npu out: 25
+# file out:  0
+# Error of mem2 in position        2088
+# npu out: 18
+# file out:  0
+# Error of mem3 in position        2088
+# npu out: 27
+# file out:  7
+# Error of mem0 in position        2092
+# npu out:  0
+# file out:  0
+# Error of mem2 in position        2092
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2096
+# npu out:  3
+# file out:  0
+# Error of mem1 in position        2096
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        2096
+# npu out: 25
+# file out:  0
+# Error of mem0 in position        2104
+# npu out: 14
+# file out:  0
+# Error of mem2 in position        2104
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        2104
+# npu out: 17
+# file out:  0
+# Error of mem0 in position        2108
+# npu out:  0
+# file out: 20
+# Error of mem2 in position        2108
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        2112
+# npu out:  0
+# file out: 27
+# Error of mem0 in position        2116
+# npu out:  0
+# file out: 24
+# Error of mem1 in position        2116
+# npu out:  0
+# file out: 11
+# Error of mem2 in position        2116
+# npu out:  7
+# file out: 19
+# Error of mem3 in position        2116
+# npu out: 19
+# file out: 27
+# Error of mem0 in position        2120
+# npu out:  0
+# file out: 14
+# Error of mem1 in position        2120
+# npu out:  2
+# file out: 50
+# Error of mem2 in position        2120
+# npu out: 14
+# file out:  4
+# Error of mem0 in position        2124
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2124
+# npu out:  8
+# file out:  0
+# Error of mem2 in position        2124
+# npu out:  2
+# file out:  0
+# Error of mem0 in position        2128
+# npu out: 48
+# file out:  6
+# Error of mem1 in position        2128
+# npu out:  0
+# file out:  0
+# Error of mem2 in position        2128
+# npu out: 62
+# file out: 17
+# Error of mem3 in position        2128
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        2132
+# npu out:  0
+# file out:  3
+# Error of mem1 in position        2132
+# npu out: 13
+# file out:  0
+# Error of mem2 in position        2132
+# npu out: 26
+# file out:  2
+# Error of mem3 in position        2132
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        2136
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2136
+# npu out:  0
+# file out:  0
+# Error of mem2 in position        2136
+# npu out: 32
+# file out: 28
+# Error of mem3 in position        2136
+# npu out:  8
+# file out: 12
+# Error of mem0 in position        2140
+# npu out:  0
+# file out:  4
+# Error of mem1 in position        2140
+# npu out:  6
+# file out:  0
+# Error of mem2 in position        2140
+# npu out:  4
+# file out:  0
+# Error of mem3 in position        2140
+# npu out: 14
+# file out: 28
+# Error of mem0 in position        2144
+# npu out:  0
+# file out: 14
+# Error of mem2 in position        2144
+# npu out:  0
+# file out:  3
+# Error of mem0 in position        2148
+# npu out:  0
+# file out: 32
+# Error of mem1 in position        2148
+# npu out:  0
+# file out: 13
+# Error of mem2 in position        2152
+# npu out:  0
+# file out:  4
+# Error of mem3 in position        2152
+# npu out:  0
+# file out:  9
+# Error of mem2 in position        2156
+# npu out:  0
+# file out:  1
+# Error of mem0 in position        2160
+# npu out:  0
+# file out:  4
+# Error of mem0 in position        2164
+# npu out:  0
+# file out:  4
+# Error of mem1 in position        2164
+# npu out: 32
+# file out:  3
+# Error of mem2 in position        2164
+# npu out:  0
+# file out: 15
+# Error of mem3 in position        2164
+# npu out:  0
+# file out: 20
+# Error of mem2 in position        2168
+# npu out:  0
+# file out: 28
+# Error of mem1 in position        2176
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2180
+# npu out:  0
+# file out:  0
+# Error of mem2 in position        2180
+# npu out:  0
+# file out:  2
+# Error of mem3 in position        2180
+# npu out: 40
+# file out:  8
+# Error of mem3 in position        2184
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2188
+# npu out:  0
+# file out: 31
+# Error of mem3 in position        2188
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2192
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2196
+# npu out:  0
+# file out: 18
+# Error of mem0 in position        2200
+# npu out:  2
+# file out:  0
+# Error of mem2 in position        2200
+# npu out:  0
+# file out:  1
+# Error of mem3 in position        2200
+# npu out:  2
+# file out: 15
+# Error of mem3 in position        2204
+# npu out:  0
+# file out:  2
+# Error of mem0 in position        2208
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2208
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2212
+# npu out:  0
+# file out:  0
+# Error of mem2 in position        2212
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2216
+# npu out:  0
+# file out:  4
+# Error of mem3 in position        2216
+# npu out:  0
+# file out: 28
+# Error of mem0 in position        2220
+# npu out:  0
+# file out:  1
+# Error of mem2 in position        2220
+# npu out:  0
+# file out:  8
+# Error of mem2 in position        2224
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2228
+# npu out:  0
+# file out:  3
+# Error of mem2 in position        2228
+# npu out:  0
+# file out:  7
+# Error of mem3 in position        2228
+# npu out:  0
+# file out:  8
+# Error of mem0 in position        2232
+# npu out:  0
+# file out: 17
+# Error of mem1 in position        2232
+# npu out:  0
+# file out: 12
+# Error of mem0 in position        2236
+# npu out:  0
+# file out:  6
+# Error of mem2 in position        2236
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2240
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2248
+# npu out:  6
+# file out:  0
+# Error of mem2 in position        2248
+# npu out:  8
+# file out:  0
+# Error of mem3 in position        2248
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2252
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        2260
+# npu out: 51
+# file out:  0
+# Error of mem1 in position        2260
+# npu out: 13
+# file out:  0
+# Error of mem2 in position        2260
+# npu out:  6
+# file out: 15
+# Error of mem3 in position        2260
+# npu out: 27
+# file out:  0
+# Error of mem1 in position        2264
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2268
+# npu out:  0
+# file out: 28
+# Error of mem1 in position        2268
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2288
+# npu out:  0
+# file out:  7
+# Error of mem3 in position        2288
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2292
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2292
+# npu out: 24
+# file out: 13
+# Error of mem2 in position        2292
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        2292
+# npu out:  5
+# file out: 15
+# Error of mem0 in position        2296
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2296
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2300
+# npu out:  0
+# file out:  2
+# Error of mem2 in position        2300
+# npu out:  0
+# file out: 31
+# Error of mem2 in position        2304
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2312
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2312
+# npu out: 18
+# file out:  0
+# Error of mem2 in position        2312
+# npu out:  6
+# file out:  0
+# Error of mem1 in position        2316
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        2316
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2320
+# npu out: 14
+# file out:  2
+# Error of mem1 in position        2320
+# npu out:  0
+# file out: 17
+# Error of mem2 in position        2320
+# npu out: 52
+# file out:  9
+# Error of mem3 in position        2320
+# npu out:  0
+# file out:  7
+# Error of mem0 in position        2324
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2328
+# npu out:  0
+# file out: 12
+# Error of mem1 in position        2328
+# npu out:  0
+# file out:  4
+# Error of mem3 in position        2332
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2336
+# npu out:  0
+# file out: 13
+# Error of mem2 in position        2336
+# npu out:  0
+# file out:  5
+# Error of mem3 in position        2336
+# npu out:  0
+# file out:  5
+# Error of mem0 in position        2340
+# npu out: 19
+# file out: 11
+# Error of mem1 in position        2340
+# npu out:  0
+# file out:  8
+# Error of mem2 in position        2340
+# npu out:  0
+# file out:  2
+# Error of mem3 in position        2340
+# npu out:  0
+# file out: 16
+# Error of mem0 in position        2344
+# npu out: 31
+# file out: 25
+# Error of mem1 in position        2344
+# npu out: 26
+# file out: 12
+# Error of mem2 in position        2344
+# npu out: 23
+# file out:  0
+# Error of mem3 in position        2344
+# npu out:  0
+# file out:  0
+# Error of mem0 in position        2348
+# npu out:  0
+# file out: 14
+# Error of mem1 in position        2348
+# npu out:  0
+# file out: 16
+# Error of mem1 in position        2356
+# npu out:  0
+# file out:  0
+# Error of mem3 in position        2356
+# npu out:  0
+# file out:  0
+# Error of mem1 in position        2364
+# npu out:  0
+# file out:  0
+# Error of mem2 in position        2364
+# npu out: 17
+# file out:  6
+# Error of mem3 in position        2364
+# npu out:  0
+# file out:  2
+# Error of mem1 in position        2369
+# npu out:  0
+# file out: 99
+# Error of mem2 in position        2370
+# npu out: 95
+# file out:  0
+# Error of mem3 in position        2371
+# npu out:  0
+# file out: 51
+# Error of mem0 in position        2372
+# npu out:127
+# file out:  0
+# Error of mem1 in position        2373
+# npu out:  0
+# file out: 20
+# Error of mem3 in position        2375
+# npu out:127
+# file out: 46
+# Error of mem0 in position        2376
+# npu out:  0
+# file out: 28
+# Error of mem1 in position        2377
+# npu out:  0
+# file out:127
+# Error of mem2 in position        2378
+# npu out: 34
+# file out:  9
+# Error of mem3 in position        2379
+# npu out:115
+# file out: 23
+# Error of mem1 in position        2381
+# npu out:  0
+# file out: 45
+# Error of mem2 in position        2382
+# npu out: 30
+# file out: 22
+# Error of mem3 in position        2383
+# npu out:  0
+# file out:  2
+# Error of mem2 in position        2386
+# npu out: 42
+# file out:  0
+# Error of mem3 in position        2387
+# npu out: 85
+# file out:127
+# Error of mem0 in position        2388
+# npu out:  0
+# file out: 26
+# Error of mem1 in position        2389
+# npu out: 17
+# file out: 55
+# Error of mem2 in position        2390
+# npu out: 31
+# file out:127
+# Error of mem3 in position        2391
+# npu out: 95
+# file out:  0
+# Error of mem0 in position        2392
+# npu out:105
+# file out:  0
+# Error of mem2 in position        2394
+# npu out:  0
+# file out: 19
+# Error of mem1 in position        2397
+# npu out: 60
+# file out: 43
+# Error of mem2 in position        2398
+# npu out:123
+# file out:  0
+# Error of mem3 in position        2399
+# npu out: 19
+# file out:  2
+# Error of RESULT
+# npu out:  3
+# file out: 10
+# Error of Layer 12 =  818
+# Error of Layer 34 =  855
+# Error of Layer 5 =  280
+# Error of Layer dense1 =   24
+# Error of Layer dense2 =    1
+# ** Note: $stop    : ./memory_test.v(441)
+#    Time: 2046499 ns  Iteration: 1  Instance: /testbench
+# Break in Module testbench at ./memory_test.v line 441
+# End time: 11:23:09 on May 11,2023, Elapsed time: 0:09:22
+# Errors: 0, Warnings: 33

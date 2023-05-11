@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 `define HALF_CLOCK_PERIOD #1
 
-`define IMG_INPUT "../../data/img0_z.txt"
+`define IMG_INPUT "../../data/img1_z.txt"
 `define CONV12_FILTER_INPUT "../../data/weight_bias_conv2d1.txt"
 `define CONV34_FILTER_INPUT "../../data/weight_bias_conv2d2.txt"
 `define CONV5_FILTER_INPUT "../../data/weight_bias_conv2d3.txt"
