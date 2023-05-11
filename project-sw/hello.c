@@ -224,6 +224,7 @@ int main()
   }
   int *count;
   *count =0;
+  printf("Between count and d \n");
   uint32_t d[30000];
   printf("initial state: \n");
   char path1[64] = "../data/weight_bias_conv2d1.txt";
