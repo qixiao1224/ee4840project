@@ -290,7 +290,7 @@ int main()
   send_conv_weight(path2,&count,d);
   send_conv_weight(path3,&count,d);
   send_dense_weight(path4,&count,d);
-  printf("count k = %d.\n",&count);
+  printf("count k = %d.\n",count);
   clock_t send_start = clock();
   set_control(&i);
   usleep(0.01);
