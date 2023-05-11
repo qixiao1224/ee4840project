@@ -292,14 +292,14 @@ int main()
   printf("count k = %d.\n",&count);
   clock_t send_start = clock();
   set_control(&i);
-//  usleep(0.01);
+  usleep(0.01);
   int k =0; 
   for(k=0;k<count;k++)
   {
      clock_t start_set=clock();
      set_data(&d[k]);
      clock_t end_set=clock();
-//       usleep(0.01);
+       usleep(0.01);
      printf("set_time = %d\n",(int)(end_set-start_set));
      s_cycle= s_cycle + (long)(end_set - start_set);
   }
@@ -309,18 +309,25 @@ int main()
   i=2;
   clock_t start=clock();
   set_control(&i);
-//  usleep(0.01);
+  usleep(0.01);
   int ready = 0;
   int counter = 0;
-  while(ready == 0) {
-	read_ready(&ready);
-	counter++;
-} 
+//  while(ready == 0) {
+//	read_ready(&ready);
+//	counter++;
+//} 
 //  usleep(0.01);
 printf("ready: %d \n", ready);
 printf("counter: %d \n", counter);
   int answer =0;
+
+  int c = 0;
+  int arr[1000];
+   while (c < 1000) {
   read_answer(&answer);
+  arr[c] = answer;
+	c += 1;
+  }
   printf("send finished \n");
   clock_t end = clock();
   double time_used;
