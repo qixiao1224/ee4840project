@@ -36,7 +36,6 @@ void set_data(const int *message){
       perror("ioctl(ACCU_WRITE_DATA) failed");
       return;
   }
-  usleep(0.1);
 }
 
 /* Set control register */
@@ -49,7 +48,6 @@ void set_control(const int *message)
       perror("ioctl(ACCU_WRITE_CONTROL_32) failed");
       return;
   }
-  usleep(0.1);
 }
 
 void read_ready( int *message)
@@ -61,7 +59,6 @@ void read_ready( int *message)
       return;
   }
   *message =  vla.message;
-  usleep(0.1);
   //printf(vla.message);
 }
 void read_answer( int *message)
@@ -74,7 +71,6 @@ void read_answer( int *message)
   }
   *message = vla.message;
   printf(vla.message);
-  usleep(0.1);
 }
 void send_conv_weight(char path[64],int *count, uint32_t *d)
 {
@@ -296,12 +292,14 @@ int main()
   printf("count k = %d.\n",&count);
   clock_t send_start = clock();
   set_control(&i);
+//  usleep(0.01);
   int k =0; 
   for(k=0;k<count;k++)
   {
      clock_t start_set=clock();
      set_data(&d[k]);
      clock_t end_set=clock();
+//       usleep(0.01);
      printf("set_time = %d\n",(int)(end_set-start_set));
      s_cycle= s_cycle + (long)(end_set - start_set);
   }
@@ -311,12 +309,14 @@ int main()
   i=2;
   clock_t start=clock();
   set_control(&i);
+//  usleep(0.01);
   int ready = 0;
   int counter = 0;
   while(ready == 0) {
 	read_ready(&ready);
 	counter++;
 } 
+//  usleep(0.01);
 printf("ready: %d \n", ready);
 printf("counter: %d \n", counter);
   int answer =0;
