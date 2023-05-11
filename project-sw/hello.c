@@ -207,7 +207,7 @@ void send_image(int *count,uint32_t *d)
 		  //set_data(&temp);
 		  d[*count]=temp;
 		  *count +=1;
-		  // printf("temp = %d\n", temp);
+		  printf("count+=1\n");
 		}
 	}
 }
@@ -277,7 +277,7 @@ int main()
   */
   printf("send control\n");
   int i =1;
-  set_control(&i);
+
 
   send_image(count,d);
   send_conv_weight(path1,count,d);
@@ -286,6 +286,7 @@ int main()
   send_dense_weight(path4,count,d);
   printf("count k = %d.\n",*count);
   clock_t send_start = clock();
+  set_control(&i);
   int k =0; 
   for(k=0;k<*count;k++)
   {
