@@ -224,7 +224,7 @@ int main()
   }
   int *count;
   *count =0;
-  uint32_t d[50000];
+  uint32_t d[30000];
   printf("initial state: \n");
   char path1[64] = "../data/weight_bias_conv2d1.txt";
   char path2[64] = "../data/weight_bias_conv2d2.txt";
