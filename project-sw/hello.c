@@ -31,6 +31,7 @@ int pow(int a, int b) {
 void set_data(const int *message){
   vga_ball_arg_t vla;
   vla.message = *message;
+  printf("send data: %d\n", *message);
   if (ioctl(vga_ball_fd, ACCU_WRITE_DATA_32, &vla)) {
       perror("ioctl(ACCU_WRITE_DATA) failed");
       return;
@@ -185,7 +186,7 @@ int main()
     return -1;
   }
 
-  printf("initial state: ");
+  printf("initial state: \n");
   char path1[64] = "../data/weight_bias_conv2d1.txt";
   char path2[64] = "../data/weight_bias_conv2d2.txt";
   char path3[64] = "../data/weight_bias_conv2d3.txt";
@@ -232,7 +233,7 @@ int main()
   
   printf("VGA BALL Userspace program terminating\n");
   */
-  printf("send control");
+  printf("send control\n");
   int i =1;
   set_control(&i);
   send_image();
@@ -247,10 +248,11 @@ int main()
   while(ready == 0) {read_ready(&ready);}  
   int answer =0;
   read_answer(&answer);
+  printf("send finished \n");
   clock_t end = clock();
   double time_used;
   time_used = (double)(end - start)/CLOCKS_PER_SEC;
   printf("The answer is %d.\n",answer);
-  printf("Excution time is %f s.",time_used); 
+  printf("Excution time is %f s.\n",time_used); 
   return 0;
 }
