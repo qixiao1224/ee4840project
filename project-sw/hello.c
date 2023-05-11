@@ -302,7 +302,7 @@ int main()
   for(k=0;k<count;k++)
   {
      set_data(&d[k]);
-//     usleep(0.02);
+     usleep(0.02);
 //     printf("set_time = %d\n",(int)(end_set-start_set));
 //     s_cycle= s_cycle + (long)(end_set - start_set);
   }
@@ -312,16 +312,16 @@ int main()
   i=2;
   clock_t start=clock();
   set_control(&i);
-//  usleep(0.02);
+  usleep(0.02);
   i = 0;
   set_control(&i);
-//  usleep(0.02);
+  usleep(0.02);
   int ready = 0;
   int counter = 0;
   while(ready == 0) {
 	read_ready(&ready);
 	counter++;
-//        usleep(0.02);
+        usleep(0.02);
 } 
  
 printf("ready: %d \n", ready);
@@ -332,7 +332,7 @@ printf("counter: %d \n", counter);
 //  int arr[1000];
 //   while (c < 1000) {
   read_answer(&answer);
-//        usleep(0.02);
+        usleep(0.02);
 //  arr[c] = answer;
 //   printf("%d\n",answer);
 //	c += 1;
