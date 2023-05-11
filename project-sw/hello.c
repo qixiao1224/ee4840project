@@ -280,7 +280,8 @@ int main()
   while(ready == 0) {
 	read_ready(&ready);
 	counter++;
-}  
+} 
+printf("ready: %d \n", ready);
 printf("counter: %d \n", counter);
   int answer =0;
   read_answer(&answer);

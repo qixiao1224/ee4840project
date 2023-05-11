@@ -327,3 +327,5 @@
 # ** Note: $stop    : ./memory_test.v(441)
 #    Time: 2046499 ns  Iteration: 1  Instance: /testbench
 # Break in Module testbench at ./memory_test.v line 441
+# End time: 23:28:40 on May 10,2023, Elapsed time: 0:11:47
+# Errors: 0, Warnings: 33

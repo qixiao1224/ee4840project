@@ -124,6 +124,9 @@ always_ff @(posedge clk) begin
     ram_num <= 0;
     loop_num <= 0;
     ram_addr_a <= 0;
+    
+    ready <= 0;
+    answer <= 0;
 
     wren0 <=0;
     wren1 <=0;
