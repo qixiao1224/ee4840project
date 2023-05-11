@@ -291,7 +291,7 @@ printf("counter: %d \n", counter);
   clock_t end = clock();
   double time_used;
   time_used = (double)(end - start)/CLOCKS_PER_SEC;
-  double snet_time;
+  double sent_time;
   sent_time = (double)(send_end - send_start)/CLOCKS_PER_SEC;
   printf("The answer is %d.\n",answer);
   printf("Send data time is %f s.\n",sent_time); 
