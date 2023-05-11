@@ -97,7 +97,7 @@ void send_conv_weight(char path[64])
 		//printf("temp = %d\n",temp);
 		
 			data = 0x00000000  | temp;
-			sent_data(&data);
+			set_data(&data);
 			//printf("data= %u\n",data);	
 	}
 	fclose(ptr);
