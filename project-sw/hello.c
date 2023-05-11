@@ -103,7 +103,7 @@ void send_conv_weight(char path[64],int *count, uint32_t *d)
 			*count += 1;
 //		  printf("after d29999\n");
 //			*count+=1;
-			//printf("data= %u\n",data);	
+//			printf("data= %h\n",data);	
 	}
 	fclose(ptr);
 
@@ -297,12 +297,12 @@ int main()
   printf("send control\n");
   int i =1;
   set_control(&i);  
-//  usleep(0.01);
+  usleep(10);
   int k =0; 
   for(k=0;k<count;k++)
   {
      set_data(&d[k]);
-//     usleep(0.01);
+     usleep(10);
 //     printf("set_time = %d\n",(int)(end_set-start_set));
 //     s_cycle= s_cycle + (long)(end_set - start_set);
   }
@@ -312,13 +312,13 @@ int main()
   i=2;
   clock_t start=clock();
   set_control(&i);
-//  usleep(0.01);
+  usleep(10);
   int ready = 0;
   int counter = 0;
   while(ready == 0) {
 	read_ready(&ready);
 	counter++;
-//        usleep(0.01);
+        usleep(10);
 } 
  
 printf("ready: %d \n", ready);

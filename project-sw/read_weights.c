@@ -51,7 +51,7 @@ void send_weight(char path[32])
 		//state=0;
 			data = 0x00000000  | temp;
 			//set_data(&data);
-			printf("data= %u\n",data);
+			printf("data= %08x\n",data);
 		//	data = 0;
 		//}
 		
