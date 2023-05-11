@@ -98,9 +98,9 @@ void send_conv_weight(char path[64],int *count, uint32_t *d)
 		
 			data = 0x00000000  | temp;
 			//set_data(&data);
-		  printf("before d29999\n");
-			d[29999]=data;
-		  printf("after d29999\n");
+//		  printf("before d29999\n");
+			d[count++]=data;
+//		  printf("after d29999\n");
 //			*count+=1;
 			//printf("data= %u\n",data);	
 	}
@@ -207,9 +207,9 @@ void send_image(int *count,uint32_t *d)
 		
 		  temp = (uint32_t)(array[2*i][2*j]*16+0.5) * 0x1000000 + (uint32_t)(array[2*i][2*j+1]*16+0.5)*0x010000 + (uint32_t)(array[2*i+1][2*j]*16+0.5) *0x100 + (uint32_t)(array[2*i+1][2*j+1]*16+0.5);
 		  //set_data(&temp);
-		  printf("before count+=1\n");
-		  d[0]=temp;
-		  printf("count+=1\n");
+//		  printf("before count+=1\n");
+		  d[count++]=temp;
+//		  printf("count+=1\n");
 		}
 	}
 }
@@ -225,7 +225,7 @@ int main()
     return -1;
   }
   printf("Before count \n");
-  int *count =0;
+  int count =0;
   printf("Before initialize \n");
   
   printf("Between count and d \n");
@@ -281,16 +281,16 @@ int main()
   int i =1;
 
 
-  send_image(count,d);
-  send_conv_weight(path1,count,d);
-  send_conv_weight(path2,count,d);
-  send_conv_weight(path3,count,d);
-  send_dense_weight(path4,count,d);
-  printf("count k = %d.\n",*count);
+  send_image(&count,d);
+  send_conv_weight(path1,&count,d);
+  send_conv_weight(path2,&count,d);
+  send_conv_weight(path3,&count,d);
+  send_dense_weight(path4,&count,d);
+  printf("count k = %d.\n",&count);
   clock_t send_start = clock();
   set_control(&i);
   int k =0; 
-  for(k=0;k<*count;k++)
+  for(k=0;k<count;k++)
   {
      set_data(&d[k]);
   }
