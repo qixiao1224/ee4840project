@@ -58,6 +58,7 @@ void read_ready( int *message)
       return;
   }
   *message =  vla.message;
+  printf(vla.message);
 }
 void read_answer( int *message)
 {
@@ -68,6 +69,7 @@ void read_answer( int *message)
       return;
   }
   *message = vla.message;
+  printf(vla.message);
 }
 void send_weight(char *path)
 {

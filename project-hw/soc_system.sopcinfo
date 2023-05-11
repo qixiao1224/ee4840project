@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="soc_system" version="1.0" fabric="QSYS">
  <!-- Format version 21.1 842 (Future versions may contain additional information.) -->
- <!-- 2023.05.10.20:18:18 -->
+ <!-- 2023.05.10.21:36:28 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1683764281</value>
+  <value>1683768970</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -74034,6 +74034,18 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>3</width>
     <role>address</role>
+   </port>
+   <port>
+    <name>readdata</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>readdata</role>
+   </port>
+   <port>
+    <name>read</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>read</role>
    </port>
   </interface>
   <interface name="vga" kind="conduit_end" version="21.1">

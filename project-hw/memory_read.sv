@@ -189,7 +189,7 @@ always_ff @(posedge clk) begin
 		       data0 <= D_out;
 		       if (ready_sig == 1) begin
 				ready <= 1;
-				answer <= 1;
+				answer <= D_out;
 				ready_sig <= 0;
 			end
                    end

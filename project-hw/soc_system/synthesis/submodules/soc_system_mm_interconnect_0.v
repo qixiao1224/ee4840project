@@ -48,6 +48,8 @@ module soc_system_mm_interconnect_0 (
 		input  wire        vga_ball_0_reset_reset_bridge_in_reset_reset,                        //                        vga_ball_0_reset_reset_bridge_in_reset.reset
 		output wire [2:0]  vga_ball_0_avalon_slave_0_address,                                   //                                     vga_ball_0_avalon_slave_0.address
 		output wire        vga_ball_0_avalon_slave_0_write,                                     //                                                              .write
+		output wire        vga_ball_0_avalon_slave_0_read,                                      //                                                              .read
+		input  wire [31:0] vga_ball_0_avalon_slave_0_readdata,                                  //                                                              .readdata
 		output wire [31:0] vga_ball_0_avalon_slave_0_writedata,                                 //                                                              .writedata
 		output wire        vga_ball_0_avalon_slave_0_chipselect                                 //                                                              .chipselect
 	);
@@ -207,10 +209,10 @@ module soc_system_mm_interconnect_0 (
 		.uav_debugaccess        (vga_ball_0_avalon_slave_0_agent_m0_debugaccess),   //                         .debugaccess
 		.av_address             (vga_ball_0_avalon_slave_0_address),                //      avalon_anti_slave_0.address
 		.av_write               (vga_ball_0_avalon_slave_0_write),                  //                         .write
+		.av_read                (vga_ball_0_avalon_slave_0_read),                   //                         .read
+		.av_readdata            (vga_ball_0_avalon_slave_0_readdata),               //                         .readdata
 		.av_writedata           (vga_ball_0_avalon_slave_0_writedata),              //                         .writedata
 		.av_chipselect          (vga_ball_0_avalon_slave_0_chipselect),             //                         .chipselect
-		.av_read                (),                                                 //              (terminated)
-		.av_readdata            (32'b11011110101011011101111010101101),             //              (terminated)
 		.av_begintransfer       (),                                                 //              (terminated)
 		.av_beginbursttransfer  (),                                                 //              (terminated)
 		.av_burstcount          (),                                                 //              (terminated)

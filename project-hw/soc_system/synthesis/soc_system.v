@@ -118,7 +118,9 @@ module soc_system (
 	wire         hps_0_h2f_lw_axi_master_awvalid;                        // hps_0:h2f_lw_AWVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awvalid
 	wire         hps_0_h2f_lw_axi_master_rvalid;                         // mm_interconnect_0:hps_0_h2f_lw_axi_master_rvalid -> hps_0:h2f_lw_RVALID
 	wire         mm_interconnect_0_vga_ball_0_avalon_slave_0_chipselect; // mm_interconnect_0:vga_ball_0_avalon_slave_0_chipselect -> vga_ball_0:chipselect
+	wire  [31:0] mm_interconnect_0_vga_ball_0_avalon_slave_0_readdata;   // vga_ball_0:readdata -> mm_interconnect_0:vga_ball_0_avalon_slave_0_readdata
 	wire   [2:0] mm_interconnect_0_vga_ball_0_avalon_slave_0_address;    // mm_interconnect_0:vga_ball_0_avalon_slave_0_address -> vga_ball_0:address
+	wire         mm_interconnect_0_vga_ball_0_avalon_slave_0_read;       // mm_interconnect_0:vga_ball_0_avalon_slave_0_read -> vga_ball_0:read
 	wire         mm_interconnect_0_vga_ball_0_avalon_slave_0_write;      // mm_interconnect_0:vga_ball_0_avalon_slave_0_write -> vga_ball_0:write
 	wire  [31:0] mm_interconnect_0_vga_ball_0_avalon_slave_0_writedata;  // mm_interconnect_0:vga_ball_0_avalon_slave_0_writedata -> vga_ball_0:writedata
 	wire  [31:0] hps_0_f2h_irq0_irq;                                     // irq_mapper:sender_irq -> hps_0:f2h_irq_p0
@@ -322,6 +324,8 @@ module soc_system (
 		.write       (mm_interconnect_0_vga_ball_0_avalon_slave_0_write),      //               .write
 		.chipselect  (mm_interconnect_0_vga_ball_0_avalon_slave_0_chipselect), //               .chipselect
 		.address     (mm_interconnect_0_vga_ball_0_avalon_slave_0_address),    //               .address
+		.readdata    (mm_interconnect_0_vga_ball_0_avalon_slave_0_readdata),   //               .readdata
+		.read        (mm_interconnect_0_vga_ball_0_avalon_slave_0_read),       //               .read
 		.VGA_B       (vga_b),                                                  //            vga.b
 		.VGA_BLANK_n (vga_blank_n),                                            //               .blank_n
 		.VGA_CLK     (vga_clk),                                                //               .clk
@@ -374,6 +378,8 @@ module soc_system (
 		.vga_ball_0_reset_reset_bridge_in_reset_reset                        (rst_controller_reset_out_reset),                         //                        vga_ball_0_reset_reset_bridge_in_reset.reset
 		.vga_ball_0_avalon_slave_0_address                                   (mm_interconnect_0_vga_ball_0_avalon_slave_0_address),    //                                     vga_ball_0_avalon_slave_0.address
 		.vga_ball_0_avalon_slave_0_write                                     (mm_interconnect_0_vga_ball_0_avalon_slave_0_write),      //                                                              .write
+		.vga_ball_0_avalon_slave_0_read                                      (mm_interconnect_0_vga_ball_0_avalon_slave_0_read),       //                                                              .read
+		.vga_ball_0_avalon_slave_0_readdata                                  (mm_interconnect_0_vga_ball_0_avalon_slave_0_readdata),   //                                                              .readdata
 		.vga_ball_0_avalon_slave_0_writedata                                 (mm_interconnect_0_vga_ball_0_avalon_slave_0_writedata),  //                                                              .writedata
 		.vga_ball_0_avalon_slave_0_chipselect                                (mm_interconnect_0_vga_ball_0_avalon_slave_0_chipselect)  //                                                              .chipselect
 	);

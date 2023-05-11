@@ -2,9 +2,11 @@ module vga_ball(input logic        clk,
 	        input logic 	   reset,
 		input logic [31:0]  writedata,
 		input logic 	   write,
+		input logic	   read,
 		input 		   chipselect,
 		input logic [2:0]  address,
 
+		output logic [31:0] readdata,
 		output logic [7:0] VGA_R, VGA_G, VGA_B,
 		output logic 	   VGA_CLK, VGA_HS, VGA_VS,
 		                   VGA_BLANK_n,
@@ -12,10 +14,13 @@ module vga_ball(input logic        clk,
 
    logic [7:0] D0, D1, D2, D3, D4, C0, C1, C2, C3;
    logic [7:0] 	   background_r, background_g, background_b;
-   logic [31:0] data_reg, control_reg, ready, answer;
+
+   logic [31:0] data_reg, control_reg, ready, answer, ready_buffer, answer_buffer;
 
    logic [10:0]	   hcount;
    logic [9:0]     vcount;
+	
+//   logic [2:0]
 
 // vga_ball test
    logic [7:0] pos_v, pos_h;
@@ -46,18 +51,35 @@ mem_top mem_top0(.clk(clk), .reset(reset), .writedata(writedata), .control_reg(c
 	background_b <= 8'h80;
 	control_reg <= 0;
 	data_reg <= 0;
+//	ready <= 32'd100;
+//	answer <= 32'd50;
 	// vga_ball test
 	pos_v <= 8'h0;
 	pos_h <= 8'h0;
-     end else if (chipselect && write) begin
+     end else if (chipselect) begin
 		case (address)
 			3'h0: begin
-				control_reg <= writedata;
-				pos_v <= writedata[7:0];
+				if (write) begin
+						control_reg <= writedata;
+						pos_v <= writedata[7:0];
+					end
 				end
 			3'h1: begin
-				data_reg <= writedata;
-				pos_h <= writedata[7:0];
+				if (write) begin
+					data_reg <= writedata;
+					pos_h <= writedata[7:0];
+					end
+				end
+			3'h2: begin
+				if (read) begin
+					readdata <= ready;
+					
+					end
+				end
+			3'h3: begin
+				if (read) begin
+					readdata <= answer;
+					end
 				end
 		endcase
 	end
