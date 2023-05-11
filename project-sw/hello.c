@@ -98,8 +98,10 @@ void send_conv_weight(char path[64],int *count, uint32_t *d)
 		
 			data = 0x00000000  | temp;
 			//set_data(&data);
-			d[*count]=data;
-			*count+=1;
+		  printf("before d29999\n");
+			d[29999]=data;
+		  printf("after d29999\n");
+//			*count+=1;
 			//printf("data= %u\n",data);	
 	}
 	fclose(ptr);
