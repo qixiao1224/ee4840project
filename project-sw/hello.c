@@ -297,12 +297,12 @@ int main()
   printf("send control\n");
   int i =1;
   set_control(&i);  
-  usleep(10);
+  usleep(20);
   int k =0; 
   for(k=0;k<count;k++)
   {
      set_data(&d[k]);
-     usleep(10);
+     usleep(20);
 //     printf("set_time = %d\n",(int)(end_set-start_set));
 //     s_cycle= s_cycle + (long)(end_set - start_set);
   }
@@ -312,13 +312,13 @@ int main()
   i=2;
   clock_t start=clock();
   set_control(&i);
-  usleep(10);
+  usleep(20);
   int ready = 0;
   int counter = 0;
   while(ready == 0) {
 	read_ready(&ready);
 	counter++;
-        usleep(10);
+        usleep(20);
 } 
  
 printf("ready: %d \n", ready);
