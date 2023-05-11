@@ -28,6 +28,8 @@ module vga_ball(input logic        clk,
    logic [31:0] dish, disv;
    logic [10:0]   poshh;
    logic [9:0]    posvv;
+
+   logic reset_mem;
    // One step is 16 bit
    assign poshh=pos_h<<4;
    assign posvv=pos_v<<4;

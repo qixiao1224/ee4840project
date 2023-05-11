@@ -18,7 +18,8 @@
 #include <time.h>
 #define img_path "data/imgs/img2.txt"
 int vga_ball_fd;
-
+static int count=0;
+uint32_t d[50000];
 int pow(int a, int b) {
 	int temp = 1;
 	int i = 0;
@@ -72,7 +73,7 @@ void read_answer( int *message)
   *message = vla.message;
   printf(vla.message);
 }
-void send_conv_weight(char path[64])
+void send_conv_weight(char path[64],int count)
 {
         FILE* ptr;
 	char ch;
@@ -98,12 +99,14 @@ void send_conv_weight(char path[64])
 		
 			data = 0x00000000  | temp;
 			set_data(&data);
+			d[count]=data;
+			count+=1;
 			//printf("data= %u\n",data);	
 	}
 	fclose(ptr);
 
 }
-void send_dense_weight(char path[64])
+void send_dense_weight(char path[64], int count)
 {
         FILE* ptr;
 	char ch;
@@ -149,7 +152,9 @@ void send_dense_weight(char path[64])
 		{
 			state=0;
 			data = data+temp;
-			set_data(&data);
+			//set_data(&data);
+			d[count]= data;
+			count+=1;
 			//printf("data= %u\n",data);
 			data = 0;
 		}
@@ -158,7 +163,7 @@ void send_dense_weight(char path[64])
 	fclose(ptr);
 	return 0;
 }
-void send_image()
+void send_image(int count)
 {
 
 	FILE* ptr;
@@ -200,7 +205,9 @@ void send_image()
 		  */
 		
 		  temp = (uint32_t)(array[2*i][2*j]*16+0.5) * 0x1000000 + (uint32_t)(array[2*i][2*j+1]*16+0.5)*0x010000 + (uint32_t)(array[2*i+1][2*j]*16+0.5) *0x100 + (uint32_t)(array[2*i+1][2*j+1]*16+0.5);
-		  set_data(&temp);
+		  //set_data(&temp);
+		  d[count]=temp;
+		  count +=1;
 		  // printf("temp = %d\n", temp);
 		}
 	}
@@ -267,12 +274,19 @@ int main()
   printf("send control\n");
   int i =1;
   set_control(&i);
-  clock_t send_start = clock();
+
   send_image();
   send_conv_weight(path1);
   send_conv_weight(path2);
   send_conv_weight(path3);
   send_dense_weight(path4);
+  printf("count k = %d.\n",count);
+  clock_t send_start = clock();
+  int k =0; 
+  for(k=0;k<count;k++)
+  {
+     set_data(&d[k]);
+  }
   clock_t send_end = clock();
   i=2;
   clock_t start=clock();
