@@ -221,17 +221,17 @@ int main()
   vga_ball_arg_t vla;
   static const char filename[] = "/dev/vga_ball";
 
-  printf("VGA ball Userspace program started\n");
+  //printf("VGA ball Userspace program started\n");
 
   if ( (vga_ball_fd = open(filename, O_RDWR)) == -1) {
     fprintf(stderr, "could not open %s\n", filename);
     return -1;
   }
-  printf("Before count \n");
+  //printf("Before count \n");
   int count =0;
-  printf("Before initialize \n");
+  //printf("Before initialize \n");
   
-  printf("Between count and d \n");
+  //printf("Between count and d \n");
   uint32_t d[30000];
 
   printf("initial state: \n");
