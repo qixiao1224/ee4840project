@@ -313,6 +313,9 @@ int main()
   clock_t start=clock();
   set_control(&i);
   usleep(0.02);
+  i = 0;
+  set_control(&i);
+  usleep(0.02);
   int ready = 0;
   int counter = 0;
   while(ready == 0) {
@@ -324,21 +327,12 @@ int main()
 printf("ready: %d \n", ready);
 printf("counter: %d \n", counter);
   int answer = 0;
-  int answer_1 = 0;
-  int answer_2 = 0;
-  int answer_3 = 0;
 
 //  int c = 0;
 //  int arr[1000];
 //   while (c < 1000) {
   read_answer(&answer);
-        usleep(200);
-  read_answer(&answer_1);
-        usleep(200);
-  read_answer(&answer_2);
-        usleep(200);
-  read_answer(&answer_3);
-        usleep(200);
+        usleep(0.02);
 //  arr[c] = answer;
 //   printf("%d\n",answer);
 //	c += 1;
@@ -350,9 +344,6 @@ printf("counter: %d \n", counter);
   double sent_time;
   sent_time = (double)(send_end - send_start)/CLOCKS_PER_SEC;
   printf("The answer is %d.\n",answer);
-  printf("The answer1 is %d.\n",answer_1);
-  printf("The answer2 is %d.\n",answer_2);
-  printf("The answer3 is %d.\n",answer_3);
   printf("Send data time is %f s.\n",sent_time); 
   printf("Excution time is %f s.\n",time_used); 
   return 0;
