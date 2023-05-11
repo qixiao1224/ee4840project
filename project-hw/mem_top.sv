@@ -143,6 +143,8 @@ memory_read memory_read1(
     //output logic [7:0] filter0,filter1,filter2,filter3,
 
     //output read address to upper level
+    .ready(ready),
+    .answer(answer),
     .image_ram_addr(image_ram_addr_b),
     .conv_ram_addr(conv_ram_addr_b),
     .dense_ram_addr(dense_ram_addr_b),

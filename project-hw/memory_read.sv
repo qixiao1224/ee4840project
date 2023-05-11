@@ -16,6 +16,8 @@ module memory_read(
     //output logic [7:0] filter0,filter1,filter2,filter3,
 
     //output read address to upper level
+    output logic [31:0] ready,
+    output logic [31:0] answer,
     output logic [9:0] image_ram_addr,
     output logic [14:0] conv_ram_addr,
     output logic [14:0] dense_ram_addr,
@@ -59,6 +61,7 @@ logic [13:0] ram_store_addr;
 logic wren1,wren2,wren3,wren0;
 logic wr_en; //top write back signal
 logic wr_en_dense;
+logic ready_sig;
 
 //Temp Register to store data in one block
 logic [7:0] processing_unit_4x4 [15:0];
@@ -126,6 +129,7 @@ always_ff @(posedge clk) begin
     wren1 <=0;
     wren2 <=0;
     wren3 <=0;
+    ready_sig <= 0;
 
     loop_num_dense <= 0;
     wr_en_dense <= 0;
@@ -183,6 +187,11 @@ always_ff @(posedge clk) begin
                 5: begin
 		       wren0 <= 1;
 		       data0 <= D_out;
+		       if (ready_sig == 1) begin
+				ready <= 1;
+				answer <= 1;
+				ready_sig <= 0;
+			end
                    end
 
                 6: begin
@@ -1235,6 +1244,7 @@ DENSE 10 LAYER
 					// Preparing is done at 1, do nothing
 					dense_bias_count <= 0;
 					dense_10_case <= 0;
+					ready_sig <= 1;
 				end
 				else begin
 					dense_10_case <= 0;
@@ -1243,84 +1253,6 @@ DENSE 10 LAYER
 		endcase
             end
 
-/*
-            DENSE_10: begin 
-		// TODO need write back
-		// TODO check dense ram capacity
-		// Need 4 dense mems, each has: (bias * 1 + params * 512) * 8
-		case (dense_10_case) // 32/4 cycles total
-			0: begin
-				// MAC counter 10
-				DB <= 8'd0; //0
-				DD <= 8'd10; //10
-				// make sure this is getting different bias
-				DA <= read_dense0; // Bias
-				DC <= read_dense1;
-				DE <= read_dense2;
-				DG <= read_dense3;
-
-				EN_CONFIG <= 0;
-                            	EN_FSM <= 0;
-				ram_addr_b <= ram_addr_b + 1; // Next cycle reads next position of conv result
-				dense_ram_addr <= dense_ram_addr + 1; // Next param
-
-				dense_10_case <= dense_10_case + 1; // switch case
-			end
-			1: begin
-				DB <= read_dense0; // Different 
-				DD <= read_dense1;
-				DF <= read_dense2;
-				DH <= read_dense3;
-				DA <= read_res0; // Same conv result correspond to different dense parameters TODO maybe just one mem?
-				DC <= read_res0; // But we can still read from 4 different conv_mems
-				DE <= read_res0; // 4 exact copies, each 512 nums
-				DG <= read_res0;
-
-				if (dense_count < 9) begin
-					// Keep calculating 10 times
-					ram_addr_b <= ram_addr_b + 1;
-					dense_ram_bias_addr <= dense_ram_bias_addr + 1;
-					dense_case <= 1;
-					dense_count <= dense_count + 1;
-				end
-				else begin
-					// dense_count == 9
-					// Switch to next four set of biases
-					dense_ram_addr <= dense_ram_addr + 1;
-					dense_10_case <= dense_10_case + 1;
-					dense_count <= 0;
-					dense_bias_count <= dense_bias_count + 4;
-
-					// If just switch, return to orignal pos
-					// If change stage. keep reading from result ram
-                                        if (dense_bias_count != 8)
-						ram_addr_b <= ram_addr_b - 10;
-                                        else
-                                        	ram_addr_b <= ram_addr_b + 1;
-						//dense_bias_count <= dense_bias_count + 1;
-				end
-			end
-			2: begin
-				// Basically wait for data to load from new addr
-				// TODO Output result to interface!!!
-
-				// SSFR output
-                        	DA <= 8'b01100000;
-                        	DB <= 8'b10110000;
-				EN_CONFIG <= 1;
-                            	EN_FSM <= 1;
-
-				if (dense_bias_count == 12) begin
-					// Right now, next_state == DENSE_FINAL, be in charge of preparing the addr for next stage
-					// Preparing is done at 1, do nothing
-				end
-				else begin
-					dense_10_case <= 0;
-				end
-			end
-		endcase
-            end
-*/
 
             default: begin
                 // ? LOL

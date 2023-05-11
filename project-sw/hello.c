@@ -48,12 +48,13 @@ void set_control(const int *message)
       return;
   }
 }
+
 void read_ready( int *message)
 {
   vga_ball_arg_t vla;
   
   if (ioctl(vga_ball_fd, ACCU_READ_READY_32, &vla)) {
-      perror("ioctl(ACCU_WRITE_CONTROL_32) failed");
+      perror("ioctl(ACCU_READ_READY_32) failed");
       return;
   }
   *message =  vla.message;
@@ -63,7 +64,7 @@ void read_answer( int *message)
   vga_ball_arg_t vla;
   
   if (ioctl(vga_ball_fd, ACCU_READ_ANSWER_32, &vla)) {
-      perror("ioctl(ACCU_WRITE_CONTROL_32) failed");
+      perror("ioctl(ACCU_READ_ANSWER_32) failed");
       return;
   }
   *message = vla.message;

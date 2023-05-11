@@ -1,5 +1,5 @@
 Flow report for soc_system
-Wed May 10 18:01:13 2023
+Wed May 10 20:23:58 2023
 Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 
 
@@ -41,25 +41,25 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Wed May 10 18:01:12 2023       ;
+; Flow Status                     ; Successful - Wed May 10 20:23:57 2023       ;
 ; Quartus Prime Version           ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
 ; Revision Name                   ; soc_system                                  ;
 ; Top-level Entity Name           ; soc_system_top                              ;
 ; Family                          ; Cyclone V                                   ;
 ; Device                          ; 5CSEMA5F31C6                                ;
 ; Timing Models                   ; Final                                       ;
-; Logic utilization (in ALMs)     ; 262 / 32,070 ( < 1 % )                      ;
-; Total registers                 ; 434                                         ;
-; Total pins                      ; 362 / 457 ( 79 % )                          ;
+; Logic utilization (in ALMs)     ; N/A                                         ;
+; Total registers                 ; 406                                         ;
+; Total pins                      ; 362                                         ;
 ; Total virtual pins              ; 0                                           ;
-; Total block memory bits         ; 0 / 4,065,280 ( 0 % )                       ;
-; Total DSP Blocks                ; 4 / 87 ( 5 % )                              ;
+; Total block memory bits         ; 0                                           ;
+; Total DSP Blocks                ; 4                                           ;
 ; Total HSSI RX PCSs              ; 0                                           ;
 ; Total HSSI PMA RX Deserializers ; 0                                           ;
 ; Total HSSI TX PCSs              ; 0                                           ;
 ; Total HSSI PMA TX Serializers   ; 0                                           ;
-; Total PLLs                      ; 0 / 6 ( 0 % )                               ;
-; Total DLLs                      ; 1 / 4 ( 25 % )                              ;
+; Total PLLs                      ; 0                                           ;
+; Total DLLs                      ; 1                                           ;
 +---------------------------------+---------------------------------------------+
 
 
@@ -68,7 +68,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/10/2023 17:51:36 ;
+; Start date & time ; 05/10/2023 20:19:35 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; soc_system          ;
 +-------------------+---------------------+
@@ -79,7 +79,7 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------+--------------------------------------------------------------------------+---------------+--------------------------------+------------+
 ; Assignment Name                       ; Value                                                                    ; Default Value ; Entity Name                    ; Section Id ;
 +---------------------------------------+--------------------------------------------------------------------------+---------------+--------------------------------+------------+
-; COMPILER_SIGNATURE_ID                 ; 93180999934157.168375549000580                                           ; --            ; --                             ; --         ;
+; COMPILER_SIGNATURE_ID                 ; 93180999934157.168376437014549                                           ; --            ; --                             ; --         ;
 ; ECO_REGENERATE_REPORT                 ; On                                                                       ; Off           ; --                             ; --         ;
 ; HPS_ISW_FILE                          ; soc_system/synthesis/submodules/sequencer/sdram_io.pre.h                 ; --            ; soc_system_hps_0_hps_io_border ; --         ;
 ; HPS_ISW_FILE                          ; soc_system/synthesis/submodules/sequencer/alt_types.pre.h                ; --            ; soc_system_hps_0_hps_io_border ; --         ;
@@ -115,7 +115,7 @@ https://fpgasoftware.intel.com/eula.
 ; PROJECT_OUTPUT_DIRECTORY              ; output_files                                                             ; --            ; --                             ; --         ;
 ; SLD_FILE                              ; soc_system/synthesis/soc_system.regmap                                   ; --            ; --                             ; --         ;
 ; SLD_FILE                              ; soc_system/synthesis/soc_system.debuginfo                                ; --            ; --                             ; --         ;
-; SLD_INFO                              ; QSYS_NAME soc_system HAS_SOPCINFO 1 GENERATION_ID 1683755387             ; --            ; --                             ; --         ;
+; SLD_INFO                              ; QSYS_NAME soc_system HAS_SOPCINFO 1 GENERATION_ID 1683764281             ; --            ; --                             ; --         ;
 ; SOPCINFO_FILE                         ; soc_system/synthesis/../../soc_system.sopcinfo                           ; --            ; --                             ; --         ;
 ; SYNTHESIS_ONLY_QIP                    ; On                                                                       ; --            ; --                             ; --         ;
 ; TOP_LEVEL_ENTITY                      ; soc_system_top                                                           ; soc_system    ; --                             ; --         ;
@@ -128,10 +128,8 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:01:26     ; 1.0                     ; 815 MB              ; 00:00:52                           ;
-; Fitter               ; 00:03:37     ; 1.0                     ; 2778 MB             ; 00:03:11                           ;
-; Assembler            ; 00:00:28     ; 1.0                     ; 682 MB              ; 00:00:20                           ;
-; Total                ; 00:05:31     ; --                      ; --                  ; 00:04:23                           ;
+; Analysis & Synthesis ; 00:01:02     ; 1.0                     ; 807 MB              ; 00:00:51                           ;
+; Total                ; 00:01:02     ; --                      ; --                  ; 00:00:51                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -141,8 +139,6 @@ https://fpgasoftware.intel.com/eula.
 ; Module Name          ; Machine Hostname ; OS Name ; OS Version ; Processor type ;
 +----------------------+------------------+---------+------------+----------------+
 ; Analysis & Synthesis ; micro35          ; Red Hat ; Red Hat    ; x86_64         ;
-; Fitter               ; micro35          ; Red Hat ; Red Hat    ; x86_64         ;
-; Assembler            ; micro35          ; Red Hat ; Red Hat    ; x86_64         ;
 +----------------------+------------------+---------+------------+----------------+
 
 
@@ -150,8 +146,6 @@ https://fpgasoftware.intel.com/eula.
 ; Flow Log ;
 ------------
 quartus_map soc_system
-quartus_fit soc_system
-quartus_asm soc_system
 
 
 
