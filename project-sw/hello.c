@@ -239,7 +239,7 @@ int main()
   char path2[64] = "../data/weight_bias_conv2d2.txt";
   char path3[64] = "../data/weight_bias_conv2d3.txt";
   char path4[64] = "../data/weight_bias_dense1_z_r_group4.txt";
-  char path5[64] = "../data/weight_bias_dense2_group4"
+  char path5[64] = "../data/weight_bias_dense2_group4";
   /*
   i=15;
   int j =30;
@@ -282,8 +282,8 @@ int main()
   
   printf("VGA BALL Userspace program terminating\n");
   */
-  printf("send control\n");
-  int i =1;
+
+
 
 
   send_image(&count,d);
@@ -294,7 +294,9 @@ int main()
   send_dense_weight(path5,&count,d);
   printf("count k = %d.\n",count);
   clock_t send_start = clock();
-  set_control(&i);
+  printf("send control\n");
+  int i =1;
+  set_control(&i);  
   usleep(0.01);
   int k =0; 
   for(k=0;k<count;k++)
