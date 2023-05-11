@@ -267,11 +267,13 @@ int main()
   printf("send control\n");
   int i =1;
   set_control(&i);
+  clock_t send_start = clock();
   send_image();
   send_conv_weight(path1);
   send_conv_weight(path2);
   send_conv_weight(path3);
   send_dense_weight(path4);
+  clock_t send_end = clock();
   i=2;
   clock_t start=clock();
   set_control(&i);
@@ -289,7 +291,10 @@ printf("counter: %d \n", counter);
   clock_t end = clock();
   double time_used;
   time_used = (double)(end - start)/CLOCKS_PER_SEC;
+  double snet_time;
+  sent_time = (double)(send_end - send_start)/CLOCKS_PER_SEC;
   printf("The answer is %d.\n",answer);
+  printf("Send data time is %f s.\n",sent_time); 
   printf("Excution time is %f s.\n",time_used); 
   return 0;
 }

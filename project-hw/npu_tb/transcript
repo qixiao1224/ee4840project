@@ -18,217 +18,217 @@
 # vmap work work 
 # Modifying modelsim.ini
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:47 on May 10,2023
+# Start time: 23:49:50 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_top/npu_top.v 
 # -- Skipping module npu_top
 # 
 # Top level modules:
 # 	npu_top
-# End time: 23:16:47 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:51 on May 10,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:47 on May 10,2023
+# Start time: 23:49:51 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/npu_v8.v 
 # -- Skipping module npu_v8
 # 
 # Top level modules:
 # 	npu_v8
-# End time: 23:16:47 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:51 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:47 on May 10,2023
+# Start time: 23:49:51 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/MAC.v 
 # -- Skipping module MAC
 # -- Skipping module sixtheen_bit_sat_adder
 # 
 # Top level modules:
 # 	MAC
-# End time: 23:16:48 on May 10,2023, Elapsed time: 0:00:01
+# End time: 23:49:51 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:48 on May 10,2023
+# Start time: 23:49:51 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/ReLU.v 
 # -- Skipping module ReLU
 # 
 # Top level modules:
 # 	ReLU
-# End time: 23:16:48 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:51 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:48 on May 10,2023
+# Start time: 23:49:51 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/piso_out.v 
 # -- Skipping module piso_out
 # 
 # Top level modules:
 # 	piso_out
-# End time: 23:16:48 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:52 on May 10,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:48 on May 10,2023
+# Start time: 23:49:52 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/input_buffer.v 
 # -- Skipping module input_buffer
 # 
 # Top level modules:
 # 	input_buffer
-# End time: 23:16:48 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:52 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:48 on May 10,2023
+# Start time: 23:49:52 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/auto_comparator.v 
 # -- Skipping module auto_comparator
 # 
 # Top level modules:
 # 	auto_comparator
-# End time: 23:16:49 on May 10,2023, Elapsed time: 0:00:01
+# End time: 23:49:52 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:49 on May 10,2023
+# Start time: 23:49:52 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/syn_fifo.v 
 # -- Skipping module syn_fifo
 # 
 # Top level modules:
 # 	syn_fifo
-# End time: 23:16:49 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:52 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:49 on May 10,2023
+# Start time: 23:49:52 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/npu_v8/data_converter.v 
 # -- Skipping module data_converter
 # 
 # Top level modules:
 # 	data_converter
-# End time: 23:16:49 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:52 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:49 on May 10,2023
+# Start time: 23:49:52 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM.v 
 # -- Skipping module FSM
 # -- Skipping module down_counter
 # 
 # Top level modules:
 # 	FSM
-# End time: 23:16:49 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:53 on May 10,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:49 on May 10,2023
+# Start time: 23:49:53 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM_ACC.v 
 # -- Skipping module FSM_ACC
 # 
 # Top level modules:
 # 	FSM_ACC
-# End time: 23:16:49 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:53 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:49 on May 10,2023
+# Start time: 23:49:53 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/FSM/FSM_OUT.v 
 # -- Skipping module FSM_OUT
 # 
 # Top level modules:
 # 	FSM_OUT
-# End time: 23:16:50 on May 10,2023, Elapsed time: 0:00:01
+# End time: 23:49:53 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:50 on May 10,2023
+# Start time: 23:49:53 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ../npu/SSFR/SSFR.v 
 # -- Skipping module SSFR
 # 
 # Top level modules:
 # 	SSFR
-# End time: 23:16:50 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:53 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:50 on May 10,2023
+# Start time: 23:49:53 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ./memory_test.v 
 # -- Skipping module testbench
 # 
 # Top level modules:
 # 	testbench
-# End time: 23:16:50 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:53 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:50 on May 10,2023
+# Start time: 23:49:53 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ./memory_read.sv 
 # -- Compiling module memory_read_sim
 # 
 # Top level modules:
 # 	memory_read_sim
-# End time: 23:16:51 on May 10,2023, Elapsed time: 0:00:01
+# End time: 23:49:54 on May 10,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:51 on May 10,2023
+# Start time: 23:49:54 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ./memory_read_sim.sv 
 # -- Compiling module memory_read_sim
 # 
 # Top level modules:
 # 	memory_read_sim
-# End time: 23:16:51 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:55 on May 10,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:51 on May 10,2023
+# Start time: 23:49:55 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ./memory_write.sv 
 # -- Skipping module memory_write
 # 
 # Top level modules:
 # 	memory_write
-# End time: 23:16:51 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:55 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:52 on May 10,2023
+# Start time: 23:49:55 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ./conv_ram.v 
 # -- Skipping module conv_ram
 # 
 # Top level modules:
 # 	conv_ram
-# End time: 23:16:52 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:56 on May 10,2023, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:52 on May 10,2023
+# Start time: 23:49:56 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ./res_ram.v 
 # -- Skipping module res_ram
 # 
 # Top level modules:
 # 	res_ram
-# End time: 23:16:52 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:56 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:52 on May 10,2023
+# Start time: 23:49:56 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ./image_ram.v 
 # -- Skipping module image_ram
 # 
 # Top level modules:
 # 	image_ram
-# End time: 23:16:52 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:56 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:52 on May 10,2023
+# Start time: 23:49:56 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ./dense_ram.v 
 # -- Skipping module dense_ram
 # 
 # Top level modules:
 # 	dense_ram
-# End time: 23:16:53 on May 10,2023, Elapsed time: 0:00:01
+# End time: 23:49:56 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:53 on May 10,2023
+# Start time: 23:49:56 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ./mem_top.sv 
 # -- Skipping module mem_top
 # 
 # Top level modules:
 # 	mem_top
-# End time: 23:16:53 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:56 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # QuestaSim vlog 10.7b_1 Compiler 2018.07 Jul 26 2018
-# Start time: 23:16:53 on May 10,2023
+# Start time: 23:49:57 on May 10,2023
 # vlog -reportprogress 300 "+acc" -incr ./memory.sv 
 # -- Skipping module memory
 # 
 # Top level modules:
 # 	memory
-# End time: 23:16:53 on May 10,2023, Elapsed time: 0:00:00
+# End time: 23:49:57 on May 10,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # ** Warning: (vsim-8689) Ignoring plusarg '+acc'.  Did you mean '-voptargs=+acc'?
 # vsim "+acc" -t ps -lib work testbench 
-# Start time: 23:16:53 on May 10,2023
+# Start time: 23:49:57 on May 10,2023
 # ** Note: (vsim-8009) Loading existing optimized design _opt
 # Loading work.testbench(fast)
 # Loading sv_std.std
@@ -327,5 +327,3 @@
 # ** Note: $stop    : ./memory_test.v(441)
 #    Time: 2046499 ns  Iteration: 1  Instance: /testbench
 # Break in Module testbench at ./memory_test.v line 441
-# End time: 23:28:40 on May 10,2023, Elapsed time: 0:11:47
-# Errors: 0, Warnings: 33
