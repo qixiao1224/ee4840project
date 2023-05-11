@@ -18,8 +18,7 @@
 #include <time.h>
 #define img_path "data/imgs/img2.txt"
 int vga_ball_fd;
-static int count=0;
-uint32_t d[50000];
+
 int pow(int a, int b) {
 	int temp = 1;
 	int i = 0;
@@ -73,7 +72,7 @@ void read_answer( int *message)
   *message = vla.message;
   printf(vla.message);
 }
-void send_conv_weight(char path[64],int count)
+void send_conv_weight(char path[64],int *count)
 {
         FILE* ptr;
 	char ch;
@@ -98,15 +97,15 @@ void send_conv_weight(char path[64],int count)
 		//printf("temp = %d\n",temp);
 		
 			data = 0x00000000  | temp;
-			set_data(&data);
-			d[count]=data;
-			count+=1;
+			//set_data(&data);
+			d[*count]=data;
+			*count+=1;
 			//printf("data= %u\n",data);	
 	}
 	fclose(ptr);
 
 }
-void send_dense_weight(char path[64], int count)
+void send_dense_weight(char path[64], int *count)
 {
         FILE* ptr;
 	char ch;
@@ -153,8 +152,8 @@ void send_dense_weight(char path[64], int count)
 			state=0;
 			data = data+temp;
 			//set_data(&data);
-			d[count]= data;
-			count+=1;
+			d[*count]= data;
+			*count+=1;
 			//printf("data= %u\n",data);
 			data = 0;
 		}
@@ -163,7 +162,7 @@ void send_dense_weight(char path[64], int count)
 	fclose(ptr);
 	return 0;
 }
-void send_image(int count)
+void send_image(int *count)
 {
 
 	FILE* ptr;
@@ -206,8 +205,8 @@ void send_image(int count)
 		
 		  temp = (uint32_t)(array[2*i][2*j]*16+0.5) * 0x1000000 + (uint32_t)(array[2*i][2*j+1]*16+0.5)*0x010000 + (uint32_t)(array[2*i+1][2*j]*16+0.5) *0x100 + (uint32_t)(array[2*i+1][2*j+1]*16+0.5);
 		  //set_data(&temp);
-		  d[count]=temp;
-		  count +=1;
+		  d[*count]=temp;
+		  *count +=1;
 		  // printf("temp = %d\n", temp);
 		}
 	}
@@ -223,7 +222,9 @@ int main()
     fprintf(stderr, "could not open %s\n", filename);
     return -1;
   }
-
+  int *count;
+  *count =0;
+  uint32_t d[50000];
   printf("initial state: \n");
   char path1[64] = "../data/weight_bias_conv2d1.txt";
   char path2[64] = "../data/weight_bias_conv2d2.txt";
@@ -280,10 +281,10 @@ int main()
   send_conv_weight(path2,count);
   send_conv_weight(path3,count);
   send_dense_weight(path4,count);
-  printf("count k = %d.\n",count);
+  printf("count k = %d.\n",*count);
   clock_t send_start = clock();
   int k =0; 
-  for(k=0;k<count;k++)
+  for(k=0;k<*count;k++)
   {
      set_data(&d[k]);
   }
