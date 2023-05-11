@@ -43,7 +43,7 @@ module vga_ball(input logic        clk,
 
 // Initialize mem_top
 // TODO some ports leave empty?
-mem_top mem_top0(.clk(clk), .reset(reset_mem), .writedata(writedata), .control_reg(control_reg), .data_reg(data_reg),
+mem_top mem_top0(.clk(clk), .reset(reset), .writedata(writedata), .control_reg(control_reg), .data_reg(data_reg),
 		.ready(ready), .answer(answer), .D_OUT());
 
    always_ff @(posedge clk)
