@@ -2,17 +2,15 @@
 #include<stdio.h>
 #include <math.h>
 #include <stdint.h>
-
-int main()
+void send_weight(char path[32])
 {
-       char path[32] = "../data/weight_bias_conv2d1.txt";
-	FILE* ptr;
+        FILE* ptr;
 	char ch;
 	ptr = fopen(path,"r");
 	if ( ptr == NULL)
 	{
 		printf("no such file\n");
-		return 0;
+		return ;
 	}
 	char line[16];
 	int state = 0;
@@ -21,7 +19,8 @@ int main()
 	{	
 		printf("%s",line);
 		uint32_t temp = 0;
-		for(int i =0;i<8;i++)
+		int i = 0;
+		for(i =0;i<8;i++)
 		{
 			if(line[i]=='1') temp = temp + pow(2,(7-i));
 		}
@@ -49,13 +48,19 @@ int main()
 		{
 			state=0;
 			data = data+temp;
-			//send data;
+			//set_data(&data);
 			printf("data= %u\n",data);
 			data = 0;
 		}
 		
 	}
 	fclose(ptr);
+
+}
+int main()
+{
+       char path[32] = "../data/weight_bias_conv2d1.txt";
+	send_weight(path);
 	return 0;
 }
 

@@ -58,7 +58,7 @@ void read_ready( int *message)
       return;
   }
   *message =  vla.message;
-  printf(vla.message);
+  //printf(vla.message);
 }
 void read_answer( int *message)
 {
@@ -86,15 +86,15 @@ void send_weight(char path[32])
 	uint32_t data=0;
 	while(fgets(line,16,ptr)!= NULL)
 	{	
-		printf("%s",line);
+		//printf("%s",line);
 		uint32_t temp = 0;
 		int i = 0;
 		for(i =0;i<8;i++)
 		{
 			if(line[i]=='1') temp = temp + pow(2,(7-i));
 		}
-		printf("temp = %d\n",temp);
-		printf("state= %d\n",state);
+		//printf("temp = %d\n",temp);
+		//printf("state= %d\n",state);
 		if(state==0)	
 		{
 			data =data+ temp * 0x1000000;
