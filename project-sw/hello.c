@@ -36,7 +36,7 @@ void set_data(const int *message){
       perror("ioctl(ACCU_WRITE_DATA) failed");
       return;
   }
-  usleep(200);
+  usleep(0.01);
 }
 
 /* Set control register */
@@ -49,7 +49,7 @@ void set_control(const int *message)
       perror("ioctl(ACCU_WRITE_CONTROL_32) failed");
       return;
   }
-  usleep(200);
+  usleep(0.01);
 }
 
 void read_ready( int *message)
@@ -61,7 +61,7 @@ void read_ready( int *message)
       return;
   }
   *message =  vla.message;
-  usleep(200);
+  usleep(0.01);
   //printf(vla.message);
 }
 void read_answer( int *message)
@@ -74,7 +74,7 @@ void read_answer( int *message)
   }
   *message = vla.message;
   printf(vla.message);
-  usleep(200);
+  usleep(0.01);
 }
 void send_conv_weight(char path[64],int *count, uint32_t *d)
 {
