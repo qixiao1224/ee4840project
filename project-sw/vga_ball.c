@@ -31,6 +31,7 @@
 #include <linux/of_address.h>
 #include <linux/fs.h>
 #include <linux/uaccess.h>
+#include <unistd.h>
 #include "vga_ball.h"
 
 #define DRIVER_NAME "vga_ball"
