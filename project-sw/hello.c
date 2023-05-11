@@ -31,7 +31,7 @@ int pow(int a, int b) {
 void set_data(const int *message){
   vga_ball_arg_t vla;
   vla.message = *message;
-  printf("send data: 0x%08x\n", *message);
+//  printf("send data: 0x%08x\n", *message);
   if (ioctl(vga_ball_fd, ACCU_WRITE_DATA_32, &vla)) {
       perror("ioctl(ACCU_WRITE_DATA) failed");
       return;
@@ -233,6 +233,7 @@ int main()
   
   printf("Between count and d \n");
   uint32_t d[30000];
+
   printf("initial state: \n");
   char path1[64] = "../data/weight_bias_conv2d1.txt";
   char path2[64] = "../data/weight_bias_conv2d2.txt";
@@ -296,10 +297,8 @@ int main()
   int k =0; 
   for(k=0;k<count;k++)
   {
-     clock_t start_set=clock();
      set_data(&d[k]);
-     clock_t end_set=clock();
-       usleep(0.01);
+     usleep(0.01);
      printf("set_time = %d\n",(int)(end_set-start_set));
      s_cycle= s_cycle + (long)(end_set - start_set);
   }
@@ -312,23 +311,24 @@ int main()
   usleep(0.01);
   int ready = 0;
   int counter = 0;
-//  while(ready == 0) {
-//	read_ready(&ready);
-//	counter++;
-//} 
-//  usleep(0.01);
+  while(ready == 0) {
+	read_ready(&ready);
+	counter++;
+        usleep(0.01);
+} 
+ 
 printf("ready: %d \n", ready);
 printf("counter: %d \n", counter);
   int answer =0;
 
-  int c = 0;
-  int arr[1000];
-   while (c < 1000) {
+//  int c = 0;
+//  int arr[1000];
+//   while (c < 1000) {
   read_answer(&answer);
-  arr[c] = answer;
-   printf("%d\n",answer);
-	c += 1;
-  }
+//  arr[c] = answer;
+//   printf("%d\n",answer);
+//	c += 1;
+//  }
   printf("send finished \n");
   clock_t end = clock();
   double time_used;

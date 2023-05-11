@@ -1,5 +1,5 @@
 Analysis & Synthesis report for soc_system
-Thu May 11 02:58:23 2023
+Thu May 11 04:10:35 2023
 Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 
 
@@ -260,7 +260,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu May 11 02:58:23 2023       ;
+; Analysis & Synthesis Status     ; Successful - Thu May 11 04:10:35 2023       ;
 ; Quartus Prime Version           ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
 ; Revision Name                   ; soc_system                                  ;
 ; Top-level Entity Name           ; soc_system_top                              ;
@@ -5844,8 +5844,8 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------------------------------------+--------------+
 ; Partition Name                        ; Elapsed Time ;
 +---------------------------------------+--------------+
-; Top                                   ; 00:00:19     ;
-; soc_system_hps_0_hps_io_border:border ; 00:00:02     ;
+; Top                                   ; 00:00:08     ;
+; soc_system_hps_0_hps_io_border:border ; 00:00:00     ;
 +---------------------------------------+--------------+
 
 
@@ -5869,7 +5869,7 @@ Info: Running Quartus Prime Analysis & Synthesis
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details, at
     Info: https://fpgasoftware.intel.com/eula.
-    Info: Processing started: Thu May 11 02:53:39 2023
+    Info: Processing started: Thu May 11 04:07:19 2023
 Info: Command: quartus_map soc_system
 Info (20032): Parallel compilation is enabled and will use up to 4 processors
 Info (12021): Found 1 design units, including 1 entities, in source file soc_system_top.sv
@@ -6734,9 +6734,9 @@ Info (21057): Implemented 3939 device resources after synthesis - the final reso
     Info (21062): Implemented 5 DSP elements
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 326 warnings
     Info: Peak virtual memory: 833 megabytes
-    Info: Processing ended: Thu May 11 02:58:23 2023
-    Info: Elapsed time: 00:04:44
-    Info: Total CPU time (on all processors): 00:04:35
+    Info: Processing ended: Thu May 11 04:10:35 2023
+    Info: Elapsed time: 00:03:16
+    Info: Total CPU time (on all processors): 00:03:11
 
 
 +------------------------------------------+
