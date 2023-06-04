@@ -8,3 +8,5 @@ The main part of the NPU consists of MAC module, maxpooling module, converter mo
 The RAM part is developed by Qixiao Zhang, Haichun Zhao and Haomiao Li. 
 ## Software Part
 Software Part and the HW-SW interface is developed by Yue Niu. 
+## Report 
+Project Report included in the `4840Report.pdf`
