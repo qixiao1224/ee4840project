@@ -1,9 +1,0 @@
-image0sf=reshape(image0sf,[30,30]);
-sz = size(image0sf);
-disp(sz);
-sz2= size(weights);
-disp(sz2);
-biases= reshape(biases,[1,1,32]);
-convResult= convn(image0sf,weights,'valid');
-convResultWithBias= convResult + biases;
-disp(convResultWithBias)
